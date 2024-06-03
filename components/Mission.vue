@@ -24,8 +24,8 @@
         </div>
       </div>
 
-      <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-        <img src="https://images.unsplash.com/photo-1462899006636-339e08d1844e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="aspect-[5/2] w-full object-cover xl:rounded-3xl" />
+      <div class="mt-32 sm:mt-40 mb-12 sm:mb-24 xl:mx-auto xl:max-w-7xl xl:px-8">
+        <img src="https://green-junior-chickadee-977.mypinata.cloud/ipfs/QmSabPGPR2dFEZBAw4sLAfKVUQJcCxAugjctWqECPkZcKo" alt="" class="aspect-[5/2] w-full object-cover object-top xl:rounded-3xl" />
       </div>
     </div>
 </template>

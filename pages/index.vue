@@ -36,6 +36,8 @@
         </div>
       </div>
     </div>
+    <Testimonial/>
+    <!-- <Blog/> -->
     
     <Footer/>
   </div>
