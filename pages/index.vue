@@ -5,6 +5,14 @@
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">I Buy and Share the Best Deals in Real Estate</h2>
             <p class="mt-6 text-lg leading-8 text-gray-600">Leveraging creative finance strategies, I help you find and secure top real estate opportunities. Whether you're looking to sell, invest, or get funded, I'm here to guide you through the process with expert advice and tailored solutions.</p>
         </div>
+
+        <!-- <CustomGoogleMap
+            :libraries="['places']"
+            :center="{ lat: 40.712776, lng: -74.005974 }"
+            :zoom="10"
+            height="500px"
+          /> -->
+          
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             <div v-for="feature in features" :key="feature.name" class="flex flex-col">

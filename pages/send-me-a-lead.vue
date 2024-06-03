@@ -4,6 +4,8 @@
         <div class="bg-white shadow sm:rounded-lg p-6">
             <form @submit.prevent="submitLead">
             <h2 class="text-lg font-semibold leading-7 text-gray-900 mb-6">Send Me a Lead Form </h2>
+
+            
             
             <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
                 <div class="sm:col-span-2">
@@ -37,8 +39,9 @@
                 </div>
     
                 <div class="sm:col-span-2">
-                <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Address</label>
-                <input type="text" name="address" id="address" v-model="lead.address" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <label for="address" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Address</label>
+                <custom-places-auto-complete @updateAddress="handleUpdateAddress" style="margin-bottom: 1rem;" />
+                <!-- <input type="text" name="address" id="address" v-model="lead.address" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /> -->
                 </div>
     
                 <div class="sm:col-span-1">
@@ -144,6 +147,11 @@
 definePageMeta({
   layout: 'main'
 })
+
+
+const config = useRuntimeConfig()
+
+const access_token = config.public.MAPBOX_API_TOKEN;
   
   const lead = ref({
     name: '',
@@ -203,6 +211,14 @@ definePageMeta({
       console.error('Error adding lead via Zapier webhook:', error)
       // Handle error (e.g., show an error message)
     }
+  };
+
+
+  const handleUpdateAddress = (data) => {
+    console.log(data)
+    // console.log(lead.value.address)
+    // lead.address.value = data.address
+
   }
   </script>
   
