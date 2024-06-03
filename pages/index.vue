@@ -1,9 +1,12 @@
 <template>
+  <div>
+    <Hero/>
+    <Mission/>
     <div class="bg-white py-18 sm:py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">I Buy and Share the Best Deals in Real Estate</h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">Leveraging creative finance strategies, I help you find and secure top real estate opportunities. Whether you're looking to sell, invest, or get funded, I'm here to guide you through the process with expert advice and tailored solutions.</p>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Streamline Your Real Estate Ventures</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Whether you're selling a property, looking for the next investment opportunity, or need funding for your real estate projects, we've got you covered. Explore our services to get started on your next venture with ease and confidence.</p>
         </div>
 
         <!-- <CustomGoogleMap
@@ -33,6 +36,10 @@
         </div>
       </div>
     </div>
+    
+    <Footer/>
+  </div>
+    
   </template>
   
   <script setup>
