@@ -3,12 +3,12 @@
         <!-- Content section -->
     <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our mission</h2>
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">About me</h2>
           <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
             <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-              <p class="text-xl leading-8 text-gray-600">Our mission is to empower real estate enthusiasts with the tools and resources they need to achieve their investment goals. We strive to provide exceptional service, valuable insights, and reliable support to help you navigate the real estate market with confidence and success.</p>
+              <p class="text-xl leading-8 text-gray-600">Hi, I am Esteban Ibarra. For over a decade, I've been immersed in the real estate world, perfecting my skills in loans and lending, especially when it comes to reverse mortgages.</p>
               <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
-                <p>We believe in building lasting relationships based on trust, transparency, and mutual success. By offering personalized services and tailored solutions, we aim to help you navigate the complexities of the real estate market with confidence. Whether you're a seasoned investor or just starting out, our mission is to empower you to reach new heights in your real estate journey.</p>
+                <p>I believe in building lasting relationships based on trust, transparency, and mutual success. By offering personalized services and tailored solutions, I aim to help you navigate the complexities of the real estate market with confidence. Whether you're a seasoned investor or just starting out, my mission is to empower you to reach new heights in your real estate journey.</p>
                 
               </div>
             </div>
@@ -24,9 +24,9 @@
         </div>
       </div>
 
-      <div class="mt-32 sm:mt-40 mb-12 sm:mb-24 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <!-- <div class="mt-32 sm:mt-40 mb-12 sm:mb-24 xl:mx-auto xl:max-w-7xl xl:px-8">
         <img src="https://green-junior-chickadee-977.mypinata.cloud/ipfs/QmSabPGPR2dFEZBAw4sLAfKVUQJcCxAugjctWqECPkZcKo" alt="" class="aspect-[5/2] w-full object-cover object-top xl:rounded-3xl" />
-      </div>
+      </div> -->
     </div>
 </template>
 
@@ -34,8 +34,8 @@
 
 const stats = [
   { label: 'Properties evaluated annually', value: '2,500+' },
-  { label: 'Total investment deals closed', value: '$150 million' },
-  { label: 'New clients annually', value: '1,200+' },
+  { label: 'Total investment deals closed', value: '$50 million' },
+  { label: 'New clients annually', value: '200+' },
 ];
 
 

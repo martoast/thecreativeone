@@ -2,6 +2,11 @@
   <div>
     <Hero/>
     <Mission/>
+    <!-- <LogoCloud/> -->
+    <Features/>
+    
+    <Community/>
+    
     <div class="bg-white py-18 sm:py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
@@ -36,8 +41,10 @@
         </div>
       </div>
     </div>
+    
     <Testimonial/>
-    <!-- <Blog/> -->
+    <Blog/>
+    <Contact/>
     
     <Footer/>
   </div>

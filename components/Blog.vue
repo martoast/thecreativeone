@@ -1,6 +1,6 @@
 <template>
     <!-- Blog section -->
-    <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
+    <div class="mx-auto my-24 max-w-7xl px-6 sm:my-32 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
           <p class="mt-2 text-lg leading-8 text-gray-600">Vel dolorem qui facilis soluta sint aspernatur totam cumque.</p>
@@ -48,23 +48,23 @@ const blogPosts = [
     date: 'June 1, 2024',
     datetime: '2024-06-01',
     author: {
-      name: 'Alex Ramirez',
+      name: 'Esteban Ibarra',
       imageUrl:
         'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80',
     },
   },
   {
     id: 2,
-    title: 'How to Secure Funding for Your Real Estate Projects',
+    title: 'How to Secure Funding for Your Deals',
     href: '#',
     description:
       'Learn about the various funding options available for real estate investors. Understand the pros and cons of each method and find the best fit for your next project.',
     imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
+      'https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80',
     date: 'June 15, 2024',
     datetime: '2024-06-15',
     author: {
-      name: 'Alex Ramirez',
+      name: 'Esteban Ibarra',
       imageUrl:
         'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80',
     },
@@ -80,7 +80,7 @@ const blogPosts = [
     date: 'July 1, 2024',
     datetime: '2024-07-01',
     author: {
-      name: 'Alex Ramirez',
+      name: 'Esteban Ibarra',
       imageUrl:
         'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80',
     },

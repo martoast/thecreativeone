@@ -14,11 +14,11 @@
             <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/workcation-logo-white.svg" alt="" />
             <figure>
               <blockquote class="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
-                <p>“Success in real estate comes from a blend of vision, determination, and the courage to embrace opportunities others overlook. At Workcation, we are dedicated to transforming these opportunities into reality for our clients.”</p>
+                <p>“Success in Real Estate comes from a blend of vision, determination, and the courage to embrace opportunities others overlook. At Realty Radar, we are dedicated to transforming these opportunities into reality for our clients.”</p>
               </blockquote>
               <figcaption class="mt-6 text-base text-white">
                 <div class="font-semibold">Esteban Ibarra</div>
-                <div class="mt-1">CEO of Workcation</div>
+                <div class="mt-1">CEO of Realty Radar</div>
               </figcaption>
             </figure>
           </div>

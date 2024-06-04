@@ -20,7 +20,7 @@
               <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                 <div class="relative w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                   <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">I Buy and Share the Best Deals in Real Estate</h1>
-                  <p class="mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">Leveraging creative finance strategies, I help you find and secure top real estate opportunities. Whether you're looking to sell, invest, or get funded, I'm here to guide you through the process with expert advice and tailored solutions.</p>
+                  <p class="mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">With over a decade in real estate, I've established myself as a buyer, investor, and expert in creative finance.</p>
                   <div class="mt-10 flex items-center gap-x-6">
                     <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start Deal</a>
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900">View listings <span aria-hidden="true">→</span></a>
