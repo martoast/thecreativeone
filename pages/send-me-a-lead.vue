@@ -8,6 +8,12 @@
             
             
             <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <label for="address" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Address</label>
+                  <custom-places-auto-complete @updateAddress="handleUpdateAddress" style="margin-bottom: 1rem;" />
+                <!-- <input type="text" name="address" id="address" v-model="lead.address" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /> -->
+                </div>
+
                 <div class="sm:col-span-2">
                 <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
                 <input type="text" name="name" id="name" v-model="lead.name" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -38,11 +44,7 @@
                 <input type="text" name="phone-number" id="phone-number" v-model="lead.phone_number" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                 </div>
     
-                <div class="sm:col-span-2">
-                <label for="address" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Address</label>
-                <custom-places-auto-complete @updateAddress="handleUpdateAddress" style="margin-bottom: 1rem;" />
-                <!-- <input type="text" name="address" id="address" v-model="lead.address" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /> -->
-                </div>
+                
     
                 <div class="sm:col-span-1">
                 <label for="type-of-deal" class="block text-sm font-medium leading-6 text-gray-900">Type of deal</label>
@@ -151,7 +153,8 @@ definePageMeta({
 
 const config = useRuntimeConfig()
 
-const access_token = config.public.MAPBOX_API_TOKEN;
+const zillowApiKey = config.public.ZILLOW_API_KEY;
+
   
   const lead = ref({
     name: '',
@@ -215,11 +218,55 @@ const access_token = config.public.MAPBOX_API_TOKEN;
 
 
   const handleUpdateAddress = (data) => {
-    console.log(data)
-    // console.log(lead.value.address)
-    // lead.address.value = data.address
+    // fetchPropertyData(data.address);
 
-  }
+    lead.value.address = data.address
+
+  };
+
+  // const fetchPropertyData = async (address) => {
+  //   let apiUrl = `https://zillow-com1.p.rapidapi.com/property?address=${encodeURIComponent(address)}`;
+  //   const { data, error } = await $fetch(apiUrl, {
+  //   headers: {
+  //     'X-RapidAPI-Key': zillowApiKey,
+  //     'X-RapidAPI-Host': 'zillow-com1.p.rapidapi.com'
+  //   },
+  //   onRequest({ request, options }) {
+  //     // Set the request headers
+  //     options.headers = options.headers || {};
+  //   },
+  //   onRequestError({ request, options, error }) {
+  //     // Handle the request errors
+  //     console.error('Request error:', error);
+  //   },
+  //   onResponse({ request, response, options }) {
+  //     // Process the response data
+  //     if (response.ok) {
+  //       console.log(response._data)
+  //       lead.value.price = response._data.price;
+  //       lead.value.bedrooms = response._data.bedrooms;
+  //       lead.value.bathrooms = response._data.bathrooms;
+      
+  //       lead.value.rent_zestimate = response._data.rentZestimate;
+  //       lead.value.zestimate = response._data.zestimate;
+  //       lead.value.property_type = response._data.homeType;
+  //       lead.value.zoning = response._data.zoning ? response._data.zoning : response._data.resoFacts.zoning;
+  //       lead.value.lot_size = response._data.lotSize ? response._data.lotSize : null;
+  //       lead.value.living_area = response._data.livingArea;
+  //       lead.value.year_built = response._data.yearBuilt;
+  //       lead.value.price_per_square_foot = response._data.resoFacts.pricePerSquareFoot;
+  //       // Update other properties as needed
+  //     } else {
+  //       console.error('Response error:', response.status);
+  //     }
+  //   },
+  //   onResponseError({ request, response, options }) {
+  //     // Handle the response errors
+  //     console.error('Response error:', response.status);
+  //   }
+  // });
+
+  // }
   </script>
   
 
