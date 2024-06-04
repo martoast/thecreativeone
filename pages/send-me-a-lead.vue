@@ -185,36 +185,48 @@ const zillowApiKey = config.public.ZILLOW_API_KEY;
   }
   
   const submitLead = async () => {
-    const webhookUrl = 'https://hooks.zapier.com/hooks/catch/19030450/2yi7wgn/'
-    const childKey = 'lead'
-  
-    const headers = {
-      'Content-Type': 'application/json'
-    }
-  
-    let payload = { [childKey]: lead.value }
-  
-    const body = JSON.stringify(payload)
-  
-    try {
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: headers,
-        body: body
-      })
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-  
-      const data = await response.json()
-      console.log('Lead added successfully via Zapier:', data)
-      // Handle success (e.g., show a success message, clear the form, etc.)
-    } catch (error) {
-      console.error('Error adding lead via Zapier webhook:', error)
-      // Handle error (e.g., show an error message)
-    }
+  const backendUrl = '/.netlify/functions/forwardWebhook';
+
+  const headers = {
+    'Content-Type': 'application/json'
   };
+
+  const payload = {
+    name: lead.value.name,
+    best_time_to_contact: lead.value.best_time_to_contact,
+    best_contact_method: lead.value.best_contact_method,
+    email: lead.value.email,
+    phone_number: lead.value.phone_number,
+    address: lead.value.address,
+    type_of_deal: lead.value.type_of_deal,
+    under_contract: lead.value.under_contract,
+    emd_in: lead.value.emd_in,
+    title_company: lead.value.title_company,
+    inspection_in_place: lead.value.inspection_in_place,
+    have_pictures: lead.value.have_pictures,
+    coe_date: lead.value.coe_date,
+    mortgage_balance: lead.value.mortgage_balance,
+    type_of_loan: lead.value.type_of_loan,
+    loan_maturity: lead.value.loan_maturity,
+    interest_rate: lead.value.interest_rate,
+    arrears_or_liens: lead.value.arrears_or_liens,
+    approx_cash_to_close: lead.value.approx_cash_to_close
+  };
+
+  const { data, error } = await useFetch(backendUrl, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(payload)
+  });
+
+  if (error.value) {
+    console.error('Error adding lead via serverless function:', error.value);
+    // Handle error (e.g., show an error message)
+  } else {
+    console.log('Lead added successfully via serverless function:', data.value);
+    // Handle success (e.g., show a success message, clear the form, etc.)
+  }
+};
 
 
   const handleUpdateAddress = (data) => {
