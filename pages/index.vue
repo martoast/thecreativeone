@@ -2,6 +2,7 @@
   <div>
     <Hero/>
     <Mission/>
+    <Testimonial/>
     <!-- <LogoCloud/> -->
     <Features/>
     
@@ -10,16 +11,9 @@
     <div class="bg-white py-18 sm:py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Streamline Your Real Estate Ventures</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Work with us</h2>
             <p class="mt-6 text-lg leading-8 text-gray-600">Whether you're selling a property, looking for the next investment opportunity, or need funding for your real estate projects, we've got you covered. Explore our services to get started on your next venture with ease and confidence.</p>
         </div>
-
-        <!-- <CustomGoogleMap
-            :libraries="['places']"
-            :center="{ lat: 40.712776, lng: -74.005974 }"
-            :zoom="10"
-            height="500px"
-          /> -->
           
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
@@ -42,9 +36,9 @@
       </div>
     </div>
     
-    <Testimonial/>
+    
     <Blog/>
-    <Contact/>
+    <ContactForm/>
     
     <Footer/>
   </div>

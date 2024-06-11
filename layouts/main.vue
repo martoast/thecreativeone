@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Disclosure as="nav" class="bg-white shadow" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-white shadow z-50" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
           <div class="flex">
@@ -14,7 +14,9 @@
               </DisclosureButton>
             </div>
             <div class="flex flex-shrink-0 items-center">
-              <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+              <a href="/" class="m-0 p-0">
+                <img class="layout_logo" src="https://app.customesignature.com/upload/signature/complete/1056/1056.gif" width="45">
+              </a>
             </div>
             <div class="hidden md:ml-6 md:flex md:space-x-8">
               <NuxtLink
@@ -23,20 +25,15 @@
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
               >Home</NuxtLink>
               <NuxtLink
-                to="/send-me-a-lead"
-                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}"
+                to="/listings"
+                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/listings'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/listings')}"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-              >Send Me a Lead</NuxtLink>
+              >Listings</NuxtLink>
               <NuxtLink
-                to="/get-on-my-investors-list"
-                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/get-on-my-investors-list'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-on-my-investors-list')}"
+                to="/contact"
+                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/contact'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/contact')}"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-              >Get On My Investor's List</NuxtLink>
-              <NuxtLink
-                to="/get-funded"
-                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/get-funded'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-funded')}"
-                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-              >Get Funded</NuxtLink>
+              >Contact</NuxtLink>
             </div>
           </div>
           <div class="flex items-center">
@@ -54,9 +51,8 @@
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 pb-3 pt-2">
           <DisclosureButton as="a" href="/" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Home</DisclosureButton>
-          <DisclosureButton as="a" href="/send-me-a-lead" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Send Me a Lead</DisclosureButton>
-          <DisclosureButton as="a" href="/get-on-my-investors-list" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/get-on-my-investors-list'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/get-on-my-investors-list')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Get On My Investor's List</DisclosureButton>
-          <DisclosureButton as="a" href="/get-funded" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/get-funded'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/get-funded')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Get Funded</DisclosureButton>
+          <DisclosureButton as="a" href="/listings" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/listings'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/listings')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Listings</DisclosureButton>
+          <DisclosureButton as="a" href="/contact" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/contact'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/contact')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Contact</DisclosureButton>
         </div>
         
       </DisclosurePanel>
@@ -72,7 +68,12 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 
 const router = useRouter()
-const isActiveRoute = (route) => router.currentRoute.value.path === route
+const isActiveRoute = (route) => {
+  const currentPath = router.currentRoute.value.path;
+  const routePattern = new RegExp(`^${route}(\/|$)`);
+  return routePattern.test(currentPath);
+};
+
 </script>
 
 <style scoped>

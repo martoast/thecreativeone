@@ -1,285 +1,185 @@
 <template>
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto py-12">
-        <div class="bg-white shadow sm:rounded-lg p-6">
-            <form @submit.prevent="submitLead">
-            <h2 class="text-lg font-semibold leading-7 text-gray-900 mb-6">Send Me a Lead Form </h2>
+  <div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto py-12">
+      <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
+      <div class="bg-white shadow sm:rounded-lg p-6">
+        <form @submit.prevent="submitLead">
+          <h2 class="text-lg font-semibold leading-7 text-gray-900 mb-6">Send Me a Lead Form</h2>
 
-            
-            
-            <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-              <div class="sm:col-span-2">
-                <label for="address" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Address</label>
-                  <custom-places-auto-complete @updateAddress="handleUpdateAddress" style="margin-bottom: 1rem;" />
-                <!-- <input type="text" name="address" id="address" v-model="lead.address" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" /> -->
-                </div>
-
+          <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label for="address" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Address</label>
+              <div v-if="!addressSelected">
+                <custom-places-auto-complete @updateAddress="handleUpdateAddress" />
+              </div>
+              <div v-else class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
                 <div class="sm:col-span-2">
-                <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
-                <input type="text" name="name" id="name" v-model="lead.name" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                  <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street Address</label>
+                  <input type="text" name="street-address" id="street-address" v-model="lead.street_address" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                 </div>
-    
+                <div>
+                  <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+                  <input type="text" name="city" id="city" v-model="lead.city" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                </div>
+                <div>
+                  <label for="state" class="block text-sm font-medium leading-6 text-gray-900">State</label>
+                  <input type="text" name="state" id="state" v-model="lead.state" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                </div>
                 <div class="sm:col-span-2">
-                    <label for="best-time-to-contact" class="block text-sm font-medium leading-6 text-gray-900">Best time to contact</label>
-                    <input type="time" name="best-time-to-contact" id="best-time-to-contact" v-model="lead.best_time_to_contact" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                  <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
+                  <input type="text" name="postal-code" id="postal-code" v-model="lead.postal_code" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                 </div>
-
-                <div class="sm:col-span-2">
-                    <label for="best-contact-method" class="block text-sm font-medium leading-6 text-gray-900">Best contact method</label>
-                    <select id="best-contact-method" name="best-contact-method" v-model="lead.best_contact_method" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <option value="">Select a method</option>
-                    <option value="Phone">Phone</option>
-                    <option value="Email">Email</option>
-                    <option value="SMS">SMS</option>
-                    </select>
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
-                <input id="email" name="email" type="email" v-model="lead.email" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="phone-number" class="block text-sm font-medium leading-6 text-gray-900">Phone number</label>
-                <input type="text" name="phone-number" id="phone-number" v-model="lead.phone_number" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                
-    
-                <div class="sm:col-span-1">
-                <label for="type-of-deal" class="block text-sm font-medium leading-6 text-gray-900">Type of deal</label>
-                <select id="type-of-deal" name="type-of-deal" v-model="lead.type_of_deal" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <option>Wholesale cash</option>
-                    <option>Subto</option>
-                    <option>Hybrid</option>
-                    <option>Other</option>
-                </select>
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="under-contract" class="block text-sm font-medium leading-6 text-gray-900">Under contract?</label>
-                <select id="under-contract" name="under-contract" v-model="lead.under_contract" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <option>Yes</option>
-                    <option>No</option>
-                </select>
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="emd-in" class="block text-sm font-medium leading-6 text-gray-900">EMD IN?</label>
-                <select id="emd-in" name="emd-in" v-model="lead.emd_in" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <option>Yes</option>
-                    <option>No</option>
-                </select>
-                </div>
-    
-                <div class="sm:col-span-2">
-                <label for="title-company" class="block text-sm font-medium leading-6 text-gray-900">Name of Title Company</label>
-                <input type="text" name="title-company" id="title-company" v-model="lead.title_company" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="inspection-in-place" class="block text-sm font-medium leading-6 text-gray-900">Inspection in place?</label>
-                <select id="inspection-in-place" name="inspection-in-place" v-model="lead.inspection_in_place" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <option>Yes</option>
-                    <option>No</option>
-                </select>
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="have-pictures" class="block text-sm font-medium leading-6 text-gray-900">Do you have pictures?</label>
-                <select id="have-pictures" name="have-pictures" v-model="lead.have_pictures" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    <option>Yes</option>
-                    <option>No</option>
-                </select>
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="coe-date" class="block text-sm font-medium leading-6 text-gray-900">C.O.E</label>
-                <input type="date" name="coe-date" id="coe-date" v-model="lead.coe_date" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-2">
-                <label for="mortgage-documents" class="block text-sm font-medium leading-6 text-gray-900">Mortgage Documents</label>
-                <input type="file" name="mortgage-documents" id="mortgage-documents" @change="handleFileUpload" class="mt-2 block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="mortgage-balance" class="block text-sm font-medium leading-6 text-gray-900">What is the mortgage balance?</label>
-                <input type="number" name="mortgage-balance" id="mortgage-balance" v-model="lead.mortgage_balance" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="type-of-loan" class="block text-sm font-medium leading-6 text-gray-900">Type of loan?</label>
-                <input type="text" name="type-of-loan" id="type-of-loan" v-model="lead.type_of_loan" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="loan-maturity" class="block text-sm font-medium leading-6 text-gray-900">Loan maturity?</label>
-                <input type="date" name="loan-maturity" id="loan-maturity" v-model="lead.loan_maturity" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="interest-rate" class="block text-sm font-medium leading-6 text-gray-900">Interest rate?</label>
-                <input type="number" step="0.01" name="interest-rate" id="interest-rate" v-model="lead.interest_rate" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
-    
-                <div class="sm:col-span-2">
-                <label for="arrears-or-liens" class="block text-sm font-medium leading-6 text-gray-900">Any arrears or liens?</label>
-                <textarea id="arrears-or-liens" name="arrears-or-liens" rows="3" v-model="lead.arrears_or_liens" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-                </div>
-    
-                <div class="sm:col-span-1">
-                <label for="approx-cash-to-close" class="block text-sm font-medium leading-6 text-gray-900">Approx cash to close</label>
-                <input type="number" name="approx-cash-to-close" id="approx-cash-to-close" v-model="lead.approx_cash_to_close" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                </div>
+                <button @click="resetAddress" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
+              </div>
             </div>
-    
-            <div class="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+
+            <div class="sm:col-span-2">
+              <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
+              <input type="text" name="name" id="name" v-model="lead.full_name" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
-            </form>
-        </div>
-        </div>
+
+            <div class="sm:col-span-2">
+              <label for="business-name" class="block text-sm font-medium leading-6 text-gray-900">Business Name</label>
+              <input type="text" name="business-name" id="business-name" v-model="lead.business_name" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            </div>
+
+            <div class="sm:col-span-1">
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+              <input id="email" name="email" type="email" v-model="lead.email" @input="validateEmail" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <span v-if="emailError" class="text-sm text-red-600">{{ emailError }}</span>
+            </div>
+
+            <div class="sm:col-span-1">
+              <label for="phone-number" class="block text-sm font-medium leading-6 text-gray-900">Phone number</label>
+              <input type="text" name="phone-number" id="phone-number" v-model="lead.phone_number" @input="validatePhoneNumber" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              <span v-if="phoneError" class="text-sm text-red-600">{{ phoneError }}</span>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="notes" class="block text-sm font-medium leading-6 text-gray-900">Notes</label>
+              <div class="mt-2">
+                <textarea id="notes" name="notes" rows="3" v-model="lead.notes" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center justify-end gap-x-6">
+            <button type="button" class="text-sm font-semibold leading-6 text-gray-900" @click="resetForm">Cancel</button>
+            <button type="submit" :disabled="isSubmitting || !isFormValid" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </template>
-  
-  <script setup>
+  </div>
+</template>
+
+<script setup>
 
 definePageMeta({
   layout: 'main'
 })
 
+const defaultLead = {
+  first_name: null,
+  last_name: null,
+  full_name: null,
+  street_address: null,
+  full_address: null,
+  postal_code: null,
+  city: null,
+  state: null,
+  phone_number: null,
+  email: null,
+  business_name: null,
+  opportunity_value: '1123',
+  opportunity_source: 'Example source',
+  tags: 'one,two,three,four',
+  source: 'Send Me a Lead',
+  notes: null
+}
 
-const config = useRuntimeConfig()
+const lead = ref({ ...defaultLead })
+const showAlert = ref(false)
+const isSubmitting = ref(false)
+const addressSelected = ref(false)
 
-const zillowApiKey = config.public.ZILLOW_API_KEY;
+const emailError = computed(() => {
+  if (!lead.value.email) return 'Email is required'
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailPattern.test(lead.value.email) ? null : 'Invalid email address'
+})
 
-  
-  const lead = ref({
-    name: '',
-    best_time_to_contact: '',
-    best_contact_method: '',
-    email: '',
-    phone_number: '',
-    address: '',
-    type_of_deal: '',
-    under_contract: '',
-    emd_in: '',
-    title_company: '',
-    inspection_in_place: '',
-    have_pictures: '',
-    coe_date: '',
-    mortgage_documents: null,  // For file upload handling
-    mortgage_balance: '',
-    type_of_loan: '',
-    loan_maturity: '',
-    interest_rate: '',
-    arrears_or_liens: '',
-    approx_cash_to_close: ''
-  })
-  
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0]
-    lead.value.mortgage_documents = file
+const phoneError = computed(() => {
+  if (!lead.value.phone_number) return 'Phone number is required'
+  const phonePattern = /^\d{10}$/
+  return phonePattern.test(lead.value.phone_number) ? null : 'Phone number must be 10 digits'
+})
+
+const isFormValid = computed(() => {
+  return lead.value.full_name && lead.value.street_address && lead.value.city && lead.value.state && lead.value.postal_code && !emailError.value && !phoneError.value
+})
+
+const handleUpdateAddress = (data) => {
+  lead.value.full_address = data.address
+  const [street_address, city, state_zip] = data.address.split(', ')
+  lead.value.street_address = street_address
+  lead.value.city = city
+  const [state, postal_code] = state_zip.split(' ')
+  lead.value.state = state
+  lead.value.postal_code = postal_code
+  addressSelected.value = true
+}
+
+const resetAddress = () => {
+  addressSelected.value = false
+  lead.value.street_address = null
+  lead.value.city = null
+  lead.value.state = null
+  lead.value.postal_code = null
+  lead.value.full_address = null
+}
+
+const resetForm = () => {
+  lead.value = { ...defaultLead }
+  addressSelected.value = false
+}
+
+const submitLead = async () => {
+  if (!isFormValid.value) {
+    return
   }
-  
-  const submitLead = async () => {
-  const backendUrl = '/.netlify/functions/forwardWebhook';
 
+  isSubmitting.value = true
+
+  const backendUrl = '/.netlify/functions/forwardWebhook'
   const headers = {
     'Content-Type': 'application/json'
-  };
+  }
+
+  // Split the name to extract first name and last name
+  const [first_name, last_name] = lead.value.full_name.split(' ', 2)
+  lead.value.first_name = first_name
+  lead.value.last_name = last_name
 
   const payload = {
-    name: lead.value.name,
-    best_time_to_contact: lead.value.best_time_to_contact,
-    best_contact_method: lead.value.best_contact_method,
-    email: lead.value.email,
-    phone_number: lead.value.phone_number,
-    address: lead.value.address,
-    type_of_deal: lead.value.type_of_deal,
-    under_contract: lead.value.under_contract,
-    emd_in: lead.value.emd_in,
-    title_company: lead.value.title_company,
-    inspection_in_place: lead.value.inspection_in_place,
-    have_pictures: lead.value.have_pictures,
-    coe_date: lead.value.coe_date,
-    mortgage_balance: lead.value.mortgage_balance,
-    type_of_loan: lead.value.type_of_loan,
-    loan_maturity: lead.value.loan_maturity,
-    interest_rate: lead.value.interest_rate,
-    arrears_or_liens: lead.value.arrears_or_liens,
-    approx_cash_to_close: lead.value.approx_cash_to_close
-  };
+    lead: lead.value
+  }
 
-  const { data, error } = await useFetch(backendUrl, {
+  const { data, error } = await $fetch(backendUrl, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(payload)
-  });
+  })
 
   if (error.value) {
-    console.error('Error adding lead via serverless function:', error.value);
+    console.error('Error adding lead via serverless function:', error.value)
     // Handle error (e.g., show an error message)
   } else {
-    console.log('Lead added successfully via serverless function:', data.value);
-    // Handle success (e.g., show a success message, clear the form, etc.)
+    console.log('Lead added successfully via serverless function:', data.value)
+    showAlert.value = true
+    resetForm()
   }
-};
 
-
-  const handleUpdateAddress = (data) => {
-    // fetchPropertyData(data.address);
-
-    lead.value.address = data.address
-
-  };
-
-  // const fetchPropertyData = async (address) => {
-  //   let apiUrl = `https://zillow-com1.p.rapidapi.com/property?address=${encodeURIComponent(address)}`;
-  //   const { data, error } = await $fetch(apiUrl, {
-  //   headers: {
-  //     'X-RapidAPI-Key': zillowApiKey,
-  //     'X-RapidAPI-Host': 'zillow-com1.p.rapidapi.com'
-  //   },
-  //   onRequest({ request, options }) {
-  //     // Set the request headers
-  //     options.headers = options.headers || {};
-  //   },
-  //   onRequestError({ request, options, error }) {
-  //     // Handle the request errors
-  //     console.error('Request error:', error);
-  //   },
-  //   onResponse({ request, response, options }) {
-  //     // Process the response data
-  //     if (response.ok) {
-  //       console.log(response._data)
-  //       lead.value.price = response._data.price;
-  //       lead.value.bedrooms = response._data.bedrooms;
-  //       lead.value.bathrooms = response._data.bathrooms;
-      
-  //       lead.value.rent_zestimate = response._data.rentZestimate;
-  //       lead.value.zestimate = response._data.zestimate;
-  //       lead.value.property_type = response._data.homeType;
-  //       lead.value.zoning = response._data.zoning ? response._data.zoning : response._data.resoFacts.zoning;
-  //       lead.value.lot_size = response._data.lotSize ? response._data.lotSize : null;
-  //       lead.value.living_area = response._data.livingArea;
-  //       lead.value.year_built = response._data.yearBuilt;
-  //       lead.value.price_per_square_foot = response._data.resoFacts.pricePerSquareFoot;
-  //       // Update other properties as needed
-  //     } else {
-  //       console.error('Response error:', response.status);
-  //     }
-  //   },
-  //   onResponseError({ request, response, options }) {
-  //     // Handle the response errors
-  //     console.error('Response error:', response.status);
-  //   }
-  // });
-
-  // }
-  </script>
-  
-
-  
+  isSubmitting.value = false
+}
+</script>
