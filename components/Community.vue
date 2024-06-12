@@ -14,13 +14,13 @@
               <div class="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
                 
                 <div class="order-first flex w-64 flex-none justify-end self-end lg:w-auto">
-                  <img src="https://scontent.ftij3-2.fna.fbcdn.net/v/t39.30808-6/426321792_18225399412264469_3893502850440181831_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ULM6bj5759oQ7kNvgHOlHqI&_nc_ht=scontent.ftij3-2.fna&oh=00_AYC7-HLtRVJhuxkX67MViAexzW5yW-aJWhv61ob_aBv2JA&oe=66646820" alt="" class="aspect-[4/3] w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover" />
+                  <img src="/public/social2.jpeg" alt="" class="aspect-[4/3] w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover" />
                 </div>
                 <div class="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
-                  <img src="https://scontent.ftij3-2.fna.fbcdn.net/v/t39.30808-6/426365878_18225399382264469_5842822091278419757_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DHJDKUcV1Y8Q7kNvgH6eNan&_nc_ht=scontent.ftij3-2.fna&oh=00_AYCeWQUoHhxI908PAA6NriBXPwLFiRYlwD2A6OYDOMsnKA&oe=6664435F" alt="" class="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover" />
+                  <img src="/public/social1.jpeg" alt="" class="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover" />
                 </div>
                 <div class="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
-                  <img src="https://scontent.ftij3-1.fna.fbcdn.net/v/t39.30808-6/426359070_18225399346264469_1085107131359183556_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=jbxTEG3xogwQ7kNvgEVhZKb&_nc_ht=scontent.ftij3-1.fna&oh=00_AYCWuBIMT1BxEjzjQx1pMjSF0iaFJiadNbH1aXCof9rpMg&oe=666442EC" alt="" class="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover" />
+                  <img src="/public/social2.jpeg" alt="" class="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover" />
                 </div>
               </div>
             </div>

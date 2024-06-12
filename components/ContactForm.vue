@@ -2,10 +2,10 @@
   <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact me</h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're selling a property, looking for the next investment opportunity, or need funding for your real estate projects, we've got you covered.</p>
+      <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're buying or selling a property, we've got you covered.</p>
     </div>
 
-    <form @submit.prevent="submitLead" class="mx-auto mt-16 max-w-xl sm:mt-20">
+    <form @submit.prevent="submitLead" class="mx-auto mt-12 max-w-xl sm:mt-20">
       <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
 
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -16,7 +16,6 @@
               <option value="default">Select</option>
               <option value="wholesaler">Wholesaler</option>
               <option value="agent">Agent</option>
-              <option value="lender">Lender</option>
               <option value="relativeOfOwner">Relative of Owner</option>
               <option value="potentialBuyer">Potential Buyer</option>
               <option value="verifiedOwner">Verified Owner</option>
@@ -329,13 +328,13 @@ const form = ref({
 })
 
 const pipelineIdMapping = {
-  wholesaler: 'lcpnUC4WGbo7AdpsGvbK',
-  agent: 'CmoxROP6NCUPt3tNdVB3',
-  lender: 'ChlY1BFP3YHcW5Rliaxn',
-  relativeOfOwner: 'ggXgJdSyvjLdgCFNQfwp',
-  verifiedOwner: 'ggXgJdSyvjLdgCFNQfwp',
-  potentialBuyer: 'hq6yosICCNVfFK6JaZNn'
-}
+  wholesaler: { pipelineId: 'lcpnUC4WGbo7AdpsGvbK', stageId: '9c6296d5-b6b7-4286-9e37-79629a18234d' },
+  agent: { pipelineId: 'CmoxROP6NCUPt3tNdVB3', stageId: '9c6296d5-b6b7-4286-9e37-79629a18234d' },
+  lender: { pipelineId: 'ChlY1BFP3YHcW5Rliaxn', stageId: '9c6296d5-b6b7-4286-9e37-79629a18234d' },
+  relativeOfOwner: { pipelineId: 'ggXgJdSyvjLdgCFNQfwp', stageId: '9c6296d5-b6b7-4286-9e37-79629a18234d' },
+  verifiedOwner: { pipelineId: 'ggXgJdSyvjLdgCFNQfwp', stageId: '9c6296d5-b6b7-4286-9e37-79629a18234d' },
+  potentialBuyer: { pipelineId: 'hq6yosICCNVfFK6JaZNn', stageId: '3fcc83d0-7e37-46b1-912b-457cc032e140' }
+};
 
 const contactType = ref('default')
 const isSubmitting = ref(false)
@@ -354,27 +353,30 @@ const updateFormFields = () => {
 
 const submitLead = async () => {
   if (!form.value.firstName || !form.value.lastName || !form.value.email || !form.value.phone) {
-    return
+    return;
   }
 
-  isSubmitting.value = true
+  isSubmitting.value = true;
 
-  const backendUrl = '/.netlify/functions/forwardWebhook'
+  const backendUrl = '/.netlify/functions/forwardWebhook';
   const headers = {
     'Content-Type': 'application/json'
-  }
+  };
 
-  const pipelineId = pipelineIdMapping[contactType.value] || ''
+  const { pipelineId, stageId } = pipelineIdMapping[contactType.value] || {};
 
   const payload = {
     lead: {
       contactType: contactType.value,
-      fullName: form.value.firstName + ' ' + form.value.lastName ,
+      fullName: `${form.value.firstName} ${form.value.lastName}`,
       pipelineId: pipelineId,
+      stage: stageId,
       source: 'website',
       ...form.value
     }
-  }
+  };
+
+  console.log(payload)
 
   const { data, error } = await useFetch(backendUrl, {
     method: 'POST',
@@ -383,15 +385,15 @@ const submitLead = async () => {
   });
 
   if (error.value) {
-    console.error('Error adding lead via serverless function:', error)
+    console.error('Error adding lead via serverless function:', error);
     // Handle error (e.g., show an error message)
   } else {
-    showAlert.value = true
-    Object.keys(form.value).forEach(key => form.value[key] = '') // Reset form
+    showAlert.value = true;
+    Object.keys(form.value).forEach(key => form.value[key] = ''); // Reset form
   }
 
-  isSubmitting.value = false
-}
+  isSubmitting.value = false;
+};
 
 const handleUpdateAddress = (data) => {
   form.value.fullAddress = data.address

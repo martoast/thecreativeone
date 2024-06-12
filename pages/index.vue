@@ -35,18 +35,41 @@
         </div>
       </div>
     </div>
+
+
+    <div class="bg-white py-18 sm:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Listings</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea.</p>
+            <div class="mt-10 flex items-center gap-x-6">
+        <a href="/listings" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View more</a>
+      </div>
+        </div>
+          
+        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          
+            <Listings :properties="properties" />
+         
+        </div>
+      </div>
+    </div>
     
     
-    <Blog/>
+    
+
     <ContactForm/>
     
     <Footer/>
   </div>
     
   </template>
+
+
   
   <script setup>
     import { PaperAirplaneIcon, UserGroupIcon, CurrencyDollarIcon } from '@heroicons/vue/24/outline'
+    import { usePropertiesStore } from '~/store/DataStore'
 
     definePageMeta({
         layout: 'main'
@@ -56,7 +79,7 @@
     {
         name: 'Send Me a Lead',
         description: 'Have a Property for Sale? I\'m buying. Submit your property details below for immediate consideration.',
-        href: '/send-me-a-lead',
+        href: '/contact',
         icon: PaperAirplaneIcon,
     },
     {
@@ -72,4 +95,21 @@
         icon: CurrencyDollarIcon,
     },
     ]
+
+    const store = usePropertiesStore()
+  
+  const currentPage = ref(1)
+  const itemsPerPage = 3 // Change this to the number of items you want per page
+  const showSold = ref(null)
+  
+  const { data, pending, error, refresh } = await useAsyncData(
+    'properties',
+    () => store.get(currentPage.value, itemsPerPage, showSold.value)
+  )
+  
+  
+  const properties = computed(() => store.properties.map(property => ({
+    ...property,
+    images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
+  })))
     </script>
