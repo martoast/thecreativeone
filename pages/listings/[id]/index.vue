@@ -132,9 +132,9 @@
                         <th class="py-2 px-4 border-b border-gray-300">Lot Size</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr v-for="home in property.nearby_homes" :key="home.address.streetAddress">
-                        <td class="py-2 px-4 border-b border-gray-300">{{ home.address.streetAddress }}</td>
+                    <tbody v-if="property.nearby_homes.length">
+                      <tr v-for="(home, index) in property.nearby_homes" :key="'property_' + index">
+                        <td class="py-2 px-4 border-b border-gray-300">{{ home.address? home.address.streetAddress : 'N/A' }}</td>
                         <td class="py-2 px-4 border-b border-gray-300">{{ formatCurrency(home.price) }}</td>
                         <td class="py-2 px-4 border-b border-gray-300">{{ home.lotSize ?? 'N/A' }} {{ home.lotSize ? home.livingAreaUnits : ''}}</td>
                       </tr>

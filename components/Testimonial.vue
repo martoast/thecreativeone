@@ -11,7 +11,9 @@
             <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#ff4694] to-[#776fff] opacity-25" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
           </div>
           <div class="relative mx-auto max-w-lg lg:mx-0">
-            <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/workcation-logo-white.svg" alt="" />
+            <a href="/" class="m-0 p-0">
+                <img class="layout_logo" src="https://app.customesignature.com/upload/signature/complete/1056/1056.gif" width="45">
+              </a>
             <figure>
               <blockquote class="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
                 <p>“Success in Real Estate comes from a blend of vision, determination, and the courage to embrace opportunities others overlook. At Realty Radar, we are dedicated to transforming these opportunities into reality for our clients.”</p>
