@@ -78,7 +78,7 @@
 
   function getImageUrl(originalUrl) {
     if (process.env.NODE_ENV === 'production' && originalUrl.startsWith('https://maps.googleapis.com/maps/api/streetview')) {
-      return `/api/fetchImage?url=${encodeURIComponent(originalUrl)}`;
+      return `/api/fetchImage?url=${originalUrl}`;
     }
     return originalUrl;
   }
