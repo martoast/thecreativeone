@@ -76,11 +76,20 @@
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
   }
 
-  function getImageUrl(originalUrl) {
-    if (process.env.NODE_ENV === 'production' && originalUrl.startsWith('https://maps.googleapis.com/maps/api/streetview')) {
-      return `/api/fetchImage?url=${originalUrl}`;
-    }
-    return originalUrl;
+  // Method to parse the images JSON string
+function parseImage(images) {
+  try {
+    return JSON.parse(images);
+  } catch (e) {
+    return [];
   }
+}
+
+function getImageUrl(originalUrl) {
+  if (process.env.NODE_ENV === 'production' && originalUrl.startsWith('https://maps.googleapis.com/maps/api/streetview')) {
+    return `/.netlify/functions/fetchImage?url=${originalUrl}`;
+  }
+  return originalUrl;
+}
   </script>
   

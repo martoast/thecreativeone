@@ -4,6 +4,8 @@ const fetch = require('node-fetch');
 exports.handler = async (event, context) => {
   const { url } = event.queryStringParameters;
 
+  console.log(url)
+
   if (!url.startsWith('https://maps.googleapis.com/maps/api/streetview')) {
     return {
       statusCode: 400,
