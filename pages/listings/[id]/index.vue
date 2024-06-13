@@ -74,7 +74,7 @@
                   </span> 
                 </p>
                 <div class="mt-4 sm:flex-none">
-                  <a href="https://forms.reform.app/vb3xAL/ur-creative-solutions-buyers-review-form-copy/wk4xt6" target="_blank">
+                  <a :href="'/contact?type=potentialBuyer&address=' + property.address" target="_blank">
                     <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get More Details</button>
                   </a>
                 </div>
@@ -281,6 +281,8 @@
   
   const isModalOpen = ref(false)
   const selectedImageIndex = ref(0)
+
+  console.log(property)
   
   function openModal(index) {
     selectedImageIndex.value = index
@@ -295,7 +297,7 @@
   }
   
   const hanldeBackButton = async () => {
-    await navigateTo('/')
+    await navigateTo('/listings')
   }
   
   const convertMilesToKilometers = (miles) => {

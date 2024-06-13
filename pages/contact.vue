@@ -1,5 +1,5 @@
 <template>
-    <contact-form :initial-contact-type="initialContactType" />
+    <contact-form :initial-contact-type="initialContactType" :address="address" />
   </template>
   
   <script setup>
@@ -10,5 +10,6 @@
   
   const route = useRoute()
   const initialContactType = route.query.type || 'default'
+  const address = route.query.address || null
   </script>
   

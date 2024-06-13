@@ -290,6 +290,17 @@
 
 <script setup>
 
+const props = defineProps({
+  initialContactType: {
+    type: String,
+    default: 'default'
+  },
+  address: {
+    type: String,
+    default: ''
+  }
+});
+
 const form = ref({
   firstName: '',
   lastName: '',
@@ -336,7 +347,7 @@ const pipelineIdMapping = {
   potentialBuyer: { pipelineId: 'hq6yosICCNVfFK6JaZNn', stageId: '3fcc83d0-7e37-46b1-912b-457cc032e140' }
 };
 
-const contactType = ref('default')
+const contactType = ref(props.initialContactType);
 const isSubmitting = ref(false)
 const showAlert = ref(false)
 
@@ -421,5 +432,17 @@ if (router.currentRoute.value.query.type) {
   contactType.value = router.currentRoute.value.query.type
   updateFormFields()
 }
+
+onMounted(() => {
+  if (props.initialContactType) {
+    contactType.value = props.initialContactType;
+    updateFormFields();
+  }
+
+  if (props.address) {
+    console.log("here")
+    handleUpdateAddress({ address: props.address });
+  }
+});
 </script>
 
