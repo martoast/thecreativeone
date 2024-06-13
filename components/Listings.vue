@@ -7,7 +7,7 @@
       >
         <div class="aspect-w-3 aspect-h-2 bg-gray-200 sm:aspect-none sm:h-64 group-hover:opacity-75">
           <img
-            :src="property.images[0]"
+            :src="getImageUrl(property.images[0])"
             alt="Main image of the property"
             class="h-full w-full object-cover object-center sm:h-full sm:w-full"
           />
@@ -74,6 +74,13 @@
       return value;
     }
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+  }
+
+  function getImageUrl(originalUrl) {
+    if (process.env.NODE_ENV === 'production' && originalUrl.startsWith('https://maps.googleapis.com/maps/api/streetview')) {
+      return `/api/fetchImage?url=${encodeURIComponent(originalUrl)}`;
+    }
+    return originalUrl;
   }
   </script>
   
