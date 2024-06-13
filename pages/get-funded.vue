@@ -201,36 +201,49 @@ const handleFileUpload = (event) => {
 }
 
 const submitFundingRequest = async () => {
-  const webhookUrl = 'https://hooks.zapier.com/hooks/catch/19030450/2yi7wgn/'
-  const childKey = 'funding'
+  if (!form.value.firstName || !form.value.lastName || !form.value.email || !form.value.phone) {
+    return;
+  }
 
+  isSubmitting.value = true;
+
+  const backendUrl = '/.netlify/functions/fundingWebhook';
   const headers = {
     'Content-Type': 'application/json'
-  }
+  };
 
-  let payload = { [childKey]: funding.value }
+  const { pipelineId, stageId } = pipelineIdMapping[contactType.value] || {};
 
-  const body = JSON.stringify(payload)
-
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: headers,
-      body: body
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+  const payload = {
+    lead: {
+      contactType: contactType.value,
+      fullName: `${form.value.firstName} ${form.value.lastName}`,
+      pipelineId: pipelineId,
+      stage: stageId,
+      source: 'website',
+      ...form.value
     }
+  };
 
-    const data = await response.json()
-    console.log('Funding request added successfully via Zapier:', data)
-    // Handle success (e.g., show a success message, clear the form, etc.)
-  } catch (error) {
-    console.error('Error adding funding request via Zapier webhook:', error)
+  console.log(payload)
+
+  const { data, error } = await useFetch(backendUrl, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(payload)
+  });
+
+  if (error.value) {
+    console.error('Error adding lead via serverless function:', error);
     // Handle error (e.g., show an error message)
+  } else {
+    showAlert.value = true;
+    Object.keys(form.value).forEach(key => form.value[key] = ''); // Reset form
   }
-}
+
+  isSubmitting.value = false;
+};
+
 </script>
 
 <style scoped>
