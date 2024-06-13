@@ -33,9 +33,9 @@
 <script setup>
 
 const stats = [
-  { label: 'Properties evaluated annually', value: '2,500+' },
+  { label: 'Doors Owned', value: '30+' },
   { label: 'Total investment deals closed', value: '$50 million' },
-  { label: 'New clients annually', value: '200+' },
+  { label: 'New clients annually', value: '100+' },
 ];
 
 

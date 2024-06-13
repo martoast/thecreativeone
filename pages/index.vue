@@ -6,25 +6,33 @@
     <!-- <LogoCloud/> -->
     <Features/>
 
+    
+
     <div class="bg-white py-18 sm:py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:mx-0">
+        <div class="flex flex-col lg:flex-row items-center lg:items-start">
+          <div class="lg:w-1/2 px-6">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Listings</h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea.</p>
+            <p class="mt-6 text-lg leading-8 text-gray-600">We have property listings across multiple states and are continuously expanding. Explore our listings to find your next investment opportunity.</p>
             <div class="mt-10 flex items-center gap-x-6">
-        <a href="/listings" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View more</a>
-      </div>
+              <a href="/listings" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View more</a>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-1/2 h-[40vh] mt-8 lg:mt-0 lg:pl-6">
+            <div id="map" class="h-full border border-gray-300 shadow-sm"></div>
+          </div>
         </div>
           
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          
-            <Listings :properties="properties" />
-         
+          <Listings :properties="properties" />
         </div>
       </div>
     </div>
     
     <Community/>
+
+    
     
     <div class="bg-white py-18 sm:py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -77,6 +85,24 @@
         layout: 'main'
     });
 
+    const nuxtApp = useNuxtApp()
+
+    const config = useRuntimeConfig()
+
+    const mapboxgl = nuxtApp.mapboxgl
+
+    const access_token = config.public.MAPBOX_API_TOKEN
+
+    let  map = {}
+
+    const map_config = {
+                style: "mapbox://styles/mapbox/streets-v12",
+                zoom: 3,
+                pitch: 0,
+                bearing: 0,
+                center: [-100.486052, 37.830348],
+            }
+
     const features = [
     {
         name: 'Send Me a Lead',
@@ -114,4 +140,60 @@
     ...property,
     images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
   })))
+
+  const initMap = () => {
+    mapboxgl.accessToken = access_token
+
+    map = new mapboxgl.Map({
+        container: "map",
+        style: map_config.style,
+        zoom: map_config.zoom,
+        pitch: map_config.pitch,
+        bearing: map_config.bearing,
+        center: map_config.center,
+        dragPan: true,
+        antialias: true,
+    })
+
+    const statesWithBusiness = ["06", "48", "12", "01"] // Example state IDs for California, Texas, Florida
+
+    map.on('load', () => {
+        map.addSource('states', {
+            'type': 'geojson',
+            'data': 'https://docs.mapbox.com/mapbox-gl-js/assets/us_states.geojson'
+        })
+
+        map.addLayer({
+            'id': 'state-fills',
+            'type': 'fill',
+            'source': 'states',
+            'layout': {},
+            'paint': {
+                'fill-color': [
+                    'match',
+                    ['get', 'STATE_ID'],
+                    ...statesWithBusiness.flatMap(id => [id, '#627BC1']),
+                    '#FFFFFF'
+                ],
+                'fill-opacity': 0.5
+            }
+        })
+
+        map.addLayer({
+            'id': 'state-borders',
+            'type': 'line',
+            'source': 'states',
+            'layout': {},
+            'paint': {
+                'line-color': '#627BC1',
+                'line-width': 2
+            }
+        })
+    })
+}
+
+onMounted(() => {
+  initMap();
+     
+});
     </script>
