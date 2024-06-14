@@ -37,7 +37,7 @@
 
     
     
-    <div class="bg-white py-18 sm:py-24">
+    <div class="bg-white py-18 sm:py-24 my-12">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Let's work together</h2>
