@@ -4,8 +4,8 @@
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get funded</h2>
       <p class="mt-2 text-lg leading-8 text-gray-600">Submit your request for funding and we'll get back to you as soon as possible.</p>
     </div>
-    <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
     <form @submit.prevent="submitFundingRequest" class="mx-auto mt-16 max-w-xl sm:mt-20">
+      <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <!-- Address Fields -->
         <div class="sm:col-span-2">
