@@ -356,9 +356,25 @@ const addressSelected = ref(false)
 const router = useRouter()
 
 const updateFormFields = () => {
-  // Clear all specific fields when contact type changes
-  Object.keys(form.value).forEach(key => form.value[key] = '')
-}
+  const preservedAddress = {
+    streetAddress: form.value.streetAddress,
+    city: form.value.city,
+    state: form.value.state,
+    postalCode: form.value.postalCode,
+    fullAddress: form.value.fullAddress
+  };
+
+  // Clear all specific fields except the address fields when contact type changes
+  Object.keys(form.value).forEach(key => {
+    if (!['streetAddress', 'city', 'state', 'postalCode', 'fullAddress'].includes(key)) {
+      form.value[key] = '';
+    }
+  });
+
+  // Restore the preserved address fields
+  Object.assign(form.value, preservedAddress);
+};
+
 
 
 
