@@ -1,7 +1,7 @@
 <template>
   <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get funding</h2>
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get funded</h2>
       <p class="mt-2 text-lg leading-8 text-gray-600">Submit your request for funding and we'll get back to you as soon as possible.</p>
     </div>
     <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
