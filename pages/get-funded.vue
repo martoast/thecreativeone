@@ -72,6 +72,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+definePageMeta({
+        layout: 'main'
+    });
+
 const form = ref({
   firstName: '',
   lastName: '',
