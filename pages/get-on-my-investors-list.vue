@@ -9,33 +9,37 @@
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <!-- Address Fields -->
         <div class="sm:col-span-2">
-          <label for="address" class="block text-sm font-semibold leading-6 text-gray-900 mb-2">Address</label>
+          <label for="address" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Address</label>
           <div v-if="!addressSelected">
             <custom-places-auto-complete @updateAddress="handleUpdateAddress" />
           </div>
           <div v-else class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
             <div class="sm:col-span-2">
-              <label for="streetAddress" class="block text-sm font-semibold leading-6 text-gray-900">Street Address</label>
+              <label for="streetAddress" class="block text-sm font-medium leading-6 text-gray-900">Street Address</label>
               <input type="text" name="streetAddress" id="streetAddress" v-model="form.streetAddress" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
             <div>
-              <label for="city" class="block text-sm font-semibold leading-6 text-gray-900">City</label>
+              <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
               <input type="text" name="city" id="city" v-model="form.city" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
             <div>
-              <label for="state" class="block text-sm font-semibold leading-6 text-gray-900">State</label>
+              <label for="state" class="block text-sm font-medium leading-6 text-gray-900">State</label>
               <input type="text" name="state" id="state" v-model="form.state" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
             <div class="sm:col-span-2">
-              <label for="postalCode" class="block text-sm font-semibold leading-6 text-gray-900">Postal Code</label>
+              <label for="postalCode" class="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
               <input type="text" name="postalCode" id="postalCode" v-model="form.postalCode" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
             </div>
             <button @click="resetAddress" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
           </div>
         </div>
-        <div class="sm:col-span-2">
-          <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
-          <input type="text" name="name" id="name" v-model="form.name" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+        <div>
+          <label for="firstName" class="block text-sm font-semibold leading-6 text-gray-900">First Name</label>
+          <input type="text" name="firstName" id="firstName" v-model="form.firstName" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-semibold leading-6 text-gray-900">Last Name</label>
+          <input type="text" name="lastName" id="lastName" v-model="form.lastName" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
         <div>
           <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>
@@ -65,7 +69,6 @@
           <label for="preferred_entry_percent" class="block text-sm font-semibold leading-6 text-gray-900">What’s your preferred entry percent for creative deals?</label>
           <input type="number" name="preferred_entry_percent" id="preferred_entry_percent" v-model="form.preferred_entry_percent" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
-        
       </div>
       <div class="mt-10">
         <button type="submit" :disabled="isSubmitting" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -81,13 +84,14 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 definePageMeta({
-        layout: 'main'
-    });
+  layout: 'main'
+})
 
 const form = ref({
-  name: '',
-  phone: '',
+  firstName: '',
+  lastName: '',
   email: '',
+  phone: '',
   best_way_to_send_deals: '',
   type_of_deals: '',
   market: '',
@@ -107,7 +111,7 @@ const addressSelected = ref(false)
 const router = useRouter()
 
 const submitInvestorListRequest = async () => {
-  if (!form.value.name || !form.value.email || !form.value.phone) {
+  if (!form.value.firstName || !form.value.lastName || !form.value.email || !form.value.phone) {
     return;
   }
 
@@ -121,9 +125,12 @@ const submitInvestorListRequest = async () => {
   const payload = {
     lead: {
       ...form.value,
+      fullName: `${form.value.firstName} ${form.value.lastName}`,
       address: `${form.value.streetAddress}, ${form.value.city}, ${form.value.state} ${form.value.postalCode}`
     }
   };
+
+  console.log(payload)
 
   const { data, error } = await useFetch(backendUrl, {
     method: 'POST',
