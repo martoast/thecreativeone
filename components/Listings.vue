@@ -7,7 +7,7 @@
       >
         <div class="aspect-w-3 aspect-h-2 bg-gray-200 sm:aspect-none sm:h-64 group-hover:opacity-75">
           <img
-            :src="getImageUrl(property.images[0])"
+            :src="property.images[0]"
             alt="Main image of the property"
             class="h-full w-full object-cover object-center sm:h-full sm:w-full"
           />
@@ -76,20 +76,6 @@
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
   }
 
-  // Method to parse the images JSON string
-function parseImage(images) {
-  try {
-    return JSON.parse(images);
-  } catch (e) {
-    return [];
-  }
-}
 
-function getImageUrl(originalUrl) {
-  if (process.env.NODE_ENV === 'production' && originalUrl.startsWith('https://maps.googleapis.com/maps/api/streetview')) {
-    return `/.netlify/functions/fetchImage?url=${originalUrl}`;
-  }
-  return originalUrl;
-}
   </script>
   

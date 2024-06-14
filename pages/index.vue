@@ -2,6 +2,9 @@
   <div>
     <Hero/>
     <Mission/>
+
+    <Community/>
+
     <Testimonial/>
     <!-- <LogoCloud/> -->
     <Features/>
@@ -30,7 +33,7 @@
       </div>
     </div>
     
-    <Community/>
+    
 
     
     
@@ -61,6 +64,27 @@
         </div>
       </div>
     </div>
+
+    <!-- <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <div class="mx-auto max-w-2xl sm:text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Let's work together</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're selling a property, looking for the next investment opportunity, or need funding for your real estate projects, we've got you covered. Explore our services to get started on your next venture with ease and confidence.</p>
+    </div>
+    <div class="mx-auto mt-20 max-w-lg space-y-16">
+      <div v-for="feature in features" :key="feature.name" class="flex gap-x-6">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-600">
+          <component :is="feature.icon" class="h-6 w-6 text-white" aria-hidden="true" />
+        </div>
+        <div>
+          <h3 class="text-base font-semibold leading-7 text-gray-900">{{ feature.name }}</h3>
+          <p class="mt-2 leading-7 text-gray-600">{{ feature.description }}</p>
+          <p class="mt-4">
+            <a :href="feature.href" class="text-sm font-semibold leading-6 text-indigo-600">Learn more <span aria-hidden="true">&rarr;</span></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
 
     
@@ -101,7 +125,7 @@
     {
         name: 'Send Me a Lead',
         description: 'Have a Property for Sale? I\'m buying. Submit your property details below for immediate consideration.',
-        href: '/contact',
+        href: '/send-me-a-lead',
         icon: PaperAirplaneIcon,
     },
     {
@@ -138,6 +162,12 @@
   const initMap = () => {
     mapboxgl.accessToken = access_token
 
+    // Adjust zoom based on screen width
+  const screenWidth = window.innerWidth
+  const isMobile = screenWidth <= 768 // Define your mobile breakpoint
+
+  map_config.zoom = isMobile ? 2 : 3 // Adjust zoom levels
+
     map = new mapboxgl.Map({
         container: "map",
         style: map_config.style,
@@ -166,7 +196,7 @@
                 'fill-color': [
                     'match',
                     ['get', 'STATE_ID'],
-                    ...statesWithBusiness.flatMap(id => [id, '#627BC1']),
+                    ...statesWithBusiness.flatMap(id => [id, '#0058ff']),
                     '#FFFFFF'
                 ],
                 'fill-opacity': 0.5
