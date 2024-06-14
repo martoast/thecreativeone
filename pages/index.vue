@@ -12,7 +12,7 @@
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row items-center lg:items-start">
           <div class="lg:w-1/2 px-6">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Listings</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Property listings</h2>
             <p class="mt-6 text-lg leading-8 text-gray-600">We have property listings across multiple states and are continuously expanding. Explore our listings to find your next investment opportunity.</p>
             <div class="mt-10 flex items-center gap-x-6">
               <a href="/listings" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View more</a>

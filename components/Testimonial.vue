@@ -20,7 +20,7 @@
               </blockquote>
               <figcaption class="mt-6 text-base text-white">
                 <div class="font-semibold">Esteban Ibarra</div>
-                <div class="mt-1">CEO of Realty Radar</div>
+                <div class="mt-1">CEO of Creative REI</div>
               </figcaption>
             </figure>
           </div>
