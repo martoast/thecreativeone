@@ -3,7 +3,7 @@
       <div class="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div class="pb-4">
           <h2 class="text-base font-semibold leading-7 text-indigo-600">Find your next property</h2>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Listings</p>
+          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Property listings</p>
         </div>
   
         <!-- Toggle Switch for Sold/Available Filter -->

@@ -37,7 +37,7 @@
     <div class="bg-white py-18 sm:py-24">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Work with us</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Let's work together</h2>
             <p class="mt-6 text-lg leading-8 text-gray-600">Whether you're selling a property, looking for the next investment opportunity, or need funding for your real estate projects, we've got you covered. Explore our services to get started on your next venture with ease and confidence.</p>
         </div>
           
