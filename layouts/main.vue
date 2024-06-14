@@ -30,10 +30,20 @@
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
               >Listings</NuxtLink>
               <NuxtLink
-                to="/contact"
-                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/contact'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/contact')}"
+                to="/send-me-a-lead"
+                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-              >Contact</NuxtLink>
+              >Send me a lead</NuxtLink>
+              <NuxtLink
+                to="/get-funded"
+                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/get-funded'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-funded')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >Get funded</NuxtLink>
+              <NuxtLink
+                to="/get-on-my-investors-list"
+                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/get-on-my-investors-list'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-on-my-investors-list')}"
+                class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+              >Get on my investors list</NuxtLink>
             </div>
           </div>
           <div v-if="!isActiveRoute('/realty-radar')" class="flex items-center">

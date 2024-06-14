@@ -1,8 +1,8 @@
 <template>
   <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact me</h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're buying or selling a property, we've got you covered.</p>
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Send me a lead</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're buying or selling a property, we are interested.</p>
     </div>
 
     <form @submit.prevent="submitLead" class="mx-auto mt-12 max-w-xl sm:mt-20">
