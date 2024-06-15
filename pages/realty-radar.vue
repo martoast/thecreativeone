@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto px-3 mt-8">
     <div class="space-y-12">
-      <div class="border-b border-white/10 pb-4" :class="property.address ? 'pb-8' : 'pb-0'">
+      <div class="border-b border-white/10 pb-4" :class="!data.loading && property.zpid ? 'pb-4' : 'pb-0'">
         <div>
           <h2 class="text-base font-semibold leading-7 text-indigo-600">Data in your hands</h2>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Realty Radar</p>
@@ -51,13 +51,13 @@
       </div>
 
       <!-- Detailed Property Report Section -->
-      <div v-if="property.address" class="mt-4">
+      <div v-if="!data.loading && property.zpid" class="mt-4">
         <div class="border-t border-gray-200 pt-6">
           <div class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
             <!-- Property image -->
             <div class="lg:col-span-4 lg:row-end-1">
               <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100">
-                <img :src="property.images[0]" :alt="property.address.streetAddress" class="object-cover object-center" />
+                <img :src="property.images && property.images.length ? property.images[0] : ''" alt="Main property image" class="object-cover object-center" />
               </div>
             </div>
 
@@ -252,6 +252,9 @@
           </div>
         </div>
       </div>
+      <div v-else-if="data.loading">
+            Loading...
+          </div>
     </div>
   </div>
 </template>
@@ -305,14 +308,6 @@ const property = ref({
   nearby_hospitals: [],
 });
 
-const isModalOpen = ref(false)
-const selectedImageIndex = ref(0)
-
-  
-function openModal(index) {
-  selectedImageIndex.value = index
-  isModalOpen.value = true
-}
 
 const apiUrl = ref(`https://zillow-com1.p.rapidapi.com/property?address=`);
 

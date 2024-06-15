@@ -10,7 +10,7 @@
             </div>
             <div class="relative w-full flex-auto z-10">
               <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Elevate your real estate journey</h2>
-              <p class="mt-6 text-lg leading-8 text-gray-300">Subscribe now to access exclusive courses, scripts, tools, daily insights, and a vibrant community hub.</p>
+              <p class="mt-6 text-lg leading-8 text-white">Subscribe now to access exclusive courses, scripts, tools, daily insights, and a vibrant community hub.</p>
               <ul role="list" class="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-white sm:grid-cols-2">
                 <li v-for="benefit in benefits" :key="benefit" class="flex gap-x-3">
                   <CheckCircleIcon class="h-7 w-5 flex-none text-white" aria-hidden="true" />
