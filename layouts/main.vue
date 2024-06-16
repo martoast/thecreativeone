@@ -79,6 +79,30 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 
+useServerSeoMeta({
+    title: 'Esteban Ibarra - The Creative One',
+    ogTitle: 'Esteban Ibarra - The Creative One',
+  
+    author: 'PinClick',
+    charset: 'utf-8',
+  
+    description: "I Buy and Share the Best Deals in Real Estate.",
+    ogDescription: "I Buy and Share the Best Deals in Real Estate.",
+  
+    robots: 'index, follow',
+    googleSiteVerification: '',
+  
+    appleMobileWebAppCapable: 'yes',
+    mobileWebAppCapable: 'yes',
+  
+    // ogImage: {
+    //   url: ''
+    // },
+  
+    ogLocaleAlternate: ['es_LA'],
+    ogType: 'website'
+  })
+
 const router = useRouter()
 const isActiveRoute = (route) => {
   const currentPath = router.currentRoute.value.path;
