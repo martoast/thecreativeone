@@ -107,6 +107,30 @@
         layout: 'main'
     });
 
+    useServerSeoMeta({
+    title: 'Esteban Ibarra - The Creative One',
+    ogTitle: 'Esteban Ibarra - The Creative One',
+  
+    author: 'PinClick',
+    charset: 'utf-8',
+  
+    description: "I Buy and Share the Best Deals in Real Estate.",
+    ogDescription: "I Buy and Share the Best Deals in Real Estate.",
+  
+    robots: 'index, follow',
+    googleSiteVerification: '',
+  
+    appleMobileWebAppCapable: 'yes',
+    mobileWebAppCapable: 'yes',
+  
+    // ogImage: {
+    //   url: ''
+    // },
+  
+    ogLocaleAlternate: ['es_LA'],
+    ogType: 'website'
+  })
+
     const nuxtApp = useNuxtApp()
 
     const config = useRuntimeConfig()
