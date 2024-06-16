@@ -385,7 +385,10 @@ const submitLead = async () => {
 
   isSubmitting.value = true;
 
-  const backendUrl = '/.netlify/functions/forwardWebhook';
+  console.log(contactType.value)
+
+  const backendUrl = contactType.value == 'potentialBuyer' ? '/.netlify/functions/buyerWebhook' : '/.netlify/functions/forwardWebhook';
+
   const headers = {
     'Content-Type': 'application/json'
   };
@@ -405,7 +408,7 @@ const submitLead = async () => {
 
   console.log(payload)
 
-  const { data, error } = await useFetch(backendUrl, {
+  const { data, error } = await $fetch(backendUrl, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(payload)
