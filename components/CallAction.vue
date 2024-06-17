@@ -9,7 +9,7 @@
               <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#ff4694] to-[#776fff] opacity-[0.45]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
             </div>
             <div class="relative w-full flex-auto z-10">
-              <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Elevate your real estate journey</h2>
+              <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Elevate your Real Estate journey</h2>
               <p class="mt-6 text-lg leading-8 text-white">Subscribe now to access exclusive courses, scripts, tools, daily insights, and a vibrant community hub.</p>
               <ul role="list" class="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base leading-7 text-white sm:grid-cols-2">
                 <li v-for="benefit in benefits" :key="benefit" class="flex gap-x-3">
