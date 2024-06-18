@@ -37,7 +37,7 @@
       </div>
     </div>
     
-    
+    <Blog/>
 
     
     
@@ -90,6 +90,8 @@
     </div>
   </div> -->
 
+    
+
 
     
     <Footer/>
@@ -111,7 +113,7 @@
     title: 'Esteban Ibarra - The Creative One',
     ogTitle: 'Esteban Ibarra - The Creative One',
   
-    author: 'PinClick',
+    author: 'Alex Martos',
     charset: 'utf-8',
   
     description: "I Buy and Share the Best Deals in Real Estate.",
