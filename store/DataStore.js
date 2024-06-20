@@ -4,6 +4,7 @@ import { defineStore } from 'pinia';
 export const usePropertiesStore = defineStore('properties', {
   state: () => ({
     properties: [],
+    sold_properties: [],
     property: {},
     total: 0,
   }),
@@ -17,6 +18,16 @@ export const usePropertiesStore = defineStore('properties', {
       }
       const response = await $fetch(url);
       this.properties = response.properties;
+      this.total = response.total;
+    },
+    async get_sold(page = 1, pageSize = 10, sold = null) {
+      console.log("Attempting to get properties");
+      let url = `https://seashell-app-lestx.ondigitalocean.app/properties/?page=${page}&pageSize=${pageSize}`;
+      if (sold !== null) {
+        url += `&sold=${sold}`;
+      }
+      const response = await $fetch(url);
+      this.sold_properties = response.properties;
       this.total = response.total;
     },
 

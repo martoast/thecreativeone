@@ -36,6 +36,19 @@
         </div>
       </div>
     </div>
+
+    <!-- Sold Properties Section -->
+    <div class="bg-gray-100 py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Recent closings</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Check out some of the property deals we have recently closed.</p>
+        </div>
+        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          <Listings :properties="soldProperties" />
+        </div>
+      </div>
+    </div>
     
     <Blog/>
 
@@ -173,21 +186,32 @@
     ]
 
     const store = usePropertiesStore()
-  
-  const currentPage = ref(1)
-  const itemsPerPage = 3 // Change this to the number of items you want per page
-  const showSold = ref(null)
-  
-  const { data, pending, error, refresh } = await useAsyncData(
-    'properties',
-    () => store.get(currentPage.value, itemsPerPage, showSold.value)
-  )
-  
-  
-  const properties = computed(() => store.properties.map(property => ({
-    ...property,
-    images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
-  })))
+
+    const currentPage = ref(1)
+    const itemsPerPage = 3 // Change this to the number of items you want per page
+    const showSold = ref(false)
+
+    const { data, pending, error, refresh } = await useAsyncData(
+      'properties',
+      () => store.get(currentPage.value, itemsPerPage, showSold.value)
+    )
+
+    const properties = computed(() => store.properties.map(property => ({
+      ...property,
+      images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
+    })))
+
+
+
+    const { data:soldData, pending: soldPending, error: soldError, refresh: soldRefresh } = await useAsyncData(
+      'soldProperties',
+      () => store.get_sold(currentPage.value, itemsPerPage, true)
+    )
+
+    const soldProperties = computed(() => store.sold_properties.map(property => ({
+      ...property,
+      images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
+    })))
 
   const initMap = () => {
     mapboxgl.accessToken = access_token
