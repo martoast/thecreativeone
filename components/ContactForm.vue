@@ -1,10 +1,4 @@
 <template>
-  <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Send me a lead</h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're buying or selling a property, we are interested.</p>
-    </div>
-
     <form @submit.prevent="submitLead" class="mx-auto mt-12 max-w-xl sm:mt-20">
       <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
 
@@ -284,7 +278,6 @@
         </button>
       </div>
     </form>
-  </div>
 </template>
 
 
@@ -408,22 +401,29 @@ const submitLead = async () => {
 
   console.log(payload)
 
-  const { data, error } = await $fetch(backendUrl, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(payload)
-  });
+  try {
+    const { data, error } = await $fetch(backendUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+    });
 
-  if (error.value) {
-    console.error('Error adding lead via serverless function:', error);
+    if (error) {
+      console.error('Error adding lead via serverless function:', error);
+      // Handle error (e.g., show an error message)
+    } else {
+      showAlert.value = true;
+      Object.keys(form.value).forEach(key => form.value[key] = ''); // Reset form
+      window.open("https://beacons.ai/e_steban", "mozillaTab"); // Open new tab
+    }
+  } catch (err) {
+    console.error('Error adding lead via serverless function:', err);
     // Handle error (e.g., show an error message)
-  } else {
-    showAlert.value = true;
-    Object.keys(form.value).forEach(key => form.value[key] = ''); // Reset form
+  } finally {
+    isSubmitting.value = false;
   }
-
-  isSubmitting.value = false;
 };
+
 
 const handleUpdateAddress = (data) => {
   form.value.fullAddress = data.address
