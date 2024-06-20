@@ -7,7 +7,7 @@
         <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
           <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
             <p class="text-xl leading-8 text-gray-600">
-              Hi, I am Esteban Ibarra. For over a decade, I've been immersed in the real estate world, perfecting my skills in loans and lending, especially when it comes to reverse mortgages.
+              Hi, I’m Esteban Ibarra. With over a decade of experience in real estate, I’ve honed my skills in the industry. As a medical professional with 11 years in emergency medicine, I’ve transitioned to a full-time entrepreneur and owner/operator in communal living. I’ve acquired over $15 million in assets, aiming to reach $50 million by year-end.
             </p>
             <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
               <p>
@@ -36,9 +36,8 @@
 import { ref, onMounted } from 'vue';
 
 const stats = [
-  { label: 'Doors Owned', value: 30, displayValue: '0+' },
-  { label: 'Total investment deals closed', value: 50000000, displayValue: '0+' },
-  { label: 'New clients annually', value: 100, displayValue: '0+' },
+  { label: 'Assets', value: 15000000, displayValue: '0+' },
+  { label: 'Deals closed', value: 250, displayValue: '0+' },
 ];
 
 const animatedStats = ref(stats.map(stat => ({ ...stat })));
