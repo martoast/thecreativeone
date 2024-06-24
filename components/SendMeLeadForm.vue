@@ -4,7 +4,7 @@
 
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <div class="sm:col-span-2">
-          <label for="contact-type" class="block text-sm font-semibold leading-6 text-gray-900">Type of Contact</label>
+          <label for="contact-type" class="block text-sm font-semibold leading-6 text-gray-900">Type of contact</label>
           <div class="mt-2.5">
             <select id="contact-type" v-model="contactType" @change="updateFormFields" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               <option value="default">Select</option>
@@ -13,6 +13,20 @@
               <option value="relativeOfOwner">Relative of Owner</option>
               <option value="potentialBuyer">Potential Buyer</option>
               <option value="verifiedOwner">Verified Owner</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="lead-type" class="block text-sm font-semibold leading-6 text-gray-900">What type of lead is this?</label>
+          <div class="mt-2.5">
+            <select id="lead-type" v-model="form.leadType" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="directSellerOffMarket">Direct to Seller (off-market)</option>
+              <option value="directSellerOnMarket">Direct to Seller (on-market)</option>
+              <option value="fsbo">FSBO</option>
+              <option value="freeAndClear">Free & Clear</option>
+              <option value="directAgentOnMarket">Direct to Agent (on market)</option>
+              <option value="jvDeal">JV deal</option>
             </select>
           </div>
         </div>
@@ -43,6 +57,8 @@
             <button @click="resetAddress" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
           </div>
         </div>
+
+        
         
         <!-- Default Fields -->
         <div>
@@ -67,6 +83,54 @@
           <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Phone</label>
           <div class="mt-2.5">
             <input type="tel" id="phone" v-model="form.phone" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          </div>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="has-mortgage" class="block text-sm font-semibold leading-6 text-gray-900">Is there mortgage in place?</label>
+          <div class="mt-2.5">
+            <select id="has-mortgage" v-model="form.hasMortgage" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Additional fields that appear when "Yes" is selected -->
+        <div v-if="form.hasMortgage === 'yes'" class="sm:col-span-2 mt-4">
+          <div class="space-y-4">
+            <div>
+              <label for="mortgage-balance" class="block text-sm font-semibold leading-6 text-gray-900">Mortgage Balance</label>
+              <input type="number" id="mortgage-balance" v-model="form.mortgageBalance" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+            
+            <div>
+              <label for="loan-type" class="block text-sm font-semibold leading-6 text-gray-900">Type of Loan</label>
+              <input type="text" id="loan-type" v-model="form.loanType" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+
+            <div v-if="contactType === 'verifiedOwner'" class="sm:col-span-2">
+              <label for="loan-amount" class="block text-sm font-semibold leading-6 text-gray-900">Loan Amount</label>
+              <div class="mt-2.5">
+                <input type="number" id="loan-amount" v-model="form.loanAmount" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              </div>
+            </div>
+            
+            <div>
+              <label for="interest-rate" class="block text-sm font-semibold leading-6 text-gray-900">Interest Rate</label>
+              <input type="number" id="interest-rate" v-model="form.interestRate" step="0.01" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+            
+            <div>
+              <label for="piti" class="block text-sm font-semibold leading-6 text-gray-900">PITI</label>
+              <input type="number" id="piti" v-model="form.piti" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+            
+            <div>
+              <label for="maturity-date" class="block text-sm font-semibold leading-6 text-gray-900">Maturity Date</label>
+              <input type="date" id="maturity-date" v-model="form.maturityDate" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
           </div>
         </div>
 
@@ -247,30 +311,9 @@
             <textarea id="additional-info" v-model="form.additionalInfo" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
           </div>
         </div>
-        <div v-if="contactType === 'verifiedOwner'" class="sm:col-span-2">
-          <label for="loan-type" class="block text-sm font-semibold leading-6 text-gray-900">Loan Type</label>
-          <div class="mt-2.5">
-            <input type="text" id="loan-type" v-model="form.loanType" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-        </div>
-        <div v-if="contactType === 'verifiedOwner'" class="sm:col-span-2">
-          <label for="loan-amount" class="block text-sm font-semibold leading-6 text-gray-900">Loan Amount</label>
-          <div class="mt-2.5">
-            <input type="number" id="loan-amount" v-model="form.loanAmount" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-        </div>
-        <div v-if="contactType === 'verifiedOwner'" class="sm:col-span-2">
-          <label for="interest-rate" class="block text-sm font-semibold leading-6 text-gray-900">Interest Rate</label>
-          <div class="mt-2.5">
-            <input type="number" id="interest-rate" v-model="form.interestRate" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-        </div>
-        <div v-if="contactType === 'verifiedOwner'" class="sm:col-span-2">
-          <label for="piti" class="block text-sm font-semibold leading-6 text-gray-900">PITI</label>
-          <div class="mt-2.5">
-            <input type="number" id="piti" v-model="form.piti" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-        </div>
+        
+        
+        
         <div class="sm:col-span-2">
           <label for="notes" class="block text-sm font-semibold leading-6 text-gray-900">Notes</label>
           <div class="mt-2.5">
@@ -310,6 +353,8 @@ const form = ref({
   state: '',
   postalCode: '',
   notes: '',
+  leadType: '',
+  hasMortgage: '',
   whySell: '',
   askingPrice: '',
   sellTime: '',
@@ -335,7 +380,8 @@ const form = ref({
   loanType: '',
   loanAmount: '',
   interestRate: '',
-  piti: ''
+  piti: '',
+  maturityDate: ''
 })
 
 const pipelineIdMapping = {

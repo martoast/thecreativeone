@@ -8,7 +8,7 @@
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Send me a lead</h2>
       <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're buying or selling a property, we are interested.</p>
     </div>
-  <contact-form :initial-contact-type="initialContactType" :address="address" />
+  <SendMeLeadForm :initial-contact-type="initialContactType" :address="address" />
   </div>
 </template>
 
