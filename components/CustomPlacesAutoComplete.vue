@@ -2,7 +2,7 @@
     <div>
         <mapbox-search-box
                 :access-token="access_token"
-                placeholder="Search Address"
+                placeholder="Search address"
                 :options="{
                   country: 'US',
                   limit:6,
