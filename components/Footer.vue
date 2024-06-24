@@ -25,7 +25,7 @@ const navigation = {
     { name: 'Home', href: '/' },
     { name: 'Listings', href: '/listings' },
     { name: 'Send me a lead', href: '/send-me-a-lead' },
-    { name: 'Get funded', href: '/get-funded' },
+    { name: 'Get funded', href: 'https://form.jotform.com/241747935588878' },
     { name: 'Get on my investors list', href: '/get-on-my-investors-list' },
     { name: 'Creative REI', href: 'https://upgrade.chat/creative-rei' },
 

@@ -34,11 +34,18 @@
                 :class="{'border-indigo-500 text-gray-900': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
               >Send me a lead</NuxtLink>
-              <NuxtLink
-                to="/get-funded"
-                :class="{'border-indigo-500 text-gray-900': isActiveRoute('/get-funded'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-funded')}"
+              <a
+                href="https://form.jotform.com/241747935588878"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="{
+                  'border-indigo-500 text-gray-900': isActiveRoute('/get-funded'),
+                  'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-funded')
+                }"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-              >Get funded</NuxtLink>
+              >
+                Get funded
+              </a>
               <NuxtLink
                 to="/get-on-my-investors-list"
                 :class="{'border-indigo-500 text-gray-900': isActiveRoute('/get-on-my-investors-list'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/get-on-my-investors-list')}"
