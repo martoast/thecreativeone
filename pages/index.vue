@@ -180,7 +180,7 @@
     {
         name: 'Get Funded',
         description: 'Quick and easy funding for your next real estate investment.',
-        href: 'https://form.jotform.com/241747935588878',
+        href: 'https://form.jotform.com/241757052355861',
         icon: CurrencyDollarIcon,
     },
     ]

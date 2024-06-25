@@ -35,7 +35,7 @@
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
               >Send me a lead</NuxtLink>
               <a
-                href="https://form.jotform.com/241747935588878"
+                href="https://form.jotform.com/241757052355861"
                 target="_blank"
                 rel="noopener noreferrer"
                 :class="{
