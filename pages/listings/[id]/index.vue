@@ -66,7 +66,7 @@
                 <h3 class="text-sm font-medium text-gray-900">Share</h3>
                 <ul role="list" class="mt-4 flex items-center space-x-6">
                   <li>
-                    <a :href="`https://www.facebook.com/sharer/sharer.php?u=https://thecreativeone.netlify.app/listings/${property.ID}&t=${encodeURIComponent('Check out this property!')}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
+                    <a :href="`https://www.facebook.com/sharer/sharer.php?u=https://www.thecreativeone.io/listings/${property.ID}&t=${encodeURIComponent('Check out this property!')}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
                       <span class="sr-only">Share on Facebook</span>
                       <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clip-rule="evenodd" />
@@ -75,7 +75,7 @@
                   </li>
                   
                   <li>
-                    <a :href="`https://twitter.com/intent/tweet?url=https://thecreativeone.netlify.app/listings/${property.ID}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
+                    <a :href="`https://twitter.com/intent/tweet?url=https://www.thecreativeone.io/listings/${property.ID}`" class="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500" target="_blank">
                       <span class="sr-only">Share on Twitter</span>
                       <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M11.4678 8.77491L17.2961 2H15.915L10.8543 7.88256L6.81232 2H2.15039L8.26263 10.8955L2.15039 18H3.53159L8.87581 11.7878L13.1444 18H17.8063L11.4675 8.77491H11.4678ZM9.57608 10.9738L8.95678 10.0881L4.02925 3.03974H6.15068L10.1273 8.72795L10.7466 9.61374L15.9156 17.0075H13.7942L9.57608 10.9742V10.9738Z" />
