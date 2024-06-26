@@ -19,6 +19,22 @@
             </select>
             <p v-if="validationErrors.occupancy" id="occupancy-error" class="mt-2 text-sm text-red-600">{{ validationErrors.occupancy }}</p>
           </div>
+
+          <div>
+            <label for="creative-financing" class="block text-sm font-medium text-gray-700">Is The Homeowner Open To Creative Financing?</label>
+            <select 
+              id="occupancy" 
+              v-model="form.creativeFinancing"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
+              required
+              aria-describedby="occupancy-error"
+            >
+              <option value="">Select one</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p v-if="validationErrors.occupancy" id="occupancy-error" class="mt-2 text-sm text-red-600">{{ validationErrors.occupancy }}</p>
+          </div>
   
           <div>
             <label for="asking-price" class="block text-sm font-medium text-gray-700">Asking Price</label>
@@ -45,6 +61,8 @@
             ></textarea>
             <p v-if="validationErrors.condition" id="condition-error" class="mt-2 text-sm text-red-600">{{ validationErrors.condition }}</p>
           </div>
+
+        
         </div>
   
         <!-- Step 3: Contact Type Specific Information -->
@@ -146,6 +164,7 @@ import { useNuxtApp, useRouter } from '#app'
 interface FormData {
   contactType: string;
   occupancy: string;
+  creativeFinancing: string;
   askingPrice: string;
   condition: string;
   contractHolder?: string;
@@ -177,7 +196,7 @@ const validationErrors: Ref<Partial<Record<keyof FormData, string>>> = ref({});
 
 const validateStep = () => {
   const errors: Partial<Record<keyof FormData, string>> = {};
-  const commonFields: (keyof FormData)[] = ['occupancy', 'askingPrice', 'condition'];
+  const commonFields: (keyof FormData)[] = ['creativeFinancing','occupancy', 'askingPrice', 'condition'];
   let contactTypeFields: (keyof FormData)[] = [];
 
   if (form.value.contactType === 'wholesaler') {

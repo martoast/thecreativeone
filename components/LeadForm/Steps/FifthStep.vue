@@ -79,7 +79,7 @@
   
   const submitLead = async (submitFormData: FormData) => {
     const contactType = submitFormData.contactType;
-    const backendUrl = contactType === 'potentialBuyer' ? '/.netlify/functions/buyerWebhook' : '/.netlify/functions/forwardWebhook';
+    const backendUrl =  '/.netlify/functions/leadWebhook';
   
     const headers = {
       'Content-Type': 'application/json'

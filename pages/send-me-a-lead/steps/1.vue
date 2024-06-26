@@ -4,7 +4,7 @@
         <div class="mb-4">
           <a href="/" class="text-sm font-semibold leading-7 text-indigo-600"><span aria-hidden="true">&larr;</span> Back to home</a>
         </div>
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Send me a lead</h2>
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">General info</h2>
         <p class="mt-2 text-lg leading-8 text-gray-600">Whether you're buying or selling a property, we are interested.</p>
 
         

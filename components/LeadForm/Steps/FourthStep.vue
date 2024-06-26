@@ -45,6 +45,18 @@
               <p v-if="validationErrors.loanType" id="loan-type-error" class="mt-2 text-sm text-red-600">{{ validationErrors.loanType }}</p>
             </div>
             <div>
+              <label for="loanAmount" class="block text-sm font-medium text-gray-700">Loan amount</label>
+              <input 
+                type="number" 
+                id="loanAmount" 
+                v-model="form.loanAmount"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                required
+                aria-describedby="loanAmount-error"
+              >
+              <p v-if="validationErrors.loanAmount" id="piti-error" class="mt-2 text-sm text-red-600">{{ validationErrors.loanAmount }}</p>
+            </div>
+            <div>
               <label for="interest-rate" class="block text-sm font-medium text-gray-700">Interest Rate</label>
               <input 
                 type="number" 
@@ -58,18 +70,6 @@
               <p v-if="validationErrors.interestRate" id="interest-rate-error" class="mt-2 text-sm text-red-600">{{ validationErrors.interestRate }}</p>
             </div>
             <div>
-              <label for="piti" class="block text-sm font-medium text-gray-700">PITI</label>
-              <input 
-                type="number" 
-                id="piti" 
-                v-model="form.piti" 
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                required
-                aria-describedby="piti-error"
-              >
-              <p v-if="validationErrors.piti" id="piti-error" class="mt-2 text-sm text-red-600">{{ validationErrors.piti }}</p>
-            </div>
-            <div>
               <label for="maturity-date" class="block text-sm font-medium text-gray-700">Maturity Date</label>
               <input 
                 type="date" 
@@ -81,6 +81,71 @@
               >
               <p v-if="validationErrors.maturityDate" id="maturity-date-error" class="mt-2 text-sm text-red-600">{{ validationErrors.maturityDate }}</p>
             </div>
+            <div>
+              <label for="piti" class="block text-sm font-medium text-gray-700">PITI</label>
+              <input 
+                type="number" 
+                id="piti" 
+                v-model="form.piti" 
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                required
+                aria-describedby="piti-error"
+              >
+              <p v-if="validationErrors.piti" id="piti-error" class="mt-2 text-sm text-red-600">{{ validationErrors.piti }}</p>
+            </div>
+
+            <div>
+        <label for="max-offer-cash" class="block text-sm font-medium text-gray-700">Max Allowable Offer Price (Cash)</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 sm:text-sm">$</span>
+          </div>
+          <input 
+            type="number" 
+            id="max-offer-cash" 
+            v-model="form.maxOfferCash" 
+            class="mt-1 block w-full pl-7 pr-12 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            required
+            aria-describedby="max-offer-cash-error"
+          >
+        </div>
+        <p v-if="validationErrors.maxOfferCash" id="max-offer-cash-error" class="mt-2 text-sm text-red-600">{{ validationErrors.maxOfferCash }}</p>
+      </div>
+
+      <div>
+        <label for="max-offer-creative" class="block text-sm font-medium text-gray-700">Max Allowable Offer Price (Creative)</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-gray-500 sm:text-sm">$</span>
+          </div>
+          <input 
+            type="number" 
+            id="max-offer-creative" 
+            v-model="form.maxOfferCreative" 
+            class="mt-1 block w-full pl-7 pr-12 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            required
+            aria-describedby="max-offer-creative-error"
+          >
+        </div>
+        <p v-if="validationErrors.maxOfferCreative" id="max-offer-creative-error" class="mt-2 text-sm text-red-600">{{ validationErrors.maxOfferCreative }}</p>
+      </div>
+
+      <div>
+            <label for="rehab-costs" class="block text-sm font-medium text-gray-700">Rehab Costs</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="text-gray-500 sm:text-sm">$</span>
+              </div>
+              <input 
+                type="number" 
+                id="rehab-costs" 
+                v-model="form.rehabCosts" 
+                class="mt-1 block w-full pl-7 pr-12 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                aria-describedby="rehab-costs-error"
+              >
+            </div>
+          </div>
+            
           </template>
         </div>
       </div>
@@ -113,9 +178,13 @@
     hasMortgage: string;
     mortgageBalance?: number;
     loanType?: string;
+    loanAmount?: number;
     interestRate?: number;
     piti?: number;
     maturityDate?: string;
+    maxOfferCash?: number;
+    maxOfferCreative?: number;
+    rehabCosts?: number;
   }
   
   const props = defineProps({
@@ -142,9 +211,11 @@
     if (newValue === 'no') {
       form.value.mortgageBalance = undefined;
       form.value.loanType = undefined;
+      form.value.loanAmount = undefined;
       form.value.interestRate = undefined;
       form.value.piti = undefined;
       form.value.maturityDate = undefined;
+      form.value.rehabCosts = undefined;
     }
   });
   
@@ -153,14 +224,6 @@
   
     if (!form.value.hasMortgage) {
       errors.hasMortgage = 'Please select whether there is a mortgage in place';
-    }
-  
-    if (form.value.hasMortgage === 'yes') {
-      if (!form.value.mortgageBalance) errors.mortgageBalance = 'Mortgage Balance is required';
-      if (!form.value.loanType) errors.loanType = 'Type of Loan is required';
-      if (!form.value.interestRate) errors.interestRate = 'Interest Rate is required';
-      if (!form.value.piti) errors.piti = 'PITI is required';
-      if (!form.value.maturityDate) errors.maturityDate = 'Maturity Date is required';
     }
   
     validationErrors.value = errors;
