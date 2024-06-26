@@ -168,7 +168,7 @@
     {
         name: 'Send Me a Lead',
         description: 'Have a Property for Sale? I\'m buying. Submit your property details below for immediate consideration.',
-        href: '/send-me-a-lead',
+        href: '/send-me-a-lead/steps/1',
         icon: PaperAirplaneIcon,
     },
     {
