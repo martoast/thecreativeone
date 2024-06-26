@@ -107,9 +107,6 @@
               <p class="mt-6 text-gray-500">{{ property.description }}</p>
 
               <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-                <a :href="`/send-me-a-lead?address=${property.address.streetAddress}, ${property.address.city}, ${property.address.state} ${property.address.zipcode}`">
-                  <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Send me lead</button>
-                </a>
                 <a target="_blank" :href="'https://www.zillow.com' + property.url" class="m-0 p-0">
                   <button @click="handleViewOnZillow" type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">View on Zillow</button>
                 </a>

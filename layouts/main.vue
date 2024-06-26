@@ -30,7 +30,7 @@
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
               >Listings</NuxtLink>
               <NuxtLink
-                to="/send-me-a-lead/steps/1"
+                to="/send-me-a-lead/steps/0"
                 :class="{'border-indigo-500 text-gray-900': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
               >Send me a lead</NuxtLink>
@@ -68,7 +68,7 @@
         <div class="space-y-1 pb-3 pt-2">
           <DisclosureButton as="a" href="/" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Home</DisclosureButton>
           <DisclosureButton as="a" href="/listings" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/listings'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/listings')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Listings</DisclosureButton>
-          <DisclosureButton as="a" href="/send-me-a-lead/steps/1" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Send me a lead</DisclosureButton>
+          <DisclosureButton as="a" href="/send-me-a-lead/steps/0" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Send me a lead</DisclosureButton>
           <DisclosureButton as="a" href="https://form.jotform.com/241757052355861" target="_blank" rel="noopener noreferrer" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/get-funded'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/get-funded')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Get funded</DisclosureButton>
           <DisclosureButton as="a" href="/get-on-my-investors-list" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/get-on-my-investors-list'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/get-on-my-investors-list')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Get on my investors list</DisclosureButton>
         </div>

@@ -22,7 +22,7 @@
                   <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">I Buy and Wholesale the Best Real Estate Deals</h1>
                   <p class="mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">As a self-made entrepreneur with over a decade of experience in both the medical field and real estate investing, I specialize in finding creative solutions through real estate. I also teach others the art of real estate investment.</p>
                   <div class="mt-10 flex items-center gap-x-6">
-                    <a href="/send-me-a-lead/steps/1" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start Deal</a>
+                    <a href="/send-me-a-lead/steps/0" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start Deal</a>
                     <a href="/listings/" class="text-sm font-semibold leading-6 text-gray-900">View listings <span aria-hidden="true">→</span></a>
                   </div>
                 </div>
