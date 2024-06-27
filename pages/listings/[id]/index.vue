@@ -98,9 +98,7 @@
                   </span> 
                 </p>
                 <div class="mt-4 sm:flex-none">
-                  <a :href="'/send-me-a-lead?type=potentialBuyer&address=' + property.address" target="_blank">
-                    <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get More Details</button>
-                  </a>
+                    <button @click="handleGetMoreDetails" type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get More Details</button>
                 </div>
               </div>
   
@@ -285,6 +283,16 @@
   definePageMeta({
         layout: 'main'
     });
+
+  const { $locally } = useNuxtApp()
+
+  let form = ref({
+    fullAddress: '',
+    streetAddress: '',
+    city: '',
+    state: '',
+    postalCode: '',
+  }); 
   
   const route = useRoute()
   const store = usePropertiesStore()
@@ -305,8 +313,6 @@
   
   const isModalOpen = ref(false)
   const selectedImageIndex = ref(0)
-
-  console.log(property)
   
   function openModal(index) {
     selectedImageIndex.value = index
@@ -327,5 +333,37 @@
   const convertMilesToKilometers = (miles) => {
     return (miles * 1.60934).toFixed(2);
   }
+
+  const handleGetMoreDetails = async () => {
+  // Split the full address into its components based on commas
+  const addressParts = property.value.address.split(', ');
+
+  // Function to find the state and postal code
+  const findStateAndPostalCode = (str) => {
+    const parts = str.split(' ');
+    const postalCode = parts.pop(); // Remove and return the last element (postal code)
+    const state = parts.join(' '); // Join the remaining parts (state name)
+    return { state, postalCode };
+  };
+
+  const { state, postalCode } = findStateAndPostalCode(addressParts[2]);
+
+  form.value = {
+    fullAddress: property.value.address,
+    streetAddress: addressParts[0],
+    city: addressParts[1],
+    state: state,
+    postalCode: postalCode,
+  };
+
+
+  try {
+    $locally.setItem('formData', form.value)
+    await navigateTo('/send-me-a-lead/steps/0')
+  } catch (error) {
+    console.error('Error saving form data:', error)
+    alert('An error occurred while saving your data. Please try again.')
+  }
+}
   </script>
   
