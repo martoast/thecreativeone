@@ -141,7 +141,8 @@
     ogImage: 'https://app.customesignature.com/upload/signature/complete/1056/1056.gif',
   
     ogLocaleAlternate: ['es_LA'],
-    ogType: 'website'
+    ogType: 'website',
+    viewport: 'width=device-width, initial-scale=1',
   })
 
     const nuxtApp = useNuxtApp()
