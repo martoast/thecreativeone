@@ -129,8 +129,8 @@
     author: 'Alex Martos',
     charset: 'utf-8',
   
-    description: "I Buy and Share the Best Deals in Real Estate.",
-    ogDescription: "I Buy and Share the Best Deals in Real Estate.",
+    description: "I Buy and Wholesale the Best Real Estate Deals.",
+    ogDescription: "I Buy and Wholesale the Best Real Estate Deals.",
   
     robots: 'index, follow',
     googleSiteVerification: '',
@@ -138,9 +138,7 @@
     appleMobileWebAppCapable: 'yes',
     mobileWebAppCapable: 'yes',
   
-    // ogImage: {
-    //   url: ''
-    // },
+    ogImage: 'https://app.customesignature.com/upload/signature/complete/1056/1056.gif',
   
     ogLocaleAlternate: ['es_LA'],
     ogType: 'website'
