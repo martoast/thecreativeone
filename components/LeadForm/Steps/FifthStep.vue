@@ -14,6 +14,23 @@
             ></textarea>
             <p v-if="validationErrors.notes" id="notes-error" class="mt-2 text-sm text-red-600">{{ validationErrors.notes }}</p>
           </div>
+           <!-- New checkbox for terms and conditions -->
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input
+              id="terms"
+              name="terms"
+              type="checkbox"
+              v-model="form.acceptTerms"
+              class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+            >
+          </div>
+          <div class="ml-3 text-sm">
+            <label for="terms" class="font-medium text-gray-700">Accept Terms and Conditions</label>
+            <p class="text-gray-500">I agree to the <a href="/terms-of-service" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a> and <a href="/privacy-policy" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.</p>
+          </div>
+        </div>
+        <p v-if="validationErrors.acceptTerms" id="terms-error" class="mt-2 text-sm text-red-600">{{ validationErrors.acceptTerms }}</p>
         </div>
       </div>
   
@@ -47,6 +64,7 @@
     contactType: string;
     firstName: string;
     lastName: string;
+    acceptTerms: boolean;
     [key: string]: any; // To allow for additional properties from previous steps
   }
   
@@ -65,13 +83,18 @@
   const router = useRouter()
   
   const form: Ref<FormData> = ref({
-    ...props.initialFormData
+    ...props.initialFormData,
+    acceptTerms: false
   })
   
   const validationErrors: Ref<Partial<Record<keyof FormData, string>>> = ref({});
   
   const validateStep = () => {
     const errors: Partial<Record<keyof FormData, string>> = {};
+    if (!form.value.acceptTerms) {
+      errors.acceptTerms = "You must accept the terms and conditions to proceed.";
+    }
+
     // Add validation if needed
     validationErrors.value = errors;
     return Object.keys(errors).length === 0;
@@ -140,7 +163,7 @@
         alert('An error occurred while submitting your data. Please try again.');
       }
     } else {
-      alert('Please fill in all required fields before submitting.');
+      alert('Please fill in all required fields and accept the terms before submitting.');
     }
   };
   </script>
