@@ -72,6 +72,25 @@
           <label for="preferred_entry_percent" class="block text-sm font-semibold leading-6 text-gray-900">What’s your preferred entry percent for creative deals?</label>
           <input type="number" name="preferred_entry_percent" id="preferred_entry_percent" v-model="form.preferred_entry_percent" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
+        <!-- Terms and Conditions Checkbox -->
+        <div class="sm:col-span-2">
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input
+                id="terms"
+                name="terms"
+                type="checkbox"
+                v-model="form.acceptTerms"
+                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              >
+            </div>
+            <div class="ml-3 text-sm">
+              <label for="terms" class="font-medium text-gray-700">Accept Terms and Conditions</label>
+              <p class="text-gray-500">I agree to the <a href="/terms-of-service" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a> and <a href="/privacy-policy" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.</p>
+            </div>
+          </div>
+          <p v-if="showTermsError" class="mt-2 text-sm text-red-600">You must accept the terms and conditions to proceed.</p>
+        </div>
       </div>
       <div class="mt-10">
         <button type="submit" :disabled="isSubmitting" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -104,12 +123,14 @@ const form = ref({
   city: '',
   state: '',
   postalCode: '',
-  fullAddress: ''
+  fullAddress: '',
+  acceptTerms: false // Add this line
 })
 
 const isSubmitting = ref(false)
 const showAlert = ref(false)
 const addressSelected = ref(false)
+const showTermsError = ref(false) // Add this line
 
 const router = useRouter()
 
@@ -118,6 +139,12 @@ const submitInvestorListRequest = async () => {
     return;
   }
 
+  if (!form.value.acceptTerms) { // Add this check
+    showTermsError.value = true;
+    return;
+  }
+
+  showTermsError.value = false; // Reset error state
   isSubmitting.value = true;
 
   const backendUrl = '/.netlify/functions/investorWebhook';
@@ -173,6 +200,3 @@ const resetAddress = () => {
 }
 </script>
 
-<style scoped>
-/* Add any additional styles here */
-</style>
