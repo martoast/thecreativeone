@@ -103,7 +103,7 @@
       <p class="mt-6">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "last updated" date.</p>
 
       <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">8. Contact Us</h2>
-      <p class="mt-6">If you have any questions about this Privacy Policy, please contact us at [Your Contact Information].</p>
+      <p class="mt-6">If you have any questions about this Privacy Policy, please contact us at esteban@thecreativeone.io</p>
 
       <p class="mt-8">Last updated: 07/02/2024</p>
     </div>
