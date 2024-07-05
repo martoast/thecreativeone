@@ -172,8 +172,9 @@ const submitInvestorListRequest = async () => {
     console.error('Error adding lead via serverless function:', error);
     // Handle error (e.g., show an error message)
   } else {
-    showAlert.value = true;
+    alert('Form submitted successfully!');
     Object.keys(form.value).forEach(key => form.value[key] = ''); // Reset form
+    await router.push('/');
   }
 
   isSubmitting.value = false;
