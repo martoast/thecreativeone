@@ -5,6 +5,8 @@
 
     <Community/>
 
+    <MyNetwork/>
+
     
 
     <Testimonial/>
