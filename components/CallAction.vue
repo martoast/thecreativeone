@@ -32,8 +32,10 @@
   
   const benefits = [
     'Dive into exclusive courses from basics to advanced strategies',
+    'Learn Advanced exit strategies such as Short Term Rentals',
+    'Partner with our in house management team',
     'Master negotiations with proven scripts',
-    'Make informed decisions with calculators',
+    'Get access to exclusive software',
     'Stay ahead with industry updates',
     'Connect, share, and grow with like-minded individuals',
   ]
