@@ -11,7 +11,7 @@
             From experienced professionals to complete beginners, our members have achieved remarkable results. By following our step-by-step guidance, they've built impressive rental portfolios, mastered wholesaling, and created substantial passive income streams. These images showcase just a few of the many success stories within our community.
           </p>
           <div class="mt-8 flex pt-3">
-            <a href="https://www.skool.com/creative-rei-2630/about" class="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Join now <span aria-hidden="true">&rarr;</span></a>
+            <a href="https://form.jotform.com/241904478472867" target="_blank" class="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Schedule 'Discovery Call' <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
 

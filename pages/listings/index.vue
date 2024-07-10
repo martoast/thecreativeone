@@ -8,10 +8,10 @@
   
         <!-- Toggle Switch for Sold/Available Filter -->
         <div class="mb-4 flex items-center">
-          <label for="soldToggle" class="text-gray-900 mr-2">Show Sold Properties</label>
-          <Switch v-model="showSold" :class="[showSold ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
+          <label for="soldToggle" class="text-gray-900 mr-2">Show Available properties</label>
+          <Switch v-model="showSold" :class="[!showSold ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2']">
             <span class="sr-only">Show Sold Properties</span>
-            <span aria-hidden="true" :class="[showSold ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+            <span aria-hidden="true" :class="[!showSold ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
           </Switch>
           <button @click="resetShowSold" type="button" class="ml-3 rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Show All</button>
         </div>
@@ -57,7 +57,7 @@
   
   const currentPage = ref(1)
   const itemsPerPage = 10 // Change this to the number of items you want per page
-  const showSold = ref(null)
+  const showSold = ref(false)
   
   const { data, pending, error, refresh } = await useAsyncData(
     'properties',
