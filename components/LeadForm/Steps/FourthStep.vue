@@ -176,15 +176,15 @@
   
   interface FormData {
     hasMortgage: string;
-    mortgageBalance?: number;
-    loanType?: string;
-    loanAmount?: number;
-    interestRate?: number;
-    piti?: number;
-    maturityDate?: string;
-    maxOfferCash?: number;
-    maxOfferCreative?: number;
-    rehabCosts?: number;
+    mortgageBalance: number | null;
+    loanType: string;
+    loanAmount: number | null;
+    interestRate: number | null;
+    piti: number | null;
+    maturityDate: string;
+    maxOfferCash: number | null;
+    maxOfferCreative: number | null;
+    rehabCosts: number | null;
   }
   
   const props = defineProps({
@@ -202,20 +202,29 @@
   const router = useRouter()
   
   const form: Ref<FormData> = ref({
-    ...props.initialFormData
+    hasMortgage: props.initialFormData.hasMortgage || '',
+    mortgageBalance: props.initialFormData.mortgageBalance || null,
+    loanType: props.initialFormData.loanType || '',
+    loanAmount: props.initialFormData.loanAmount || null,
+    interestRate: props.initialFormData.interestRate || null,
+    piti: props.initialFormData.piti || null,
+    maturityDate: props.initialFormData.maturityDate || '',
+    maxOfferCash: props.initialFormData.maxOfferCash || null,
+    maxOfferCreative: props.initialFormData.maxOfferCreative || null,
+    rehabCosts: props.initialFormData.rehabCosts || null,
   })
   
   const validationErrors: Ref<Partial<Record<keyof FormData, string>>> = ref({});
   
   watch(() => form.value.hasMortgage, (newValue) => {
     if (newValue === 'no') {
-      form.value.mortgageBalance = undefined;
-      form.value.loanType = undefined;
-      form.value.loanAmount = undefined;
-      form.value.interestRate = undefined;
-      form.value.piti = undefined;
-      form.value.maturityDate = undefined;
-      form.value.rehabCosts = undefined;
+      form.value.mortgageBalance = null;
+      form.value.loanType = '';
+      form.value.loanAmount = null;
+      form.value.interestRate = null;
+      form.value.piti = null;
+      form.value.maturityDate = '';
+      form.value.rehabCosts = null;
     }
   });
   
@@ -235,6 +244,7 @@
       try {
         const currentFormData = $locally.getItem('formData') || {};
         $locally.setItem('formData', { ...currentFormData, ...form.value })
+        console.log($locally.getItem('formData'))
         await router.push("/send-me-a-lead/steps/5")  // Assuming there's a fifth step, adjust as needed
       } catch (error) {
         console.error('Error saving form data:', error)

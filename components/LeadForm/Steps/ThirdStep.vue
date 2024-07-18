@@ -167,11 +167,11 @@ interface FormData {
   creativeFinancing: string;
   askingPrice: string;
   condition: string;
-  contractHolder?: string;
-  dealType?: string;
-  qualifiedLead?: string;
-  whySell?: string;
-  sellTime?: string;
+  contractHolder: string;
+  dealType: string;
+  qualifiedLead: string;
+  whySell: string;
+  sellTime: string;
 }
 
 const props = defineProps({
@@ -189,7 +189,12 @@ const { $locally } = useNuxtApp()
 const router = useRouter()
 
 const form: Ref<FormData> = ref({
-  ...props.initialFormData
+  ...props.initialFormData,
+  contractHolder: props.initialFormData.contractHolder || '',
+  dealType: props.initialFormData.dealType || '',
+  qualifiedLead: props.initialFormData.qualifiedLead || '',
+  whySell: props.initialFormData.whySell || '',
+  sellTime: props.initialFormData.sellTime || ''
 })
 
 const validationErrors: Ref<Partial<Record<keyof FormData, string>>> = ref({});
@@ -220,6 +225,7 @@ const submitStep = async () => {
     try {
       const currentFormData = $locally.getItem('formData') || {};
       $locally.setItem('formData', { ...currentFormData, ...form.value })
+      console.log($locally.getItem('formData'))
       await router.push("/send-me-a-lead/steps/4")  // Assuming there's a fourth step, adjust as needed
     } catch (error) {
       console.error('Error saving form data:', error)

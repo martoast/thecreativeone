@@ -157,6 +157,7 @@
       try {
         const currentFormData = $locally.getItem('formData') || {};
         const finalFormData = { ...currentFormData, ...form.value };
+        console.log(finalFormData);
         await submitLead(finalFormData as FormData);
       } catch (error) {
         console.error('Error submitting form:', error);
