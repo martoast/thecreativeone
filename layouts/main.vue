@@ -75,6 +75,7 @@
       </DisclosurePanel>
     </Disclosure>
     <NuxtPage />
+    <Footer/>
   </div>
 </template>
 

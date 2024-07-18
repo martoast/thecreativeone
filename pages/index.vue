@@ -108,8 +108,7 @@
     
 
 
-    
-    <Footer/>
+  
   </div>
     
   </template>
