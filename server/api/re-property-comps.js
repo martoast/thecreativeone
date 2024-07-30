@@ -14,8 +14,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const url = 'https://api.realestateapi.com/v2/PropertyComps'
-  const data = { address }
+  const url = 'https://api.realestateapi.com/v3/PropertyComps'
+  const data = { address, "max_results": 5 }
 
   try {
     const response = await fetch(url, {
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
     const result = await response.json()
 
     if (result.statusCode === 200) {
-      return result.data || result
+      return { data: result.data || result }
     } else {
       throw createError({
         statusCode: result.statusCode,

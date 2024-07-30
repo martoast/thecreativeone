@@ -41,7 +41,6 @@ export const useSkipTrace = async (address, city, state, zip) => {
       body: { address, city, state, zip }
     })
 
-    console.log('API response:', response)
     if (response.error) {
       throw new Error(response.error)
     }

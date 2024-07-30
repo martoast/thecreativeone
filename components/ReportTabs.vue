@@ -81,7 +81,7 @@ const propertyDetails = computed(() => [
     }
   },
   {
-    name: 'SkipTrace',
+    name: 'Owner',
     items: {
       'Full Name': props.property.re.skip_trace.output.identity.names[0]?.fullName || 'N/A',
       'First Name': props.property.re.skip_trace.output.identity.names[0]?.firstName || 'N/A',

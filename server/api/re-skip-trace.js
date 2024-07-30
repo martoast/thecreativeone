@@ -35,8 +35,6 @@ export default defineEventHandler(async (event) => {
 
     const result = await response.json()
 
-    console.log(result)
-
     if (result.statusCode === 200) {
       return { data: result.data || result }
     } else {

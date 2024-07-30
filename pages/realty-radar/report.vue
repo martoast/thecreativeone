@@ -78,7 +78,7 @@ Here's the formatted Vue component code:
               </button>
             </a>
 
-            <a target="_blank" :href="'/send-me-a-lead' + property.zillow.url" class="m-0 p-0">
+            <a target="_blank" href="/send-me-a-lead" class="m-0 p-0">
               <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-700 px-8 py-3 text-base font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                 Send me this lead
               </button>
@@ -87,11 +87,23 @@ Here's the formatted Vue component code:
           
           <ReportTabs :property="property"/>
 
-          <div class="mt-10 border-t border-gray-200 pt-10">
-            <h3 class="text-sm font-medium text-gray-900">Listing Provided by</h3>
-            <p class="mt-4 text-sm text-gray-500">{{ property.zillow.contact_recipients[0].display_name }}</p>
-          </div>
+         
+
+
+          <div class="mt-10  border-t pt-10">
+            <h3 class="text-sm font-medium text-gray-900 pb-3">Listing Provided by</h3>
+            <div class="flex items-center space-x-4">
+              <img :src="property.zillow.contact_recipients[0].image_url" alt="Agent" class="w-16 h-16 rounded-full">
+              <div>
+                <h4 class="text-lg font-semibold">{{ property.zillow.contact_recipients[0].display_name }}</h4>
+                <p class="text-sm text-gray-500">{{ property.zillow.contact_recipients[0].badge_type }}</p>
+                <p class="text-sm text-gray-500">Phone: {{ property.zillow.contact_recipients[0].phone.areacode + '-' + property.zillow.contact_recipients[0].phone.prefix + '-' + property.zillow.contact_recipients[0].phone.number}}</p>
+              </div>
+            </div>
+            
+            </div>
         </div>
+        <ReportTabsHorizontal :property="property"/>
       </div>
     </div>
   </div>
@@ -131,7 +143,8 @@ const property = ref({
   },
   re: {
     skip_trace: null,
-    details: null
+    details: null,
+    comps: []
   }
 })
 
@@ -150,6 +163,10 @@ const triggerApiRequests = async (formData) => {
     }
 
     property.value.re.details = await usePropertyDetail(formData.full_address)
+
+    // property.value.re.comps = await usePropertyComps(formData.full_address)
+
+
     
     if (formData.city && formData.state && formData.zip) {
       property.value.re.skip_trace = await useSkipTrace(
@@ -167,6 +184,8 @@ const triggerApiRequests = async (formData) => {
     loading.value = false
   }
 }
+
+
 
 onMounted(async () => {
   if (route.query.address && route.query.city && route.query.zip && route.query.state) {
