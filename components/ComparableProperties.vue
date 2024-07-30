@@ -7,7 +7,7 @@
           <div>
             <div class="flex items-center gap-x-4 text-xs">
               <span class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600">{{ comp.landUse }}</span>
-              <!-- <span class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600">{{ comp.zoning }}</span> -->
+              <span v-if="comp.preForeclosure" class="relative z-10 rounded-full bg-red-400 px-3 py-1.5 font-medium text-gray-600">{{ comp.preForeclosure }}</span>
             </div>
             <div class="group relative max-w-xl">
               <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -42,12 +42,7 @@
                   <p class="text-gray-600">{{ $formatCurrency(Number(comp.openMortgageBalance)) }}</p>
                 </div>
               </div>
-              <div class="relative flex items-center gap-x-4 mr-6 mb-4">
-                <div class="text-sm leading-6">
-                  <p class="font-semibold text-gray-900">Pre Foreclosure</p>
-                  <p class="text-gray-600">{{ $formatCurrency(comp.preForeclosure) }}</p>
-                </div>
-              </div>
+              
             </div>
           </div>
         </article>

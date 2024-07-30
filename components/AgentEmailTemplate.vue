@@ -63,13 +63,6 @@
   
   const agentName = computed(() => agentData.value.display_name || 'Agent')
   const agentBadgeType = computed(() => agentData.value.badge_type || '')
-  const agentRating = computed(() => agentData.value.rating_average || 'N/A')
-  const agentReviewCount = computed(() => agentData.value.review_count || 0)
-  const agentPhone = computed(() => {
-    const phone = agentData.value.phone
-    return phone ? `(${phone.areacode}) ${phone.prefix}-${phone.number}` : 'N/A'
-  })
-  const agentImageUrl = computed(() => agentData.value.image_url || 'https://via.placeholder.com/150')
   
   const yourName = ref('')
   const yourPhone = ref('')

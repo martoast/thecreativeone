@@ -13,12 +13,13 @@
           </DisclosureButton>
         </h3>
         <DisclosurePanel as="div" class="prose prose-sm pb-6">
-          <dl class="divide-y divide-gray-200">
+          <dl v-if="detail.name !== 'Comps'" class="divide-y divide-gray-200">
             <div v-for="(item, itemKey) in detail.items" :key="itemKey" class="flex justify-between py-3 text-sm">
               <dt class="text-gray-500">{{ itemKey }}</dt>
               <dd class="text-gray-900">{{ item }}</dd>
             </div>
           </dl>
+          <ComparableProperties v-else :comps="props.property.re.details.comps" />
         </DisclosurePanel>
       </Disclosure>
     </div>
@@ -107,28 +108,27 @@ const propertyDetails = computed(() => [
     }
   },
   {
-  name: 'Sale History',
-  items: {
-    'Buyer Names': props.property.re.details.lastSale.buyerNames || 'N/A',
-    'Document Type': props.property.re.details.lastSale.documentType || 'N/A',
-    'Document Type Code': props.property.re.details.lastSale.documentTypeCode || 'N/A',
-    'Down Payment': props.property.re.details.lastSale.downPayment || 'N/A',
-    'LTV': props.property.re.details.lastSale.ltv || 'N/A',
-    'Owner Individual': props.property.re.details.lastSale.ownerIndividual || 'N/A',
-    'Prior Owner Individual': props.property.re.details.lastSale.priorOwnerIndividual || 'N/A',
-    'Prior Owner Months Owned': props.property.re.details.lastSale.priorOwnerMonthsOwned || 'N/A',
-    'Purchase Method': props.property.re.details.lastSale.purchaseMethod || 'N/A',
-    'Recording Date': props.property.re.details.lastSale.recordingDate || 'N/A',
-    'Sale Amount': props.property.re.details.lastSale.saleAmount > 0 || 'N/A',
-    'Sale Date': props.property.re.details.lastSale.saleDate || 'N/A',
-    'Seller Names': props.property.re.details.lastSale.sellerNames || 'N/A',
-    'Transaction Type': props.property.re.details.lastSale.transactionType || 'N/A',
-    ...props.property.re.details.saleHistory.reduce((acc, sale, index) => {
-      acc[`Sale ${index + 1}`] = `Date: ${sale.saleDate || 'N/A'}, Buyer: ${sale.buyerNames || 'N/A'}, Seller: ${sale.sellerNames || 'N/A'}, Document Type: ${sale.documentType || 'N/A'}, Transaction Type: ${sale.transactionType || 'N/A'}, Sale Amount: $${sale.saleAmount || 'N/A'}`;
-      return acc;
-    }, {})
+    name: 'Last Sale',
+    items: {
+      'Buyer Names': props.property.re.details.lastSale.buyerNames || 'N/A',
+      'Document Type': props.property.re.details.lastSale.documentType || 'N/A',
+      'Document Type Code': props.property.re.details.lastSale.documentTypeCode || 'N/A',
+      'Down Payment': props.property.re.details.lastSale.downPayment || 'N/A',
+      'LTV': props.property.re.details.lastSale.ltv || 'N/A',
+      'Owner Individual': props.property.re.details.lastSale.ownerIndividual || 'N/A',
+      'Prior Owner Individual': props.property.re.details.lastSale.priorOwnerIndividual || 'N/A',
+      'Prior Owner Months Owned': props.property.re.details.lastSale.priorOwnerMonthsOwned || 'N/A',
+      'Purchase Method': props.property.re.details.lastSale.purchaseMethod || 'N/A',
+      'Recording Date': props.property.re.details.lastSale.recordingDate || 'N/A',
+      'Sale Amount': props.property.re.details.lastSale.saleAmount > 0 || 'N/A',
+      'Sale Date': props.property.re.details.lastSale.saleDate || 'N/A',
+      'Seller Names': props.property.re.details.lastSale.sellerNames || 'N/A',
+      'Transaction Type': props.property.re.details.lastSale.transactionType || 'N/A',
+    }
+  },
+  {
+    name: 'Comps',
+    items: {} // This will be handled differently in the template
   }
-}
-
 ])
 </script>

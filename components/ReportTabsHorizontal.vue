@@ -8,11 +8,7 @@
               MAO Calculation
             </button>
           </Tab>
-          <Tab as="template" v-slot="{ selected }">
-            <button :class="[selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
-              Comps
-            </button>
-          </Tab>
+          
           <Tab as="template" v-slot="{ selected }">
             <button :class="[selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
               SUB2 Email
@@ -29,9 +25,7 @@
         <TabPanel class="pt-10">
           <MAOCalculator :property="property" />
         </TabPanel>
-        <TabPanel class="pt-10">
-          <ComparableProperties :comps="property.re.details.comps" />
-        </TabPanel>
+        
         <TabPanel class="pt-10">
           <SUB2EmailTemplate :property="property" />
         </TabPanel>
