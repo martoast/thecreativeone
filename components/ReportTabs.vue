@@ -13,13 +13,14 @@
           </DisclosureButton>
         </h3>
         <DisclosurePanel as="div" class="prose prose-sm pb-6">
-          <dl v-if="detail.name !== 'Comps'" class="divide-y divide-gray-200">
+          <dl v-if="detail.name !== 'Comps' && detail.name !== 'Sale History'" class="divide-y divide-gray-200">
             <div v-for="(item, itemKey) in detail.items" :key="itemKey" class="flex justify-between py-3 text-sm">
               <dt class="text-gray-500">{{ itemKey }}</dt>
               <dd class="text-gray-900">{{ item }}</dd>
             </div>
           </dl>
-          <ComparableProperties v-else :comps="props.property.re.details.comps" />
+          <ComparableProperties v-else-if="detail.name === 'Comps'" :comps="props.property.re.details.comps" />
+          <SaleHistory v-else-if="detail.name === 'Sale History'" :saleHistory="props.property.re.details.saleHistory" />
         </DisclosurePanel>
       </Disclosure>
     </div>
@@ -27,8 +28,11 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { PlusIcon, MinusIcon } from '@heroicons/vue/24/outline'
+import ComparableProperties from './ComparableProperties.vue'
+import SaleHistory from './SaleHistory.vue'
 
 const props = defineProps({
   property: {
@@ -82,23 +86,23 @@ const propertyDetails = computed(() => [
     }
   },
   {
-    name: 'Owner',
+    name: 'Owner Info',
     items: {
-      'Full Name': props.property.re.skip_trace.output.identity.names[0]?.fullName || 'N/A',
-      'First Name': props.property.re.skip_trace.output.identity.names[0]?.firstName || 'N/A',
-      'Middle Name': props.property.re.skip_trace.output.identity.names[0]?.middleName || 'N/A',
-      'Last Name': props.property.re.skip_trace.output.identity.names[0]?.lastName || 'N/A',
-      'Formatted Address': props.property.re.skip_trace.output.identity.address?.formattedAddress || 'N/A',
-      'City': props.property.re.skip_trace.output.identity.address?.city || 'N/A',
-      'State': props.property.re.skip_trace.output.identity.address?.state || 'N/A',
-      'Zip Code': props.property.re.skip_trace.output.identity.address?.zip || 'N/A',
-      'Phone Numbers': props.property.re.skip_trace.output.identity.phones.map(phone => phone.phoneDisplay).join(', ') || 'N/A',
-      'Gender': props.property.re.skip_trace.output.demographics.gender || 'N/A',
-      'Job Title': props.property.re.skip_trace.output.demographics.jobs[0]?.title || 'N/A'
+      'Full Name': props.property.re?.skip_trace?.output?.identity?.names?.[0]?.fullName ?? 'N/A',
+      'First Name': props.property.re?.skip_trace?.output?.identity?.names?.[0]?.firstName ?? 'N/A',
+      'Middle Name': props.property.re?.skip_trace?.output?.identity?.names?.[0]?.middleName ?? 'N/A',
+      'Last Name': props.property.re?.skip_trace?.output?.identity?.names?.[0]?.lastName ?? 'N/A',
+      'Formatted Address': props.property.re?.skip_trace?.output?.identity?.address?.formattedAddress ?? 'N/A',
+      'City': props.property.re?.skip_trace?.output?.identity?.address?.city ?? 'N/A',
+      'State': props.property.re?.skip_trace?.output?.identity?.address?.state ?? 'N/A',
+      'Zip Code': props.property.re?.skip_trace?.output?.identity?.address?.zip ?? 'N/A',
+      'Phone Numbers': props.property.re?.skip_trace?.output?.identity?.phones?.map(phone => phone.phoneDisplay).join(', ') ?? 'N/A',
+      'Gender': props.property.re?.skip_trace?.output?.demographics?.gender ?? 'N/A',
+      'Job Title': props.property.re?.skip_trace?.output?.demographics?.jobs?.[0]?.title ?? 'N/A'
     }
   },
   {
-    name: 'Mortgage Info',
+    name: 'Mortgage',
     items: {
       'Equity': formatCurrency(props.property.re.details.equity),
       'Equity Percent': props.property.re.details.equityPercent ? `${props.property.re.details.equityPercent}%` : 'N/A',
@@ -128,7 +132,11 @@ const propertyDetails = computed(() => [
   },
   {
     name: 'Comps',
-    items: {} // This will be handled differently in the template
+    items: {} // This will be handled by the ComparableProperties component
+  },
+  {
+    name: 'Sale History',
+    items: {} // This will be handled by the SaleHistory component
   }
 ])
 </script>

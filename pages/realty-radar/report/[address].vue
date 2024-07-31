@@ -47,9 +47,14 @@
                 {{ property.re.details.propertyInfo.bedrooms }} bed | 
                 {{ property.re.details.propertyInfo.bathrooms }} bath | 
                 {{ property.re.details.propertyInfo.livingSquareFeet }} sqft | 
-                {{ property.re.details.lotInfo.lotSquareFeet }} lot sqft | 
+                <!-- {{ property.re.details.lotInfo.lotSquareFeet }} lot sqft |  -->
                 {{ property.re.details.propertyInfo.yearBuilt }} year built 
               </p>
+            </div>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <CustomBadge :color="getEquityColor(property.re.details.equityPercent)" :text="`Equity: ${property.re.details.equityPercent}%`" />
+              <CustomBadge :color="getAgeColor(property.re.details.propertyInfo.yearBuilt)" :text="`Age: ${getCurrentYear() - property.re.details.propertyInfo.yearBuilt} years`" />
+              <CustomBadge :color="property.re.details.propertyInfo.preForeclosure ? 'green' : 'red'" :text="`PreForeclosure: ${property.re.details.preForeclosure}`"  />
             </div>
           </div>
 
@@ -194,6 +199,25 @@ const handleSendLead = async () => {
   const url = '/send-me-a-lead/steps/0'
   window.open(url, '_blank')
 }
+
+
+const getCurrentYear = () => new Date().getFullYear()
+
+const getEquityColor = (equityPercent) => {
+  if (equityPercent >= 50) return 'green'
+  if (equityPercent >= 20) return 'blue'
+  return 'red'
+}
+
+const getAgeColor = (yearBuilt) => {
+  const age = getCurrentYear() - yearBuilt
+  if (age <= 10) return 'green'
+  if (age <= 30) return 'yellow'
+  return 'red'
+}
+
+
+
 
 
 
