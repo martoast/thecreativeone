@@ -156,7 +156,7 @@
   
       // Navigate to the report page with form data as query parameters
       await navigateTo({
-        path: '/realty-radar/report',
+        path: '/realty-radar/report/' + form.address,
         query: { ...form }
       })
     } else {

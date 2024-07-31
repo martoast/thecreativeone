@@ -19,6 +19,11 @@
               Agent Email
             </button>
           </Tab>
+          <Tab as="template" v-slot="{ selected }">
+            <button :class="[selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800', 'whitespace-nowrap border-b-2 py-6 text-sm font-medium']">
+              LOI Email
+            </button>
+          </Tab>
         </TabList>
       </div>
       <TabPanels as="template">
@@ -31,6 +36,9 @@
         </TabPanel>
         <TabPanel class="pt-10">
           <AgentEmailTemplate :property="property" />
+        </TabPanel>
+        <TabPanel class="pt-10">
+          <LOIEmailTemplate :property="property" />
         </TabPanel>
       </TabPanels>
     </TabGroup>

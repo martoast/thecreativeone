@@ -1,5 +1,3 @@
-Here's the formatted Vue component code:
-
 <template>
   <div class="container mx-auto px-3 mt-8">
     <BreadCrumbs class="mb-6"/>
@@ -78,11 +76,9 @@ Here's the formatted Vue component code:
               </button>
             </a>
 
-            <a target="_blank" href="/send-me-a-lead" class="m-0 p-0">
-              <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-700 px-8 py-3 text-base font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+              <button @click="handleSendLead" type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-700 px-8 py-3 text-base font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                 Send me this lead
               </button>
-            </a>
           </div>
           
           <ReportTabs :property="property"/>
@@ -183,6 +179,20 @@ const triggerApiRequests = async (formData) => {
   } finally {
     loading.value = false
   }
+}
+
+const handleSendLead = async () => {
+  $locally.deleteItem('formData')
+  $locally.setItem('formData', {
+    fullAddress: property.value.re.details.propertyInfo.address.label,
+    streetAddress: property.value.re.details.propertyInfo.address.address,
+    city: property.value.re.details.propertyInfo.address.city,
+    state: property.value.re.details.propertyInfo.address.state,
+    postalCode: property.value.re.details.propertyInfo.address.zip,
+
+  })
+  const url = '/send-me-a-lead/steps/0'
+  window.open(url, '_blank')
 }
 
 

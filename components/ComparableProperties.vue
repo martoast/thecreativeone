@@ -3,7 +3,8 @@
     <div>
       <h3 class="text-xl font-semibold text-gray-900 mb-3">Comparable Properties</h3>
       <div class="mt-8 space-y-20 lg:space-y-20">
-        <article v-for="comp in comps" :key="comp.id" class="relative isolate flex flex-col gap-8 lg:flex-row">
+        <article v-for="comp in comps" :key="comp.id" class="relative isolate flex flex-col gap-8 lg:flex-row cursor-pointer hover:bg-gray-50"
+        @click="navigateToProperty(comp)">
           <div>
             <div class="flex items-center gap-x-4 text-xs">
               <span class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600">{{ comp.landUse }}</span>
@@ -58,12 +59,8 @@
     }
   })
   
-  const { $formatCurrency } = useNuxtApp()
-  
-  const formatDate = (dateString) => {
-    if (!dateString) return 'N/A'
-    return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-  }
+  const { $formatCurrency, $locally } = useNuxtApp()
+
   
   const removeTrailingZeros = (value) => {
     if (typeof value === 'string') {
@@ -73,5 +70,26 @@
       }
     }
     return value
+  }
+
+  const navigateToProperty = async (comp) => {
+    $locally.deleteItem("propertyData")
+
+    console.log("success")
+
+    await navigateTo({
+      path: '/realty-radar/report/' + comp.address.address,
+      redirectCode: 301,
+      query: {
+        full_address: comp.address.address,
+        address: comp.address.street,
+        city: comp.address.city,
+        state: comp.address.state,
+        zip: comp.address.zip,
+        longitude: comp.longitude,
+        latitude: comp.latitude,
+      }
+    })
+    
   }
   </script>
