@@ -41,21 +41,18 @@ exports.handler = async (event, context) => {
     const result = await response.json();
 
     if (result.statusCode === 200) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ data: result.data || result })
-      };
+      return { data: result.data || result }
     } else {
-      return {
+      throw createError({
         statusCode: result.statusCode,
-        body: JSON.stringify({ error: result.message || 'Error fetching property details' })
-      };
+        statusMessage: result.message || 'Error fetching property details'
+      })
     }
   } catch (error) {
-    console.error('Error fetching property details:', error);
-    return {
+    console.error('Error fetching property details:', error)
+    throw createError({
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error fetching property details' })
-    };
+      statusMessage: 'Error fetching property details'
+    })
   }
 };
