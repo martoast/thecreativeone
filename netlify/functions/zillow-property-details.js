@@ -1,43 +1,44 @@
-// api/zillow-property-details.js
+const fetch = require('node-fetch');
 
-export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig()
-  const zillowApiKey = config.ZILLOW_API_KEY
-
-  const body = await readBody(event)
-  const { address } = body
-
-  if (!address) {
-    return createError({
-      statusCode: 400,
-      statusMessage: 'Address is required'
-    })
+exports.handler = async (event, context) => {
+  // Only allow POST requests
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const apiUrl = `https://zillow-com1.p.rapidapi.com/property?address=${encodeURIComponent(address)}`
-
   try {
+    const { address } = JSON.parse(event.body);
+
+    if (!address) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Address is required' }) };
+    }
+
+    const zillowApiKey = process.env.ZILLOW_API_KEY;
+    const apiUrl = `https://zillow-com1.p.rapidapi.com/property?address=${encodeURIComponent(address)}`;
+
     const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
         'X-RapidAPI-Key': zillowApiKey,
         'X-RapidAPI-Host': 'zillow-com1.p.rapidapi.com'
       }
-    })
+    });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json()
+    const data = await response.json();
+    
     return {
-      data
-    }
+      statusCode: 200,
+      body: JSON.stringify({ data })
+    };
   } catch (error) {
-    console.error('Error fetching property details:', error)
-    return createError({
+    console.error('Error fetching property details:', error);
+    return {
       statusCode: 500,
-      statusMessage: 'Error fetching property details'
-    })
+      body: JSON.stringify({ error: 'Error fetching property details' })
+    };
   }
-})
+};
