@@ -36,7 +36,7 @@ export const usePropertyComps = async (address) => {
 
 export const useSkipTrace = async (address, city, state, zip) => {
   try {
-    const response = await $fetch('/server/api/re-skip-trace', {
+    const response = await $fetch('/.netlify/functions/re-skip-trace', {
       method: 'POST',
       body: { address, city, state, zip }
     })
