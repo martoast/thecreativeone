@@ -14,9 +14,6 @@ export default defineNuxtConfig({
       strict: true,
     },
   },
-  nitro: {
-    preset: 'netlify',
-  },
   vue: {  
     compilerOptions: {
       isCustomElement: (tag) => ['mapbox-search-box'].includes(tag),
