@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  ssr: true,
+  ssr: false,
   plugins: [
     '~/plugins/formatCurrency'
   ],
@@ -13,6 +13,9 @@ export default defineNuxtConfig({
     options: {
       strict: true,
     },
+  },
+  nitro: {
+    preset: 'netlify',
   },
   vue: {  
     compilerOptions: {
