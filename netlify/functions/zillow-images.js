@@ -37,7 +37,7 @@ exports.handler = async (event, context) => {
     
     return {
       statusCode: 200,
-      body: { data }
+      body: JSON.stringify({ data })
     };
   } catch (error) {
     console.error('Error fetching property images:', error);

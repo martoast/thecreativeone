@@ -43,7 +43,7 @@ exports.handler = async (event, context) => {
     if (result.statusCode === 200) {
       return {
         statusCode: 200,
-        body: { data: result.data || result }
+        body: JSON.stringify({ data: result.data || result })
       };
     } else {
       return {

@@ -1,3 +1,4 @@
+// composables/useZillowPropertyDetails.js
 export const useZillowPropertyDetails = async (address) => {
   try {
     const response = await $fetch('/.netlify/functions/zillow-property-details', {
@@ -5,18 +6,21 @@ export const useZillowPropertyDetails = async (address) => {
       body: { address }
     })
 
-    if (response.error) {
-      throw new Error(response.error)
+    // Parse the response
+    const parsedResponse = JSON.parse(response)
+
+    if (parsedResponse.error) {
+      throw new Error(parsedResponse.error)
     }
 
-    return response.data
+    return parsedResponse.data
   } catch (error) {
     console.error('Error fetching property details:', error)
     throw error
   }
 }
 
-
+// composables/useZillowImages.js
 export const useZillowImages = async (zpid) => {
   try {
     const response = await $fetch('/.netlify/functions/zillow-images', {
@@ -24,11 +28,14 @@ export const useZillowImages = async (zpid) => {
       body: { zpid: String(zpid) }
     })
 
-    if (response.error) {
-      throw new Error(response.error)
+    // Parse the response
+    const parsedResponse = JSON.parse(response)
+
+    if (parsedResponse.error) {
+      throw new Error(parsedResponse.error)
     }
 
-    return response.data
+    return parsedResponse.data
   } catch (error) {
     console.error('Error fetching images:', error)
     throw error
