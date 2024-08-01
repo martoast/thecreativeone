@@ -41,18 +41,21 @@ exports.handler = async (event, context) => {
     const result = await response.json();
 
     if (result.statusCode === 200) {
-      return { data: result.data || result };
+      return {
+        statusCode: 200,
+        body: { data: result.data || result }
+      };
     } else {
-      throw createError({
+      return {
         statusCode: result.statusCode,
-        statusMessage: result.message || 'Error fetching skip trace data'
-      })
+        body: JSON.stringify({ error: result.message || 'Error fetching skip trace data' })
+      };
     }
   } catch (error) {
-    console.error('Error fetching skip trace data:', error)
-    throw createError({
+    console.error('Error fetching skip trace data:', error);
+    return {
       statusCode: 500,
-      statusMessage: 'Error fetching skip trace data'
-    })
+      body: JSON.stringify({ error: 'Error fetching skip trace data' })
+    };
   }
 };

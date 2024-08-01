@@ -31,7 +31,8 @@ exports.handler = async (event, context) => {
     const data = await response.json();
     
     return {
-      data
+      statusCode: 200,
+      body: { data }
     };
   } catch (error) {
     console.error('Error fetching property details:', error);

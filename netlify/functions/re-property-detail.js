@@ -34,25 +34,28 @@ exports.handler = async (event, context) => {
     if (!response.ok) {
       return {
         statusCode: response.status,
-        body: JSON.stringify({ error: `Real Estate API error: ${response.statusText}` })
+        body: { error: `Real Estate API error: ${response.statusText}` }
       };
     }
 
     const result = await response.json();
 
     if (result.statusCode === 200) {
-      return { data: result.data || result }
+      return {
+        statusCode: 200,
+        body: { data: result.data || result }
+      };
     } else {
-      throw createError({
+      return {
         statusCode: result.statusCode,
-        statusMessage: result.message || 'Error fetching property details'
-      })
+        body: { error: result.message || 'Error fetching property details' }
+      };
     }
   } catch (error) {
-    console.error('Error fetching property details:', error)
-    throw createError({
+    console.error('Error fetching property details:', error);
+    return {
       statusCode: 500,
-      statusMessage: 'Error fetching property details'
-    })
+      body: { error: 'Error fetching property details' }
+    };
   }
 };
