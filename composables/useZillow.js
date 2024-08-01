@@ -1,6 +1,6 @@
 export const useZillowPropertyDetails = async (address) => {
   try {
-    const response = await $fetch('/api/zillow-property-details', {
+    const response = await $fetch('/.netlify/functions/zillow-property-details', {
       method: 'POST',
       body: { address }
     })
