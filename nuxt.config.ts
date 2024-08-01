@@ -9,6 +9,11 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
   ],
+  router: {
+    options: {
+      strict: true,
+    },
+  },
   vue: {  
     compilerOptions: {
       isCustomElement: (tag) => ['mapbox-search-box'].includes(tag),
