@@ -19,7 +19,7 @@ export const useZillowPropertyDetails = async (address) => {
 
 export const useZillowImages = async (zpid) => {
   try {
-    const response = await $fetch('/api/zillow-images', {
+    const response = await $fetch('/.netlify/functions/zillow-images', {
       method: 'POST',
       body: { zpid: String(zpid) }
     })
