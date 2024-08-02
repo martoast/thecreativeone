@@ -95,11 +95,19 @@
           </div>
           <div class="sm:col-span-2">
             <label for="utilities" class="block text-sm font-semibold leading-6 text-gray-900">Utilities</label>
-            <input type="text" name="utilities" id="utilities" v-model="form.utilities" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            <select name="utilities" id="utilities" v-model="form.utilities" required class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Select options</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </div>
           <div class="sm:col-span-2">
-            <label for="roadAccess" class="block text-sm font-semibold leading-6 text-gray-900">Road Access</label>
-            <input type="text" name="roadAccess" id="roadAccess" v-model="form.roadAccess" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            <label for="roadAccess" class="block text-sm font-semibold leading-6 text-gray-900">Development Status</label>
+            <select name="roadAccess" id="roadAccess" v-model="form.roadAccess" required class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Select status</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </div>
           <div class="sm:col-span-2">
             <label for="easements" class="block text-sm font-semibold leading-6 text-gray-900">Easements</label>
