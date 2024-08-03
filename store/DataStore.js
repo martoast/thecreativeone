@@ -1,6 +1,7 @@
 // stores/properties.js
 import { defineStore } from 'pinia';
 import { useProperties } from '@/composables/useProperties';
+import { useProperty } from '@/composables/useProperty';
 
 export const usePropertiesStore = defineStore('properties', {
   state: () => ({
@@ -17,7 +18,12 @@ export const usePropertiesStore = defineStore('properties', {
       try {
         const { fetchProperties } = useProperties();
         const response = await fetchProperties(page, pageSize, sold);
-        this.properties = response.properties;
+        if (sold) {
+          this.sold_properties = response.properties;
+        }
+        else {
+          this.properties = response.properties;
+        }
         this.total = response.total;
       } catch (error) {
         console.error("Error fetching properties:", error);
@@ -25,53 +31,17 @@ export const usePropertiesStore = defineStore('properties', {
       }
     },
 
-    async get_sold(page = 1, pageSize = 10) {
+    async find(id) {
       this.error = null;
       try {
-        const { fetchProperties } = useProperties();
-        const response = await fetchProperties(page, pageSize, true);
-        this.sold_properties = response.properties;
-        this.total = response.total;
+        const { fetchProperty } = useProperty();
+        this.property = await fetchProperty(id);
       } catch (error) {
-        console.error("Error fetching sold properties:", error);
-        this.error = error.message || "An error occurred while fetching sold properties";
+        console.error(`Error fetching property with ID ${id}:`, error);
+        this.error = error.message || `An error occurred while fetching property with ID ${id}`;
       }
     },
 
-    async find(ID) {
-      this.error = null;
-      try {
-        const { performPropertyOperation } = useProperties();
-        this.property = await performPropertyOperation('find', { id: ID });
-      } catch (error) {
-        console.error(`Error finding property with ID ${ID}:`, error);
-        this.error = error.message || `An error occurred while finding property with ID ${ID}`;
-      }
-    },
-
-    async store(params) {
-      this.error = null;
-      try {
-        const { performPropertyOperation } = useProperties();
-        return await performPropertyOperation('store', { property: params.property });
-      } catch (error) {
-        console.error("Error storing property:", error);
-        this.error = error.message || "An error occurred while storing the property";
-        throw error;
-      }
-    },
-
-    async delete(ID) {
-      this.error = null;
-      try {
-        const { performPropertyOperation } = useProperties();
-        return await performPropertyOperation('delete', { id: ID });
-      } catch (error) {
-        console.error(`Error deleting property with ID ${ID}:`, error);
-        this.error = error.message || `An error occurred while deleting property with ID ${ID}`;
-        throw error;
-      }
-    }
   },
 
   getters: {

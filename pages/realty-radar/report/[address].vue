@@ -165,9 +165,6 @@ const triggerApiRequests = async (formData) => {
 
     property.value.re.details = await usePropertyDetail(formData.full_address)
 
-    // property.value.re.comps = await usePropertyComps(formData.full_address)
-
-
     
     if (formData.city && formData.state && formData.zip) {
       property.value.re.skip_trace = await useSkipTrace(

@@ -59,10 +59,7 @@
   const itemsPerPage = 10 // Change this to the number of items you want per page
   const showSold = ref(false)
   
-  const { data, pending, error, refresh } = await useAsyncData(
-    'properties',
-    () => store.get(currentPage.value, itemsPerPage, showSold.value)
-  )
+  await useAsyncData(() => store.get(currentPage.value, itemsPerPage, showSold.value))
   
   const totalPages = computed(() => Math.ceil(store.total / itemsPerPage))
   

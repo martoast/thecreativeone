@@ -188,30 +188,35 @@
     const store = usePropertiesStore()
 
     const currentPage = ref(1)
-    const itemsPerPage = 3 // Change this to the number of items you want per page
+    const itemsPerPage = 3
     const showSold = ref(false)
 
+    // Request to get all sold properties
+    const { data:soldData, pending: soldPending, error: soldError } = await useAsyncData(
+      'sold_properties',
+      () => store.get(currentPage.value, itemsPerPage, true)
+    )
+
+
+    // Request to get all properties
     const { data, pending, error, refresh } = await useAsyncData(
       'properties',
       () => store.get(currentPage.value, itemsPerPage, showSold.value)
     )
+
+    
 
     const properties = computed(() => store.properties.map(property => ({
       ...property,
       images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
     })))
 
-
-
-    const { data:soldData, pending: soldPending, error: soldError, refresh: soldRefresh } = await useAsyncData(
-      'soldProperties',
-      () => store.get_sold(currentPage.value, itemsPerPage, true)
-    )
-
+    
     const soldProperties = computed(() => store.sold_properties.map(property => ({
       ...property,
       images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
     })))
+
 
   const initMap = () => {
     mapboxgl.accessToken = access_token
