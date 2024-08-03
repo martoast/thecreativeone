@@ -67,12 +67,12 @@
   const totalPages = computed(() => Math.ceil(store.total / itemsPerPage))
   
   const properties = computed(() => {
-    if (!store.properties.length) return []
-    return store.properties.map(property => ({
-      ...property,
-      images: property.images && property.images.length ? JSON.parse(property.images) : []
-    }))
-  })
+  if (!store.properties.length) return []
+  return store.properties.map(property => ({
+    ...property,
+    images: property.images && property.images.length ? JSON.parse(property.images) : []
+  }))
+})
   
   watch(data, () => {
     propertiesReady.value = true

@@ -194,7 +194,7 @@
     // Request to get all sold properties
     const { data:soldData, pending: soldPending, error: soldError } = await useAsyncData(
       'sold_properties',
-      () => store.get(currentPage.value, itemsPerPage, true)
+      () => store.get_sold(currentPage.value, itemsPerPage, true)
     )
 
 
