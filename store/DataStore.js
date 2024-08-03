@@ -1,5 +1,6 @@
 // stores/properties.js
 import { defineStore } from 'pinia';
+import { useProperties } from '@/composables/useProperties';
 
 export const usePropertiesStore = defineStore('properties', {
   state: () => ({
@@ -7,57 +8,75 @@ export const usePropertiesStore = defineStore('properties', {
     sold_properties: [],
     property: {},
     total: 0,
+    error: null,
   }),
 
   actions: {
     async get(page = 1, pageSize = 10, sold = null) {
-      console.log("Attempting to get properties");
-      let url = `https://seashell-app-lestx.ondigitalocean.app/properties/?page=${page}&pageSize=${pageSize}`;
-      if (sold !== null) {
-        url += `&sold=${sold}`;
+      this.error = null;
+      try {
+        const { fetchProperties } = useProperties();
+        const response = await fetchProperties(page, pageSize, sold);
+        this.properties = response.properties;
+        this.total = response.total;
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+        this.error = error.message || "An error occurred while fetching properties";
       }
-      const response = await $fetch(url);
-      this.properties = response.properties;
-      this.total = response.total;
     },
-    async get_sold(page = 1, pageSize = 10, sold = null) {
-      console.log("Attempting to get properties");
-      let url = `https://seashell-app-lestx.ondigitalocean.app/properties/?page=${page}&pageSize=${pageSize}`;
-      if (sold !== null) {
-        url += `&sold=${sold}`;
+
+    async get_sold(page = 1, pageSize = 10) {
+      this.error = null;
+      try {
+        const { fetchProperties } = useProperties();
+        const response = await fetchProperties(page, pageSize, true);
+        this.sold_properties = response.properties;
+        this.total = response.total;
+      } catch (error) {
+        console.error("Error fetching sold properties:", error);
+        this.error = error.message || "An error occurred while fetching sold properties";
       }
-      const response = await $fetch(url);
-      this.sold_properties = response.properties;
-      this.total = response.total;
     },
 
     async find(ID) {
-      const url = `https://seashell-app-lestx.ondigitalocean.app/properties/${ID}`;
-      this.property = await $fetch(url);
+      this.error = null;
+      try {
+        const { performPropertyOperation } = useProperties();
+        this.property = await performPropertyOperation('find', { id: ID });
+      } catch (error) {
+        console.error(`Error finding property with ID ${ID}:`, error);
+        this.error = error.message || `An error occurred while finding property with ID ${ID}`;
+      }
     },
 
     async store(params) {
-      const url = params.property.ID
-        ? `https://seashell-app-lestx.ondigitalocean.app/properties/${params.property.ID}`
-        : "https://seashell-app-lestx.ondigitalocean.app/properties/";
-      const method = params.property.ID ? 'put' : 'post';
-
-      return $fetch(url, {
-        method: method,
-        body: params.property
-      });
+      this.error = null;
+      try {
+        const { performPropertyOperation } = useProperties();
+        return await performPropertyOperation('store', { property: params.property });
+      } catch (error) {
+        console.error("Error storing property:", error);
+        this.error = error.message || "An error occurred while storing the property";
+        throw error;
+      }
     },
 
     async delete(ID) {
-      const url = `https://seashell-app-lestx.ondigitalocean.app/properties/${ID}`;
-      return $fetch(url, {
-        method: 'delete'
-      });
+      this.error = null;
+      try {
+        const { performPropertyOperation } = useProperties();
+        return await performPropertyOperation('delete', { id: ID });
+      } catch (error) {
+        console.error(`Error deleting property with ID ${ID}:`, error);
+        this.error = error.message || `An error occurred while deleting property with ID ${ID}`;
+        throw error;
+      }
     }
   },
 
   getters: {
     getProperties: (state) => state.properties,
-    getProperty: (state) => state.property
+    getProperty: (state) => state.property,
+    getError: (state) => state.error
   }
 });
