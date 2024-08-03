@@ -16,7 +16,7 @@
           <button @click="resetShowSold" type="button" class="ml-3 rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Show All</button>
         </div>
   
-        <Listings :properties="properties" />
+        <Listings v-if="propertiesReady" :properties="properties" />
   
         <!-- Pagination controls -->
         <div class="mt-8 flex justify-between items-center">
@@ -47,7 +47,6 @@
   <script setup>
   import { usePropertiesStore } from '~/store/DataStore'
   import { Switch } from '@headlessui/vue'
-  import { useRouter } from 'vue-router'
   
   definePageMeta({
     layout: 'main'
@@ -56,44 +55,54 @@
   const store = usePropertiesStore()
   
   const currentPage = ref(1)
-  const itemsPerPage = 10 // Change this to the number of items you want per page
+  const itemsPerPage = 10
   const showSold = ref(false)
+  const propertiesReady = ref(false)
   
-  await useAsyncData(() => store.get(currentPage.value, itemsPerPage, showSold.value))
+  const { data, pending, error, refresh } = await useAsyncData(
+    'properties',
+    () => store.get(currentPage.value, itemsPerPage, showSold.value)
+  )
   
   const totalPages = computed(() => Math.ceil(store.total / itemsPerPage))
   
-  const properties = computed(() => store.properties.map(property => ({
-    ...property,
-    images: property.images.length ? JSON.parse(property.images) : '[]' // Assuming 'images' is a JSON string of URLs
-  })))
-  
-  const nextPage = () => {
-    if (currentPage.value < totalPages.value) {
-      currentPage.value++
-      refresh()
-    }
-  }
-  
-  const prevPage = () => {
-    if (currentPage.value > 1) {
-      currentPage.value--
-      refresh()
-    }
-  }
-  
-  // Watch the toggle value and refresh properties when it changes
-  watch(showSold, () => {
-    currentPage.value = 1
-    refresh()
+  const properties = computed(() => {
+    if (!store.properties) return []
+    return store.properties.map(property => ({
+      ...property,
+      images: property.images && property.images.length ? JSON.parse(property.images) : []
+    }))
   })
   
-  const resetShowSold = () => {
-    showSold.value = null
-    refresh()
+  watch(data, () => {
+    propertiesReady.value = true
+  })
+  
+  const nextPage = async () => {
+    if (currentPage.value < totalPages.value) {
+      currentPage.value++
+      await refresh()
+    }
   }
-
   
-
+  const prevPage = async () => {
+    if (currentPage.value > 1) {
+      currentPage.value--
+      await refresh()
+    }
+  }
+  
+  watch(showSold, async () => {
+    currentPage.value = 1
+    propertiesReady.value = false
+    await refresh()
+    propertiesReady.value = true
+  })
+  
+  const resetShowSold = async () => {
+    showSold.value = null
+    propertiesReady.value = false
+    await refresh()
+    propertiesReady.value = true
+  }
   </script>
-  
