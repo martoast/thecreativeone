@@ -6,8 +6,8 @@ export const usePropertyDetail = async (address) => {
       body: { address }
     })
 
-    // Parse the response
-    const parsedResponse = JSON.parse(response)
+    // Check if response needs parsing
+    const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
 
     if (parsedResponse.error) {
       throw new Error(parsedResponse.error)
@@ -28,8 +28,9 @@ export const usePropertyComps = async (address) => {
       body: { address }
     })
 
-    // Parse the response
-    const parsedResponse = JSON.parse(response)
+    // Check if response needs parsing
+    const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
+
 
     if (parsedResponse.error) {
       throw new Error(parsedResponse.error)
@@ -50,8 +51,9 @@ export const useSkipTrace = async (address, city, state, zip) => {
       body: { address, city, state, zip }
     })
 
-    // Parse the response
-    const parsedResponse = JSON.parse(response)
+    // Check if response needs parsing
+    const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
+
 
     if (parsedResponse.error) {
       throw new Error(parsedResponse.error)

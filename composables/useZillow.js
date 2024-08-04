@@ -6,8 +6,9 @@ export const useZillowPropertyDetails = async (address) => {
       body: { address }
     })
 
-    // Parse the response
-    const parsedResponse = JSON.parse(response)
+
+    const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
+
 
     if (parsedResponse.error) {
       throw new Error(parsedResponse.error)
@@ -28,8 +29,8 @@ export const useZillowImages = async (zpid) => {
       body: { zpid: String(zpid) }
     })
 
-    // Parse the response
-    const parsedResponse = JSON.parse(response)
+    // Check if response needs parsing
+    const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
 
     if (parsedResponse.error) {
       throw new Error(parsedResponse.error)
