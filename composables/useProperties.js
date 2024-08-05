@@ -7,7 +7,14 @@ export const useProperties = () => {
         body: { page, pageSize, sold }
       });
 
-      return response;
+      const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
+
+
+      if (parsedResponse.error) {
+        throw new Error(parsedResponse.error)
+      }
+
+      return parsedResponse
     } catch (error) {
       console.error('Error fetching properties:', error);
       throw error;

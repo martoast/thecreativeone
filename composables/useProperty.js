@@ -7,7 +7,14 @@ export const useProperty = () => {
         body: { id }
       });
 
-      return response;
+      const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response
+
+
+      if (parsedResponse.error) {
+        throw new Error(parsedResponse.error)
+      }
+
+      return parsedResponse
     } catch (error) {
       console.error('Error fetching property:', error);
       throw error;
