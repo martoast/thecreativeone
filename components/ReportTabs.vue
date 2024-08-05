@@ -13,7 +13,7 @@
           </DisclosureButton>
         </h3>
         <DisclosurePanel as="div" class="prose prose-sm pb-6">
-          <dl v-if="detail.name !== 'Comps' && detail.name !== 'Sale History'" class="divide-y divide-gray-200">
+          <dl v-if="detail.name !== 'Comps' && detail.name !== 'Sale History' && detail.name !== 'Nearby Schools'" class="divide-y divide-gray-200">
             <div v-for="(item, itemKey) in detail.items" :key="itemKey" class="flex justify-between py-3 text-sm">
               <dt class="text-gray-500">{{ itemKey }}</dt>
               <dd class="text-gray-900">{{ item }}</dd>
@@ -21,6 +21,7 @@
           </dl>
           <ComparableProperties v-else-if="detail.name === 'Comps'" :comps="props.property.re.details.comps" />
           <SaleHistory v-else-if="detail.name === 'Sale History'" :saleHistory="props.property.re.details.saleHistory" />
+          <NearbySchools v-else-if="detail.name === 'Nearby Schools'" :schools="props.property.re.details.schools" />
         </DisclosurePanel>
       </Disclosure>
     </div>
@@ -31,8 +32,7 @@
 import { computed } from 'vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { PlusIcon, MinusIcon } from '@heroicons/vue/24/outline'
-import ComparableProperties from './ComparableProperties.vue'
-import SaleHistory from './SaleHistory.vue'
+
 
 const props = defineProps({
   property: {
@@ -131,12 +131,32 @@ const propertyDetails = computed(() => [
     }
   },
   {
+    name: 'Section 8',
+    items: {
+      'FMR Efficiency': formatCurrency(props.property.re.details.demographics.fmrEfficiency),
+      'FMR One Bedroom': formatCurrency(props.property.re.details.demographics.fmrOneBedroom),
+      'FMR Two Bedroom': formatCurrency(props.property.re.details.demographics.fmrTwoBedroom),
+      'FMR Three Bedroom': formatCurrency(props.property.re.details.demographics.fmrThreeBedroom),
+      'FMR Four Bedroom': formatCurrency(props.property.re.details.demographics.fmrFourBedroom),
+      'FMR Year': props.property.re.details.demographics.fmrYear,
+      'HUD Area Code': props.property.re.details.demographics.hudAreaCode,
+      'HUD Area Name': props.property.re.details.demographics.hudAreaName,
+      'Median Income': formatCurrency(props.property.re.details.demographics.medianIncome),
+      'Suggested Rent': formatCurrency(props.property.re.details.demographics.suggestedRent)
+    }
+  },
+  {
     name: 'Comps',
     items: {} // This will be handled by the ComparableProperties component
   },
   {
     name: 'Sale History',
     items: {} // This will be handled by the SaleHistory component
+  },
+  {
+    name: 'Nearby Schools',
+    items: {} // This will be handled by the NearbySchools component
   }
 ])
 </script>
+
