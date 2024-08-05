@@ -60,9 +60,9 @@
   const propertiesReady = ref(false)
   
   const { data, pending, error, refresh } = await useAsyncData(
-    'properties',
-    () => store.get(currentPage.value, itemsPerPage, showSold.value)
-  )
+      'properties',
+      () => store.get(currentPage.value, itemsPerPage, showSold.value)
+    )
   
   const totalPages = computed(() => Math.ceil(store.total / itemsPerPage))
   
