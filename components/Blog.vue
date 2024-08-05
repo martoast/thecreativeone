@@ -39,50 +39,50 @@
 const blogPosts = [
   {
     id: 1,
-    title: 'Maximizing Your Real Estate Investments: Tips and Strategies',
-    href: '#',
+    title: 'Assisted Living vs Nursing Homes: Which Is Best for Your Loved Ones?',
+    href: 'https://www.harmonylivingcare.com/assisted-living-vs-nursing-homes-which-is-best-for-your-loved-ones',
     description:
-      'Discover proven strategies to enhance your real estate investment portfolio. From identifying high-potential properties to effective management practices, learn how to maximize your returns.',
+      'When it comes to senior care options, assisted living and nursing homes are two common choices. Understanding the differences between the two can help individuals and families make informed decisions about the best care setting for their loved ones.',
     imageUrl:
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-1.2.1&auto=format&fit=crop&w=3600&q=80',
+      'https://www.harmonylivingcare.com/wp-content/uploads/2024/07/img4-2.jpg',
     date: 'June 1, 2024',
     datetime: '2024-06-01',
     author: {
       name: 'Esteban Ibarra',
       imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80',
+        'https://storage.googleapis.com/msgsndr/6eHA3fFhXeHfBA3vyTQj/media/66a2a40936ef386fead947b3.jpeg',
     },
   },
   {
     id: 2,
-    title: 'How to Secure Funding for Your Deals',
-    href: '#',
+    title: 'Essential Guide: Hassle-Free Sober Living Home Manager License Application',
+    href: 'https://www.harmonylivingcare.com/essential-guide-hassle-free-sober-living-home-manager-license-application',
     description:
-      'Learn about the various funding options available for real estate investors. Understand the pros and cons of each method and find the best fit for your next project.',
+      'Are you considering starting a structured sober living home and need guidance on obtaining your manager license? This comprehensive guide will walk you through the application process, addressing specific requirements and procedures to help you successfully obtain your license.',
     imageUrl:
-      'https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80',
+      'https://www.harmonylivingcare.com/wp-content/uploads/2024/07/img1-1.jpg',
     date: 'June 15, 2024',
-    datetime: '2024-06-15',
+    datetime: '2024-05-15',
     author: {
       name: 'Esteban Ibarra',
       imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80',
+        'https://www.harmonylivingcare.com/essential-guide-hassle-free-sober-living-home-manager-license-application',
     },
   },
   {
     id: 3,
-    title: 'The Importance of Due Diligence in Real Estate Transactions',
-    href: '#',
+    title: 'Senior Care Showdown: Assisted Living vs Independent Living Explained',
+    href: 'https://www.harmonylivingcare.com/senior-care-showdown-assisted-living-vs-independent-living-explained',
     description:
-      'Due diligence is a critical step in any real estate transaction. Learn about the essential checks and balances to ensure you make informed and profitable investment decisions.',
+      'Are you or a loved one considering a move to a senior living community? This article will help you understand the differences between assisted living and independent living, providing valuable insights to help you make an informed decision.',
     imageUrl:
-      'https://images.unsplash.com/photo-1557800636-894a64c1696f?ixlib=rb-1.2.1&auto=format&fit=crop&w=3600&q=80',
+      'https://www.harmonylivingcare.com/wp-content/uploads/2024/07/img4-1.jpg',
     date: 'July 1, 2024',
-    datetime: '2024-07-01',
+    datetime: '2024-04-01',
     author: {
       name: 'Esteban Ibarra',
       imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80',
+        'https://storage.googleapis.com/msgsndr/6eHA3fFhXeHfBA3vyTQj/media/66a2a40936ef386fead947b3.jpeg',
     },
   },
   // More posts...
