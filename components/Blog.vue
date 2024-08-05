@@ -66,7 +66,7 @@ const blogPosts = [
     author: {
       name: 'Esteban Ibarra',
       imageUrl:
-        'https://www.harmonylivingcare.com/essential-guide-hassle-free-sober-living-home-manager-license-application',
+        'https://storage.googleapis.com/msgsndr/6eHA3fFhXeHfBA3vyTQj/media/66a2a40936ef386fead947b3.jpeg',
     },
   },
   {
