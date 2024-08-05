@@ -29,6 +29,7 @@ const navigation = {
     { name: 'Get on my investors list', href: '/get-on-my-investors-list' },
     { name: 'Creative REI', href: 'https://upgrade.chat/creative-rei' },
     { name: 'Privacy policy', href: '/privacy-policy' },
+    { name: 'Land', href: '/land' },
 
     
   ],
