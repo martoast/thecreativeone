@@ -55,7 +55,7 @@
                 to="/land"
                 :class="{'border-indigo-500 text-gray-900': isActiveRoute('/land'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/land')}"
                 class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-              >Land</NuxtLink>
+              >Land Sale</NuxtLink>
               <NuxtLink
                 to="/walk"
                 :class="{'border-indigo-500 text-gray-900': isActiveRoute('/walk'), 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !isActiveRoute('/walk')}"
@@ -81,8 +81,8 @@
           <DisclosureButton as="a" href="/send-me-a-lead/steps/0" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/send-me-a-lead'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/send-me-a-lead')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Send me a lead</DisclosureButton>
           <DisclosureButton as="a" href="https://form.jotform.com/241757052355861" target="_blank" rel="noopener noreferrer" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/get-funded'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/get-funded')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Get funded</DisclosureButton>
           <DisclosureButton as="a" href="/get-on-my-investors-list" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/get-on-my-investors-list'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/get-on-my-investors-list')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Get on my investors list</DisclosureButton>
-          <DisclosureButton as="a" href="/land" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/land'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/land')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Land</DisclosureButton>
-          <DisclosureButton as="a" href="/walk" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/walk'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/walk')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Walk</DisclosureButton>
+          <DisclosureButton as="a" href="/land" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/land'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/land')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Land Sale</DisclosureButton>
+          <DisclosureButton as="a" href="/walk" :class="{'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700': isActiveRoute('/walk'), 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700': !isActiveRoute('/walk')}" class="block py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6">Walk Property</DisclosureButton>
         </div>
       </DisclosurePanel>
     </Disclosure>
