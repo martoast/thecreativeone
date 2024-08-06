@@ -16,14 +16,14 @@
           <button @click="resetShowSold" type="button" class="ml-3 rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Show All</button>
         </div>
   
-        <Listings v-if="propertiesReady" :properties="properties" />
+        <Listings v-if="properties.length" :properties="properties" />
   
         <!-- Pagination controls -->
         <div class="mt-8 flex justify-between items-center">
           <button
             @click="prevPage"
             :disabled="currentPage === 1"
-            class="px-4 py-2 text-gray-900 bg-indigo-600 rounded disabled:opacity-50"
+            class="px-4 py-2 text-white bg-indigo-600 rounded disabled:opacity-50"
           >
             Previous
           </button>
@@ -33,7 +33,7 @@
           <button
             @click="nextPage"
             :disabled="currentPage === totalPages"
-            class="px-4 py-2 text-gray-900 bg-indigo-600 rounded disabled:opacity-50"
+            class="px-4 py-2 text-white bg-indigo-600 rounded disabled:opacity-50"
           >
             Next
           </button>
@@ -57,7 +57,6 @@
   const currentPage = ref(1)
   const itemsPerPage = 10
   const showSold = ref(false)
-  const propertiesReady = ref(false)
   
   const { data, pending, error, refresh } = await useAsyncData(
       'properties',
@@ -74,9 +73,6 @@
   }))
 })
   
-  watch(data, () => {
-    propertiesReady.value = true
-  })
   
   const nextPage = async () => {
     if (currentPage.value < totalPages.value) {
@@ -94,15 +90,11 @@
   
   watch(showSold, async () => {
     currentPage.value = 1
-    propertiesReady.value = false
     await refresh()
-    propertiesReady.value = true
   })
   
   const resetShowSold = async () => {
     showSold.value = null
-    propertiesReady.value = false
     await refresh()
-    propertiesReady.value = true
   }
   </script>
