@@ -40,6 +40,7 @@
                 type="text" 
                 id="street-address" 
                 v-model="form.streetAddress" 
+                required
                 readonly
                 class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
@@ -50,6 +51,7 @@
                 type="text" 
                 id="city" 
                 v-model="form.city" 
+                required
                 readonly
                 class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
@@ -60,6 +62,7 @@
                 type="text" 
                 id="state" 
                 v-model="form.state" 
+                required
                 readonly
                 class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
@@ -69,6 +72,7 @@
               <input 
                 type="text" 
                 id="postal-code" 
+                required
                 v-model="form.postalCode" 
                 readonly
                 class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
@@ -83,7 +87,7 @@
         </div>
           <div class="sm:col-span-2">
             <label for="apn" class="block text-sm font-semibold leading-6 text-gray-900">APN</label>
-            <input type="text" name="apn" id="apn" v-model="form.apn" :required="!form.propertyAddress" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            <input type="text" name="apn" id="apn" v-model="form.apn" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
           </div>
           <div>
             <label for="lotSize" class="block text-sm font-semibold leading-6 text-gray-900">Lot Size</label>
