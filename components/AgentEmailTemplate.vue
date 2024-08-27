@@ -94,11 +94,15 @@ Cash Offer: ${$formatCurrency(ourOffer)}
 
 This offer is based on 80% of the average After Repair Value (ARV) of comparable properties in the area, which we've calculated to be ${$formatCurrency(avgARV)}. Our offer provides several advantages:
 
+
 1. Quick Closing: We can close in as little as 7 days, or on the seller's timeline.
 2. Cash Offer: No financing contingencies or appraisal required.
 3. As-Is Purchase: We buy the property in its current condition, no repairs needed.
 4. No Fees: We cover all closing costs.
 5. Certainty: Once we agree on terms, the seller can count on a guaranteed sale.
+
+
+Offer is dependent of the condition of the property. If you are interested I would like to get on a phone call to further discuss this offer.
 
 I understand that every property and seller's situation is unique. If the seller is looking for a quick, hassle-free sale, our offer could be an excellent solution. However, if the goal is to maximize the sale price and the seller has the time and resources for a traditional sale, that might be a better path.
 
