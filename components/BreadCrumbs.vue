@@ -23,6 +23,6 @@
   import { ChevronRightIcon, HomeIcon } from '@heroicons/vue/20/solid'
   
   const pages = [
-    { name: 'Search new property', href: '/realty-radar/', current: false },
+    { name: 'Search new property', href: '/realty-radar', current: false },
   ]
   </script>
