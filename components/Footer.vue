@@ -31,6 +31,7 @@ const navigation = {
     { name: 'Privacy policy', href: '/privacy-policy' },
     { name: 'Land Sale', href: '/land' },
     { name: 'Walk Property', href: '/walk' },
+    { name: 'JV', href: '/jv' },
 
     
   ],

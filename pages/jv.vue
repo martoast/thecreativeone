@@ -103,13 +103,14 @@
           <!-- Address -->
           <div class="sm:col-span-2">
             <label for="address" class="block text-sm font-semibold leading-6 text-gray-900">Address</label>
-            <div v-if="!addressSelected">
+            <div v-if="!form.address.selected">
               <custom-places-auto-complete @updateAddress="handleAddressUpdate" />
             </div>
             <div v-else class="mt-2.5">
-              <p>{{ form.address.street }}, {{ form.address.city }}, {{ form.address.state }} {{ form.address.postalCode }}</p>
+              <p>{{ form.address.fullAddress }}</p>
               <button @click="resetAddress" type="button" class="text-sm font-semibold leading-6 text-indigo-600">Change Address</button>
             </div>
+            
           </div>
   
           <!-- Has HOA? -->
@@ -176,10 +177,15 @@
 
         <!-- If it needs condition -->
         <div v-if="form.condition === 'fair' || form.condition === 'poor'" class="sm:col-span-2">
-          <div>
-            <label for="workNeeded" class="block text-sm font-semibold leading-6 text-gray-900">What's the work needed?</label>
-            <textarea id="workNeeded" name="workNeeded" v-model="form.workNeeded" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-          </div>
+          <div class="sm:col-span-2 mt-2">
+          <label for="workNeeded" class="block text-sm font-semibold leading-6 text-gray-900">Work Needed</label>
+          <select id="workNeede" name="workNeeded" v-model="form.workNeeded" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <option value="">Please Select</option>
+            <option value="good">Alot</option>
+            <option value="fair">Moderate</option>
+            <option value="poor">Not Much</option>
+          </select>
+        </div>
           <div class="mt-4">
             <label for="priceEstimate" class="block text-sm font-semibold leading-6 text-gray-900">Price estimate (if available)</label>
             <input type="number" name="priceEstimate" id="priceEstimate" v-model="form.priceEstimate" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -204,18 +210,8 @@
           <input type="date" name="closingDate" id="closingDate" v-model="form.closingDate" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
 
-        <!-- Submit contracts -->
-        <div class="sm:col-span-2">
-          <label for="contracts" class="block text-sm font-semibold leading-6 text-gray-900">Submit contracts</label>
-          <input type="file" id="contracts" name="contracts" @change="handleContractUpload" multiple class="mt-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" />
-        </div>
 
-        <!-- Submit property pictures -->
-        <div class="sm:col-span-2">
-          <label for="propertyPictures" class="block text-sm font-semibold leading-6 text-gray-900">Submit any recent pictures of the property</label>
-          <input type="file" id="propertyPictures" name="propertyPictures" @change="handlePictureUpload" multiple accept="image/*" class="mt-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" />
-        </div>
-
+    
         <!-- 70/30 split agreement -->
         <div class="sm:col-span-2">
           <label for="splitAgreement" class="block text-sm font-semibold leading-6 text-gray-900">Are you okay with a 70(you)/30(us) split?</label>
@@ -227,7 +223,9 @@
         </div>
       </div>
       <div class="mt-10">
-        <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit Joint Venture Proposal</button>
+        <button type="submit" :disabled="isSubmitting" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <span>{{isSubmitting ? 'Loading...' : 'Submit'}}</span>
+        </button>
       </div>
     </form>
   </div>
@@ -255,10 +253,12 @@ const form = ref({
   rentalComps: "",
   recentComps: "",
   address: {
+    fullAddress: "",
     street: "",
     city: "",
     state: "",
-    postalCode: ""
+    postalCode: "",
+    selected: false
   },
   hasHoa: "",
   bed: null,
@@ -278,35 +278,33 @@ const form = ref({
 
 const isSubmitting = ref(false)
 const showAlert = ref(false)
-const addressSelected = ref(false)
 
 const router = useRouter()
 
 const handleAddressUpdate = (data) => {
-  form.value.address.street = data.street;
-  form.value.address.city = data.city;
-  form.value.address.state = data.state;
-  form.value.address.postalCode = data.postalCode;
-  addressSelected.value = true;
-}
+  form.value.address.fullAddress = data.address;
+  const [streetAddress, city, stateZip] = data.address.split(', ');
+  form.value.address.street = streetAddress;
+  form.value.address.city = city;
+  const [state, postalCode] = stateZip.split(' ');
+  form.value.address.state = state;
+  form.value.address.postalCode = postalCode;
+  form.value.address.selected = true;
+};
 
 const resetAddress = () => {
-  addressSelected.value = false;
-  form.value.address = { street: "", city: "", state: "", postalCode: "" };
-}
-
-const handleContractUpload = (event) => {
-  // Handle contract file upload
-  console.log('Contracts uploaded:', event.target.files);
-}
-
-const handlePictureUpload = (event) => {
-  // Handle property picture upload
-  console.log('Pictures uploaded:', event.target.files);
-}
+  form.value.address = {
+    fullAddress: "",
+    street: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    selected: false
+  };
+};
 
 const submitJointVentureForm = async () => {
-  if (!form.value.name || !form.value.number || !form.value.email) {
+  if (!form.value.name || !form.value.phone_number || !form.value.email) {
     alert('Please fill in all required fields');
     return;
   }
@@ -319,26 +317,20 @@ const submitJointVentureForm = async () => {
   };
 
   const payload = {
-    jointVenture: {
+    lead: {
       ...form.value,
-      address: `${form.value.address.street}, ${form.value.address.city}, ${form.value.address.state} ${form.value.address.postalCode}`
+      address: form.value.address.fullAddress
     }
   };
 
   try {
-    const response = await fetch(backendUrl, {
+    await fetch(backendUrl, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    console.log('Success:', data);
-    showAlert.value = true;
+    alert('Submitted successfully!');
     // Reset form
     Object.keys(form.value).forEach(key => {
       if (typeof form.value[key] === 'object') {
@@ -349,7 +341,7 @@ const submitJointVentureForm = async () => {
         form.value[key] = '';
       }
     });
-    addressSelected.value = false;
+    form.value.address.selected = false;
   } catch (error) {
     console.error('Error:', error);
     alert('There was an error submitting the form. Please try again.');
