@@ -4,11 +4,10 @@
       <div class="mb-4">
           <a href="/" class="text-sm font-semibold leading-7 text-indigo-600"><span aria-hidden="true">&larr;</span> Back to home</a>
       </div>
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get funded</h2>
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get funding</h2>
       <p class="mt-2 text-lg leading-8 text-gray-600">Submit your request for funding and we'll get back to you as soon as possible.</p>
     </div>
     <form @submit.prevent="submitFundingRequest" class="mx-auto mt-16 max-w-xl sm:mt-20">
-      <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
       <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
         <!-- Name -->
         <div class="sm:col-span-2">
@@ -50,59 +49,62 @@
           <input type="text" name="experience" id="experience" v-model="form.experience" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
 
-        <!-- LLC Address -->
         <div class="sm:col-span-2">
-          <label for="llcAddress" class="block text-sm font-medium leading-6 text-gray-900 mb-2">What is your LLC Address?</label>
-          <div v-if="!llcAddressSelected">
-            <custom-places-auto-complete @updateAddress="handleLLCAddressUpdate" />
-          </div>
-          <div v-else class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-            <div class="sm:col-span-2">
-              <label for="llcStreetAddress" class="block text-sm font-medium leading-6 text-gray-900">Street Address</label>
-              <input type="text" name="llcStreetAddress" id="llcStreetAddress" v-model="form.llcAddress.street" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <div>
-              <label for="llcCity" class="block text-sm font-medium leading-6 text-gray-900">City</label>
-              <input type="text" name="llcCity" id="llcCity" v-model="form.llcAddress.city" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <div>
-              <label for="llcState" class="block text-sm font-medium leading-6 text-gray-900">State</label>
-              <input type="text" name="llcState" id="llcState" v-model="form.llcAddress.state" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <div class="sm:col-span-2">
-              <label for="llcPostalCode" class="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
-              <input type="text" name="llcPostalCode" id="llcPostalCode" v-model="form.llcAddress.postalCode" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <button @click="resetLLCAddress" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
-          </div>
+          <label for="llcName" class="block text-sm font-semibold leading-6 text-gray-900">LLC Name</label>
+          <input type="text" name="llcname" id="llcname" v-model="form.llcName" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
 
-        <!-- Property Address -->
         <div class="sm:col-span-2">
-          <label for="propertyAddress" class="block text-sm font-medium leading-6 text-gray-900 mb-2">What is the full property Address?</label>
-          <div v-if="!propertyAddressSelected">
-            <custom-places-auto-complete @updateAddress="handlePropertyAddressUpdate" />
-          </div>
-          <div v-else class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-            <div class="sm:col-span-2">
-              <label for="propertyStreetAddress" class="block text-sm font-medium leading-6 text-gray-900">Street Address</label>
-              <input type="text" name="propertyStreetAddress" id="propertyStreetAddress" v-model="form.propertyAddress.street" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <div>
-              <label for="propertyCity" class="block text-sm font-medium leading-6 text-gray-900">City</label>
-              <input type="text" name="propertyCity" id="propertyCity" v-model="form.propertyAddress.city" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <div>
-              <label for="propertyState" class="block text-sm font-medium leading-6 text-gray-900">State</label>
-              <input type="text" name="propertyState" id="propertyState" v-model="form.propertyAddress.state" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <div class="sm:col-span-2">
-              <label for="propertyPostalCode" class="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
-              <input type="text" name="propertyPostalCode" id="propertyPostalCode" v-model="form.propertyAddress.postalCode" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-            </div>
-            <button @click="resetPropertyAddress" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
-          </div>
-        </div>
+    <label for="llcAddress" class="block text-sm font-medium leading-6 text-gray-900 mb-2">What is your LLC Address?</label>
+    <div v-if="!form.llcAddress.selected">
+      <custom-places-auto-complete @updateAddress="(data) => handleUpdateAddress(data, 'llc')" />
+    </div>
+    <div v-else class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+      <div class="sm:col-span-2">
+        <label for="llcStreetAddress" class="block text-sm font-medium leading-6 text-gray-900">Street Address</label>
+        <input type="text" name="llcStreetAddress" id="llcStreetAddress" v-model="form.llcAddress.street" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <div>
+        <label for="llcCity" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+        <input type="text" name="llcCity" id="llcCity" v-model="form.llcAddress.city" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <div>
+        <label for="llcState" class="block text-sm font-medium leading-6 text-gray-900">State</label>
+        <input type="text" name="llcState" id="llcState" v-model="form.llcAddress.state" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <div class="sm:col-span-2">
+        <label for="llcPostalCode" class="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
+        <input type="text" name="llcPostalCode" id="llcPostalCode" v-model="form.llcAddress.postalCode" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <button @click="resetAddress('llc')" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
+    </div>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label for="propertyAddress" class="block text-sm font-medium leading-6 text-gray-900 mb-2">What is the full property Address?</label>
+    <div v-if="!form.propertyAddress.selected">
+      <custom-places-auto-complete @updateAddress="(data) => handleUpdateAddress(data, 'property')" />
+    </div>
+    <div v-else class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+      <div class="sm:col-span-2">
+        <label for="propertyStreetAddress" class="block text-sm font-medium leading-6 text-gray-900">Street Address</label>
+        <input type="text" name="propertyStreetAddress" id="propertyStreetAddress" v-model="form.propertyAddress.street" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <div>
+        <label for="propertyCity" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+        <input type="text" name="propertyCity" id="propertyCity" v-model="form.propertyAddress.city" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <div>
+        <label for="propertyState" class="block text-sm font-medium leading-6 text-gray-900">State</label>
+        <input type="text" name="propertyState" id="propertyState" v-model="form.propertyAddress.state" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <div class="sm:col-span-2">
+        <label for="propertyPostalCode" class="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
+        <input type="text" name="propertyPostalCode" id="propertyPostalCode" v-model="form.propertyAddress.postalCode" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+      </div>
+      <button @click="resetAddress('property')" type="button" class="text-sm font-semibold leading-6 text-indigo-600 sm:col-span-2">Change Address</button>
+    </div>
+  </div>
 
         <!-- Is this a mutual release state? -->
         <div class="sm:col-span-2">
@@ -114,22 +116,11 @@
           </select>
         </div>
 
-        <!-- Attached Signed Mutual Release Seller Addendum -->
-        <div class="sm:col-span-2">
-          <label for="mutualReleaseAddendum" class="block text-sm font-semibold leading-6 text-gray-900">Attached Signed Mutual Release Seller Addendum</label>
-          <input type="file" id="mutualReleaseAddendum" name="mutualReleaseAddendum" @change="handleFileUpload" class="mt-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" />
-        </div>
-
+       
         <!-- Amount of money needed? -->
         <div class="sm:col-span-2">
           <label for="amountNeeded" class="block text-sm font-semibold leading-6 text-gray-900">Amount of money needed?</label>
           <input type="text" name="amountNeeded" id="amountNeeded" v-model="form.amountNeeded" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-        </div>
-
-        <!-- When does it need to be funded? -->
-        <div class="sm:col-span-2">
-          <label for="fundingDate" class="block text-sm font-semibold leading-6 text-gray-900">When does it need to be funded?</label>
-          <input type="date" name="fundingDate" id="fundingDate" v-model="form.fundingDate" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
 
         <!-- When does it need to be funded? -->
@@ -171,12 +162,7 @@
           <label for="escrowCloseDate" class="block text-sm font-semibold leading-6 text-gray-900">When is close of Escrow?</label>
           <input type="date" name="escrowCloseDate" id="escrowCloseDate" v-model="form.escrowCloseDate" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
         </div>
-
-        <!-- Purchase Contract (A-B and B-C) -->
-        <div class="sm:col-span-2">
-          <label for="purchaseContract" class="block text-sm font-semibold leading-6 text-gray-900">Purchase Contract (A-B and B-C)</label>
-          <input type="file" id="purchaseContract" name="purchaseContract" @change="handleContractUpload" multiple class="mt-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" />
-        </div>
+       
 
         <!-- Title Company & Closing Attorney -->
         <div class="sm:col-span-2">
@@ -185,7 +171,9 @@
         </div>
       </div>
       <div class="mt-10">
-        <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let's talk</button>
+        <button type="submit" :disabled="isSubmitting" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <span>{{isSubmitting ? 'Loading...' : 'Submit'}}</span>
+        </button>
       </div>
     </form>
   </div>
@@ -206,6 +194,7 @@ const form = ref({
   phone: "",
   fundingType: "",
   experience: "",
+  llcName: "",
   llcAddress: {
     street: "",
     city: "",
@@ -234,43 +223,29 @@ const showAlert = ref(false)
 const llcAddressSelected = ref(false)
 const propertyAddressSelected = ref(false)
 
-const router = useRouter()
+const handleUpdateAddress = (data, addressType) => {
+  const addressObj = form.value[`${addressType}Address`];
+  addressObj.fullAddress = data.address;
+  const [streetAddress, city, stateZip] = data.address.split(', ');
+  addressObj.street = streetAddress;
+  addressObj.city = city;
+  const [state, postalCode] = stateZip.split(' ');
+  addressObj.state = state;
+  addressObj.postalCode = postalCode;
+  addressObj.selected = true;
+};
 
-const handleLLCAddressUpdate = (data) => {
-  form.value.llcAddress.street = data.street;
-  form.value.llcAddress.city = data.city;
-  form.value.llcAddress.state = data.state;
-  form.value.llcAddress.postalCode = data.postalCode;
-  llcAddressSelected.value = true;
-}
+const resetAddress = (addressType) => {
+  const addressObj = form.value[`${addressType}Address`];
+  addressObj.fullAddress = "";
+  addressObj.street = "";
+  addressObj.city = "";
+  addressObj.state = "";
+  addressObj.postalCode = "";
+  addressObj.selected = false;
+};
 
-const handlePropertyAddressUpdate = (data) => {
-  form.value.propertyAddress.street = data.street;
-  form.value.propertyAddress.city = data.city;
-  form.value.propertyAddress.state = data.state;
-  form.value.propertyAddress.postalCode = data.postalCode;
-  propertyAddressSelected.value = true;
-}
 
-const resetLLCAddress = () => {
-  llcAddressSelected.value = false;
-  form.value.llcAddress = { street: "", city: "", state: "", postalCode: "" };
-}
-
-const resetPropertyAddress = () => {
-  propertyAddressSelected.value = false;
-  form.value.propertyAddress = { street: "", city: "", state: "", postalCode: "" };
-}
-
-const handleFileUpload = (event) => {
-  // Handle file upload for mutualReleaseAddendum
-  console.log('File uploaded:', event.target.files[0]);
-}
-
-const handleContractUpload = (event) => {
-  // Handle file upload for purchaseContract
-  console.log('Files uploaded:', event.target.files);
-}
 
 const submitFundingRequest = async () => {
   if (!form.value.firstName || !form.value.lastName || !form.value.email || !form.value.phone) {
@@ -289,25 +264,26 @@ const submitFundingRequest = async () => {
     lead: {
       ...form.value,
       fullName: `${form.value.firstName} ${form.value.lastName}`,
-      llcAddress: `${form.value.llcAddress.street}, ${form.value.llcAddress.city}, ${form.value.llcAddress.state} ${form.value.llcAddress.postalCode}`,
-      propertyAddress: `${form.value.propertyAddress.street}, ${form.value.propertyAddress.city}, ${form.value.propertyAddress.state} ${form.value.propertyAddress.postalCode}`
+      llcAddress: form.value.llcAddress.fullAddress,
+      propertyAddress: form.value.propertyAddress.fullAddress
     }
   };
 
   try {
-    const response = await fetch(backendUrl, {
+    const { data, error } = await fetch(backendUrl, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    if (error.value) {
+      console.error('Error adding lead via serverless function:', error);
+      // Handle error (e.g., show an error message)
+    } else {
+      alert('Submitted successfully!');
     }
 
-    const data = await response.json();
-    console.log('Success:', data);
-    showAlert.value = true;
+
     // Reset form
     Object.keys(form.value).forEach(key => {
       if (typeof form.value[key] === 'object') {

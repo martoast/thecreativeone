@@ -150,9 +150,9 @@ const property = ref({
       atAGlanceFacts: [],
     },
   },
-  nearby_places: {
-    hospitals: [],
-  },
+  // nearby_places: {
+  //   hospitals: [],
+  // },
   re: {
     skip_trace: null,
     details: null,

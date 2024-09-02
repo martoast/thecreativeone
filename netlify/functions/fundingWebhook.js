@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
-  const webhookUrl = 'https://hooks.zapier.com/hooks/catch/19030450/2ok7y4b/';
+  const webhookUrl = 'https://hooks.zapier.com/hooks/catch/14797557/2ok7y4b/';
   const headers = { 'Content-Type': 'application/json' };
 
   try {

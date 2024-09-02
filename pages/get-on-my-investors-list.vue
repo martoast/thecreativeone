@@ -94,7 +94,7 @@
       </div>
       <div class="mt-10">
         <button type="submit" :disabled="isSubmitting" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          <span>{{isSubmitting ? 'Loading...' : 'Save'}}</span>
+          <span>{{isSubmitting ? 'Loading...' : 'Submit'}}</span>
         </button>
       </div>
     </form>
@@ -172,7 +172,7 @@ const submitInvestorListRequest = async () => {
     console.error('Error adding lead via serverless function:', error);
     // Handle error (e.g., show an error message)
   } else {
-    alert('Form submitted successfully!');
+    alert('Submitted successfully!');
     Object.keys(form.value).forEach(key => form.value[key] = ''); // Reset form
     await router.push('/');
   }
