@@ -276,12 +276,7 @@ const submitFundingRequest = async () => {
       body: JSON.stringify(payload)
     });
 
-    if (error.value) {
-      console.error('Error adding lead via serverless function:', error);
-      // Handle error (e.g., show an error message)
-    } else {
-      alert('Submitted successfully!');
-    }
+    alert('Submitted successfully!');
 
 
     // Reset form
