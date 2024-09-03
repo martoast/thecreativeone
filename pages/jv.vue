@@ -176,14 +176,14 @@
         </div>
 
         <!-- If it needs condition -->
-        <div v-if="form.condition === 'fair' || form.condition === 'poor'" class="sm:col-span-2">
+        <div class="sm:col-span-2">
           <div class="sm:col-span-2 mt-2">
           <label for="workNeeded" class="block text-sm font-semibold leading-6 text-gray-900">Work Needed</label>
           <select id="workNeede" name="workNeeded" v-model="form.workNeeded" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             <option value="">Please Select</option>
-            <option value="good">Alot</option>
+            <option value="good">High</option>
             <option value="fair">Moderate</option>
-            <option value="poor">Not Much</option>
+            <option value="poor">Low</option>
           </select>
         </div>
           <div class="mt-4">
@@ -211,10 +211,22 @@
         </div>
 
 
-    
-        <!-- 70/30 split agreement -->
         <div class="sm:col-span-2">
-          <label for="splitAgreement" class="block text-sm font-semibold leading-6 text-gray-900">Are you okay with a 70(you)/30(us) split?</label>
+          <div class="sm:col-span-2 mt-2">
+          <label for="skool" class="block text-sm font-semibold leading-6 text-gray-900">Are you a Skool member?</label>
+          <select id="skool" name="skool" v-model="form.skool" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <option value="">Please Select</option>
+            <option value="good">Yes</option>
+            <option value="fair">No</option>
+          </select>
+        </div>
+        </div>
+    
+       <!-- Conditional split agreement question -->
+        <div class="sm:col-span-2" v-if="form.skool !== ''">
+          <label for="splitAgreement" class="block text-sm font-semibold leading-6 text-gray-900">
+            {{ getSplitAgreementQuestion }}
+          </label>
           <select id="splitAgreement" name="splitAgreement" v-model="form.splitAgreement" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             <option value="">Please Select</option>
             <option value="yes">Yes</option>
@@ -248,6 +260,7 @@ const form = ref({
   askingPrice: null,
   dealType: "",
   terms: "",
+  skool: "",
   arv: null,
   cashToClose: null,
   rentalComps: "",
@@ -304,10 +317,22 @@ const resetAddress = () => {
 };
 
 const submitJointVentureForm = async () => {
-  if (!form.value.name || !form.value.phone_number || !form.value.email) {
-    alert('Please fill in all required fields');
+  // Check if all fields are filled
+  const requiredFields = [
+    'name', 'phone_number', 'email', 'contractHolder', 'directToSeller',
+    'askingPrice', 'dealType', 'terms', 'arv', 'cashToClose', 'rentalComps',
+    'recentComps', 'hasHoa', 'bed', 'bath', 'sqftCount', 'lotSqft', 'yearBuilt',
+    'occupancyStatus', 'condition', 'workNeeded', 'priceEstimate', 'buyerAccess',
+    'emdAmount', 'closingDate', 'skool', 'splitAgreement'
+  ];
+
+  const emptyFields = requiredFields.filter(field => !form.value[field]);
+
+  if (emptyFields.length > 0 || !form.value.address.selected) {
+    alert(`Please fill in all required fields. Missing fields: ${emptyFields.join(', ')}${!form.value.address.selected ? ', address' : ''}`);
     return;
   }
+
 
   isSubmitting.value = true;
 
@@ -349,4 +374,12 @@ const submitJointVentureForm = async () => {
     isSubmitting.value = false;
   }
 };
+
+const getSplitAgreementQuestion = computed(() => {
+  if (form.value.skool === 'yes') {
+    return 'Are you okay with a 70(you)/30(us) split?'
+  } else {
+    return 'Are you okay with a 50(you)/50(us) split?'
+  }
+})
 </script>
