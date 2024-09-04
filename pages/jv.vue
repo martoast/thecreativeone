@@ -177,15 +177,16 @@
 
         <!-- If it needs condition -->
         <div class="sm:col-span-2">
-          <div class="sm:col-span-2 mt-2">
-          <label for="workNeeded" class="block text-sm font-semibold leading-6 text-gray-900">Work Needed</label>
-          <select id="workNeede" name="workNeeded" v-model="form.workNeeded" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            <option value="">Please Select</option>
-            <option value="good">High</option>
-            <option value="fair">Moderate</option>
-            <option value="poor">Low</option>
-          </select>
-        </div>
+          <div class="sm:col-span-2">
+            <label for="workNeeded" class="block text-sm font-semibold leading-6 text-gray-900">Work Needed (Please describe any repairs or renovations required)</label>
+            <textarea
+              id="workNeeded"
+              name="workNeeded"
+              v-model="form.workNeeded"
+              rows="3"
+              class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            ></textarea>
+          </div>
           <div class="mt-4">
             <label for="priceEstimate" class="block text-sm font-semibold leading-6 text-gray-900">Price estimate (if available)</label>
             <input type="number" name="priceEstimate" id="priceEstimate" v-model="form.priceEstimate" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
