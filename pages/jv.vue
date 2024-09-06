@@ -10,6 +10,11 @@
       <form @submit.prevent="submitJointVentureForm" class="mx-auto mt-16 max-w-xl sm:mt-20">
         <AlertComponent :show="showAlert" @update:show="showAlert = $event" message="Sent Successfully" />
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+
+          <div class="sm:col-span-2">
+            <h3 class="text-lg font-semibold leading-7 text-gray-900">Contact info:</h3>
+          </div>
+
           <!-- Name -->
           <div class="sm:col-span-2">
             <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
@@ -27,79 +32,7 @@
             <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
             <input type="email" name="email" id="email" v-model="form.email" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
           </div>
-  
-          <!-- Are you the contract holder? -->
-          <div class="sm:col-span-2">
-            <label for="contractHolder" class="block text-sm font-semibold leading-6 text-gray-900">Are you the contract holder?</label>
-            <select id="contractHolder" name="contractHolder" v-model="form.contractHolder" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <option value="">Please Select</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-  
-          <!-- Are you direct to the seller? -->
-          <div class="sm:col-span-2">
-            <label for="directToSeller" class="block text-sm font-semibold leading-6 text-gray-900">Are you direct to the seller?</label>
-            <select id="directToSeller" name="directToSeller" v-model="form.directToSeller" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <option value="">Please Select</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
-          </div>
-  
-          <!-- Asking price -->
-          <div class="sm:col-span-2">
-            <label for="askingPrice" class="block text-sm font-semibold leading-6 text-gray-900">Asking price</label>
-            <input type="number" name="askingPrice" id="askingPrice" v-model="form.askingPrice" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-  
-          <!-- Type of deal -->
-          <div class="sm:col-span-2">
-            <label for="dealType" class="block text-sm font-semibold leading-6 text-gray-900">Type of deal</label>
-            <select id="dealType" name="dealType" v-model="form.dealType" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <option value="">Please Select</option>
-              <option value="subto">Subject To</option>
-              <option value="sellerFinance">Seller Finance</option>
-              <option value="cash">Cash</option>
-            </select>
-          </div>
-  
-          <!-- What are the terms? -->
-          <div class="sm:col-span-2">
-            <label for="terms" class="block text-sm font-semibold leading-6 text-gray-900">What are the terms?</label>
-            <textarea id="terms" name="terms" v-model="form.terms" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-          </div>
-  
-          <!-- ARV -->
-          <div class="sm:col-span-2">
-            <label for="arv" class="block text-sm font-semibold leading-6 text-gray-900">ARV (After Repair Value)</label>
-            <input type="number" name="arv" id="arv" v-model="form.arv" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-  
-          <!-- Cash to close? -->
-          <div class="sm:col-span-2">
-            <label for="cashToClose" class="block text-sm font-semibold leading-6 text-gray-900">Cash to close?</label>
-            <input type="number" name="cashToClose" id="cashToClose" v-model="form.cashToClose" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-          </div>
-  
-          <!-- Rental comps -->
-          <div class="sm:col-span-2">
-            <label for="rentalComps" class="block text-sm font-semibold leading-6 text-gray-900">Rental comps</label>
-            <textarea id="rentalComps" name="rentalComps" v-model="form.rentalComps" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-          </div>
-  
-          <!-- Enter recent comps if any -->
-          <div class="sm:col-span-2">
-            <label for="recentComps" class="block text-sm font-semibold leading-6 text-gray-900">Enter recent comps if any</label>
-            <textarea id="recentComps" name="recentComps" v-model="form.recentComps" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-          </div>
-  
-          <!-- Property details -->
-          <div class="sm:col-span-2">
-            <h3 class="text-lg font-semibold leading-7 text-gray-900">Property details</h3>
-          </div>
-  
+
           <!-- Address -->
           <div class="sm:col-span-2">
             <label for="address" class="block text-sm font-semibold leading-6 text-gray-900">Address</label>
@@ -112,16 +45,12 @@
             </div>
             
           </div>
-  
-          <!-- Has HOA? -->
-          <div class="sm:col-span-2">
-            <label for="hasHoa" class="block text-sm font-semibold leading-6 text-gray-900">Has HOA?</label>
-            <select id="hasHoa" name="hasHoa" v-model="form.hasHoa" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              <option value="">Please Select</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
+
+          <div class="sm:col-span-2 mt-5">
+            <h3 class="text-lg font-semibold leading-7 text-gray-900">Property details:</h3>
           </div>
+  
+          
   
           <!-- Bed -->
           <div>
@@ -155,13 +84,110 @@
 
         <!-- Occupancy status -->
         <div class="sm:col-span-2">
-          <label for="occupancyStatus" class="block text-sm font-semibold leading-6 text-gray-900">Occupancy status</label>
+          <label for="occupancyStatus" class="block text-sm font-semibold leading-6 text-gray-900">Vacant?</label>
           <select id="occupancyStatus" name="occupancyStatus" v-model="form.occupancyStatus" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             <option value="">Please Select</option>
             <option value="occupied">Occupied</option>
             <option value="vacant">Vacant</option>
           </select>
         </div>
+
+        <!-- Has HOA? -->
+        <div class="sm:col-span-2">
+            <label for="hasHoa" class="block text-sm font-semibold leading-6 text-gray-900">Has HOA?</label>
+            <select id="hasHoa" name="hasHoa" v-model="form.hasHoa" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Please Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          
+  
+          <!-- Are you the contract holder? -->
+          <div class="sm:col-span-2">
+            <label for="contractHolder" class="block text-sm font-semibold leading-6 text-gray-900">Are you the contract holder?</label>
+            <select id="contractHolder" name="contractHolder" v-model="form.contractHolder" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Please Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+  
+          <!-- Are you direct to the seller? -->
+          <div class="sm:col-span-2">
+            <label for="directToSeller" class="block text-sm font-semibold leading-6 text-gray-900">Are you direct to the seller?</label>
+            <select id="directToSeller" name="directToSeller" v-model="form.directToSeller" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Please Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+  
+          <!-- Asking price -->
+          <div class="sm:col-span-2">
+            <label for="askingPrice" class="block text-sm font-semibold leading-6 text-gray-900">Asking price</label>
+            <CurrencyInput
+              name="askingPrice"
+              id="askingPrice"
+              v-model="form.askingPrice"
+            />
+          </div>
+  
+          <!-- Type of deal -->
+          <div class="sm:col-span-2">
+            <label for="dealType" class="block text-sm font-semibold leading-6 text-gray-900">Type of deal</label>
+            <select id="dealType" name="dealType" v-model="form.dealType" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <option value="">Please Select</option>
+              <option value="subto">Subject To</option>
+              <option value="sellerFinance">Seller Finance</option>
+              <option value="cash">Cash</option>
+            </select>
+          </div>
+  
+          <!-- What are the terms? -->
+          <div class="sm:col-span-2">
+            <label for="terms" class="block text-sm font-semibold leading-6 text-gray-900">What are the terms?</label>
+            <textarea id="terms" name="terms" v-model="form.terms" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+          </div>
+  
+         <!-- ARV -->
+          <div class="sm:col-span-2">
+            <label for="arv" class="block text-sm font-semibold leading-6 text-gray-900">ARV (After Repair Value)</label>
+            <CurrencyInput
+              name="arv"
+              id="arv"
+              v-model="form.arv"
+              class="mt-2.5"
+            />
+          </div>
+
+          <!-- Cash to close? -->
+          <div class="sm:col-span-2">
+            <label for="cashToClose" class="block text-sm font-semibold leading-6 text-gray-900">Cash to close?</label>
+            <CurrencyInput
+              name="cashToClose"
+              id="cashToClose"
+              v-model="form.cashToClose"
+              class="mt-2.5"
+            />
+          </div>
+  
+          <!-- Rental comps -->
+          <div class="sm:col-span-2">
+            <label for="rentalComps" class="block text-sm font-semibold leading-6 text-gray-900">Rental comps</label>
+            <textarea id="rentalComps" name="rentalComps" v-model="form.rentalComps" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+          </div>
+  
+          <!-- Enter recent comps if any -->
+          <div class="sm:col-span-2">
+            <label for="recentComps" class="block text-sm font-semibold leading-6 text-gray-900">Enter recent comps if any</label>
+            <textarea id="recentComps" name="recentComps" v-model="form.recentComps" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+          </div>
+  
+          
+  
+          
 
         <!-- Condition -->
         <div class="sm:col-span-2">
@@ -189,7 +215,12 @@
           </div>
           <div class="mt-4">
             <label for="priceEstimate" class="block text-sm font-semibold leading-6 text-gray-900">Price estimate (if available)</label>
-            <input type="number" name="priceEstimate" id="priceEstimate" v-model="form.priceEstimate" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            <CurrencyInput
+              name="priceEstimate"
+              id="priceEstimate"
+              v-model="form.priceEstimate"
+              class="mt-2.5"
+            />
           </div>
         </div>
 
@@ -199,10 +230,14 @@
           <textarea id="buyerAccess" name="buyerAccess" v-model="form.buyerAccess" rows="3" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
         </div>
 
-        <!-- EMD amount -->
         <div class="sm:col-span-2">
           <label for="emdAmount" class="block text-sm font-semibold leading-6 text-gray-900">EMD amount</label>
-          <input type="number" name="emdAmount" id="emdAmount" v-model="form.emdAmount" class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          <CurrencyInput
+            name="emdAmount"
+            id="emdAmount"
+            v-model="form.emdAmount"
+            class="mt-2.5"
+          />
         </div>
 
         <!-- Date of closing -->
@@ -245,12 +280,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 definePageMeta({
   layout: 'main'
 });
+
+const addressDetails = ref(null);
+const isLoading = ref(false);
+const error = ref(null);
 
 const form = ref({
   name: "",
@@ -295,7 +334,7 @@ const showAlert = ref(false)
 
 const router = useRouter()
 
-const handleAddressUpdate = (data) => {
+const handleAddressUpdate = async (data) => {
   form.value.address.fullAddress = data.address;
   const [streetAddress, city, stateZip] = data.address.split(', ');
   form.value.address.street = streetAddress;
@@ -304,6 +343,50 @@ const handleAddressUpdate = (data) => {
   form.value.address.state = state;
   form.value.address.postalCode = postalCode;
   form.value.address.selected = true;
+
+  // Fetch address details using the Netlify function
+  await fetchAddressDetails(data.address);
+};
+
+
+
+const fetchAddressDetails = async (address) => {
+  isLoading.value = true;
+  error.value = null;
+
+  try {
+    const response = await fetch('/.netlify/functions/re-property-detail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch property details');
+    }
+
+    const result = await response.json();
+    addressDetails.value = result.data;
+
+    console.log(addressDetails.value);
+
+    // Update form fields with fetched data
+    form.value.bed = addressDetails.value.propertyInfo.bedrooms;
+    form.value.bath = addressDetails.value.propertyInfo.bathrooms;
+    form.value.sqftCount = addressDetails.value.propertyInfo.livingSquareFeet;
+    form.value.lotSqft = addressDetails.value.propertyInfo.lotSquareFeet;
+    form.value.yearBuilt = addressDetails.value.propertyInfo.yearBuilt;
+
+    form.value.occupancyStatus = addressDetails.value.vacant ? 'vacant' : 'occupied';
+
+  } catch (err) {
+    console.error('Error fetching address details:', err);
+    error.value = err.message;
+  } finally {
+    isLoading.value = false;
+  }
 };
 
 const resetAddress = () => {
@@ -315,10 +398,13 @@ const resetAddress = () => {
     postalCode: "",
     selected: false
   };
+  addressDetails.value = null;
+  error.value = null;
 };
 
 const submitJointVentureForm = async () => {
   // Check if all fields are filled
+
   const requiredFields = [
     'name', 'phone_number', 'email', 'contractHolder', 'directToSeller',
     'askingPrice', 'dealType', 'terms', 'arv', 'cashToClose', 'rentalComps',
@@ -333,7 +419,6 @@ const submitJointVentureForm = async () => {
     alert(`Please fill in all required fields. Missing fields: ${emptyFields.join(', ')}${!form.value.address.selected ? ', address' : ''}`);
     return;
   }
-
 
   isSubmitting.value = true;
 
