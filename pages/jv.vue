@@ -475,6 +475,38 @@
           ></textarea>
         </div>
 
+        <div class="sm:col-span-2">
+        <label
+          for="emdAmount"
+          class="block text-sm font-semibold leading-6 text-gray-900"
+          >expected assignment-under asking price</label
+        >
+        <CurrencyInput
+          name="assingmentAskingPrice"
+          id="assingmentAskingPrice"
+          v-model="form.assingmentAskingPrice"
+          class="mt-2.5"
+        />
+      </div>
+
+      <div class="sm:col-span-2">
+        <div class="sm:col-span-2">
+          <label
+            for="exit_strategy"
+            class="block text-sm font-semibold leading-6 text-gray-900"
+            >Best Exit strategy-under what are the terms</label
+          >
+          <textarea
+            id="exit_strategy"
+            name="exit_strategy"
+            v-model="form.exit_strategy"
+            rows="3"
+            class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          ></textarea>
+        </div>
+        
+      </div>
+
         <!-- Date of closing -->
         <div class="sm:col-span-2">
           <label
@@ -633,6 +665,8 @@ const form = ref({
   lastSale: null,
   lotInfo: null,
   emd: null,
+  assingmentAskingPrice: null,
+  exit_strategy: null,
 });
 
 const files = ref({
