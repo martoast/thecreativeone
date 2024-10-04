@@ -27,7 +27,8 @@ export default defineNuxtConfig({
     REAL_ESTATE_API_KEY: process.env.REAL_ESTATE_API_KEY,
     public: {
         MAPBOX_API_TOKEN: process.env.MAPBOX_API_TOKEN,
-        GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY
+        GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
+        GOOGLE_SHEETS_API_CREDENTIALS: process.env.GOOGLE_SHEETS_API_CREDENTIALS
     }
 }
 })
