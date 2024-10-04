@@ -142,28 +142,7 @@
                 </div>
               </section>
   
-              <!-- Nearby Homes -->
-              <section class="mt-6">
-                <h3 class="text-xl font-semibold text-gray-900">Nearby Homes</h3>
-                <div class="overflow-x-auto mt-2">
-                  <table class="min-w-full bg-white text-gray-600">
-                    <thead>
-                      <tr>
-                        <th class="py-2 px-4 border-b border-gray-300">Address</th>
-                        <th class="py-2 px-4 border-b border-gray-300">Price</th>
-                        <th class="py-2 px-4 border-b border-gray-300">Lot Size</th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="property.nearby_homes.length">
-                      <tr v-for="(home, index) in property.nearby_homes" :key="'property_' + index">
-                        <td class="py-2 px-4 border-b border-gray-300">{{ home.address? home.address.streetAddress : 'N/A' }}</td>
-                        <td class="py-2 px-4 border-b border-gray-300">{{ formatCurrency(home.price) }}</td>
-                        <td class="py-2 px-4 border-b border-gray-300">{{ home.lotSize ?? 'N/A' }} {{ home.lotSize ? home.livingAreaUnits : ''}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </section>
+             
   
               <!-- Price History -->
               <section class="mt-6">
@@ -211,28 +190,7 @@
                 </div>
               </section>
   
-              <!-- Nearby Hospitals -->
-              <section class="mt-6">
-                <h3 class="text-xl font-semibold text-gray-900">Nearby Hospitals</h3>
-                <div class="overflow-x-auto mt-2">
-                  <table class="min-w-full bg-white text-gray-600">
-                    <thead>
-                      <tr>
-                        <th class="py-2 px-4 border-b border-gray-300">Name</th>
-                        <th class="py-2 px-4 border-b border-gray-300">Rating</th>
-                        <th class="py-2 px-4 border-b border-gray-300">Distance</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="hospital in property.nearby_hospitals" :key="hospital.name">
-                        <td class="py-2 px-4 border-b border-gray-300">{{ hospital.name }}</td>
-                        <td class="py-2 px-4 border-b border-gray-300">{{ hospital.rating }}</td>
-                        <td class="py-2 px-4 border-b border-gray-300">{{ hospital.distance }} km</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </section>
+            
   
               <!-- Tax History -->
               <section class="mt-6">
@@ -296,16 +254,12 @@
   
   const route = useRoute()
   const store = usePropertiesStore()
-
-  console.log(route.params.id)
   
   await useAsyncData('property', () => store.find(route.params.id))
   
   const property = computed(() => ({
     ...store.property,
-    nearby_hospitals: store.property.nearby_hospitals ? JSON.parse(store.property.nearby_hospitals) : [],
     nearby_schools: store.property.nearby_schools ? JSON.parse(store.property.nearby_schools) : [],
-    nearby_homes : store.property.nearby_homes ? JSON.parse(store.property.nearby_homes) : [],
     images: store.property.images.length ? JSON.parse(store.property.images) : [],
     tax_history: store.property.tax_history ? JSON.parse(store.property.tax_history) : [],
     price_history: store.property.price_history ? JSON.parse(store.property.price_history) : [],
