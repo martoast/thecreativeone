@@ -208,23 +208,70 @@
         </div>
 
         <!-- Has HOA? -->
-        <div class="sm:col-span-2">
-          <label
-            for="hasHoa"
-            class="block text-sm font-semibold leading-6 text-gray-900"
-            >Has HOA?</label
-          >
-          <select
-            id="hasHoa"
-            name="hasHoa"
-            v-model="form.hasHoa"
-            class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-          >
-            <option value="">Please Select</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-        </div>
+  <div class="sm:col-span-2">
+    <label
+      for="hasHoa"
+      class="block text-sm font-semibold leading-6 text-gray-900"
+    >Has HOA?</label>
+    <select
+      id="hasHoa"
+      name="hasHoa"
+      v-model="form.hasHoa"
+      class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    >
+      <option value="">Please Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </div>
+
+  <!-- Conditional HOA fields -->
+  <div v-if="form.hasHoa === 'yes'" class="sm:col-span-2">
+    <div class="mt-4">
+      <label
+        for="hoaName"
+        class="block text-sm font-semibold leading-6 text-gray-900"
+      >HOA Name</label>
+      <input
+        type="text"
+        id="hoaName"
+        name="hoaName"
+        v-model="form.hoaDetails.name"
+        class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      />
+    </div>
+    
+    <div class="mt-4">
+      <label
+        for="hoaAmount"
+        class="block text-sm font-semibold leading-6 text-gray-900"
+      >HOA Amount</label>
+      <CurrencyInput
+        name="hoaAmount"
+        id="hoaAmount"
+        v-model="form.hoaDetails.amount"
+        class="mt-2.5"
+      />
+    </div>
+    
+    <div class="mt-4">
+      <label
+        for="hoaFrequency"
+        class="block text-sm font-semibold leading-6 text-gray-900"
+      >HOA Payment Frequency</label>
+      <select
+        id="hoaFrequency"
+        name="hoaFrequency"
+        v-model="form.hoaDetails.frequency"
+        class="mt-2.5 block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      >
+        <option value="">Please Select</option>
+        <option value="monthly">Monthly</option>
+        <option value="semiannually">Semi-annually</option>
+        <option value="annually">Annually</option>
+      </select>
+    </div>
+  </div>
 
         <!-- Are you the contract holder? -->
         <div class="sm:col-span-2">
@@ -576,6 +623,7 @@
           id="contracts"
           accept=".pdf"
           @change="(e) => handleFileUpload(e, 'contracts')"
+          ref="contractsInput"
           multiple
           class="mt-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
         />
@@ -593,6 +641,7 @@
           id="images"
           accept="image/*"
           @change="(e) => handleFileUpload(e, 'images')"
+          ref="imagesInput"
           multiple
           class="mt-2.5 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
         />
@@ -623,6 +672,9 @@ const addressDetails = ref(null);
 const isLoading = ref(false);
 const error = ref(null);
 
+const contractsInput = ref(null);
+const imagesInput = ref(null);
+
 const form = ref({
   name: "",
   phone_number: "",
@@ -646,6 +698,11 @@ const form = ref({
     selected: false,
   },
   hasHoa: "",
+  hoaDetails: {
+    name: "",
+    amount: null,
+    frequency: "",
+  },
   bed: null,
   bath: null,
   sqftCount: null,
@@ -750,6 +807,46 @@ const resetAddress = () => {
   };
   addressDetails.value = null;
   error.value = null;
+};
+
+const resetForm = () => {
+  Object.keys(form.value).forEach((key) => {
+    if (key === "address") {
+      form.value.address = { 
+        fullAddress: "",
+        street: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        selected: false 
+      };
+    } else if (key === "hoaDetails") {
+      form.value.hoaDetails = {
+        name: "",
+        amount: null,
+        frequency: "",
+      };
+    } else if (Array.isArray(form.value[key])) {
+      form.value[key] = [];
+    } else if (typeof form.value[key] === "object" && form.value[key] !== null) {
+      Object.keys(form.value[key]).forEach((subKey) => {
+        form.value[key][subKey] = "";
+      });
+    } else if (typeof form.value[key] === "boolean") {
+      form.value[key] = false;
+    } else if (typeof form.value[key] === "number") {
+      form.value[key] = null;
+    } else {
+      form.value[key] = "";
+    }
+  });
+
+  // Reset file inputs in the ref
+  files.value = { images: null, contracts: null };
+
+  // Reset file input elements using Vue refs
+  if (contractsInput.value) contractsInput.value.value = '';
+  if (imagesInput.value) imagesInput.value.value = '';
 };
 
 const submitJointVentureForm = async () => {
@@ -864,20 +961,7 @@ const submitJointVentureForm = async () => {
 
     alert("Submitted successfully!");
 
-    // Reset form
-    Object.keys(form.value).forEach((key) => {
-      if (key === "address") {
-        form.value.address = { selected: false, fullAddress: "" };
-      } else if (typeof form.value[key] === "object") {
-        Object.keys(form.value[key]).forEach((subKey) => {
-          form.value[key][subKey] = "";
-        });
-      } else {
-        form.value[key] = "";
-      }
-    });
-
-    files.value = { images: null, contracts: null };
+    resetForm();
   } catch (error) {
     console.error("Error:", error);
     alert("There was an error submitting the form. Please try again.");
