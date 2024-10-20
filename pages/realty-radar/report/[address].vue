@@ -91,17 +91,8 @@
           </p>
         </div>
 
-        <div class="mt-8 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-            <a v-if="property.zillow.url" target="_blank" :href="'https://www.zillow.com' + property.zillow.url" class="m-0 p-0">
-              <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
-                View on Zillow
-              </button>
-            </a>
-
-            <button @click="handleSendLead" type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-700 px-8 py-3 text-base font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
-              Send me this lead
-            </button>
-          </div>
+      
+        <ActionButtons class="mt-8" :property="property" />
 
         <!-- Key Details Section (Updated) -->
         <div class="mt-8 bg-gray-50 p-6 rounded-lg shadow">
@@ -514,6 +505,8 @@ definePageMeta({
   layout: 'main'
 });
 
+
+
 const route = useRoute()
 const { $locally, $formatCurrency } = useNuxtApp()
 
@@ -521,7 +514,9 @@ const loading = ref(true)
 const property = ref({
   zillow: {
     zpid: null,
-    address: null,
+    address: {
+      streetAddress: null
+    },
     images: [],
     description: '',
     price: 0,
@@ -543,6 +538,16 @@ const property = ref({
     details: null,
   }
 })
+
+useSeoMeta({
+  title: () => `${property.value?.zillow.address.streetAddress } | TheCreativeOne`,
+  ogTitle: () => `${property.value?.zillow.address.streetAddress } | TheCreativeOne`,
+  description: () => property.value?.zillow.description,
+  ogDescription: () => property.value?.zillow.images[0],
+  ogImage: () => property.value?.zillow.images[0],
+  twitterCard: () => "summary_large_image",
+  // googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
+});
 
 const error = ref(null);
 
@@ -588,21 +593,6 @@ const triggerApiRequests = async (formData) => {
     loading.value = false
   }
 }
-
-const handleSendLead = async () => {
-  $locally.deleteItem('formData')
-  $locally.setItem('formData', {
-    fullAddress: property.value.re.details.propertyInfo.address.label,
-    streetAddress: property.value.re.details.propertyInfo.address.address,
-    city: property.value.re.details.propertyInfo.address.city,
-    state: property.value.re.details.propertyInfo.address.state,
-    postalCode: property.value.re.details.propertyInfo.address.zip,
-
-  })
-  const url = '/send-me-a-lead/steps/0'
-  window.open(url, '_blank')
-}
-
 
 const getCurrentYear = () => new Date().getFullYear()
 
