@@ -508,12 +508,24 @@ const route = useRoute()
 const { $locally } = useNuxtApp()
 
 const loading = ref(true)
-
 const property = ref({
   zillow: {
-    address: { streetAddress: '' },
+    zpid: null,
+    address: {
+      streetAddress: null
+    },
+    images: [],
     description: '',
-    images: []
+    price: 0,
+    yearBuilt: 0,
+    livingArea: 0,
+    lotSize: '',
+    bedrooms: 0,
+    bathrooms: 0,
+    contact_recipients: [],
+    resoFacts: {
+      atAGlanceFacts: [],
+    },
   },
   re: {
     skip_trace: null,
@@ -521,23 +533,17 @@ const property = ref({
   }
 })
 
-// Computed properties for reactive values
-const title = computed(() => property.value.zillow.address.streetAddress || 'Property Details')
-const description = computed(() => property.value.zillow.description || 'View details about this property')
-const image = computed(() => property.value.zillow.images[0] || '/skyline.jpg')
-
-// Use useHead for more control over meta tags
-useHead({
-  title,
-  meta: [
-    { name: 'description', content: description },
-    { property: 'og:title', content: title },
-    { property: 'og:description', content: description },
-    { property: 'og:image', content: image },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'google-site-verification', content: 'ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ' },
-  ],
-})
+useSeoMeta({
+  ogType: 'website',
+  robots: 'index, follow',
+  title: () => `${property.value.zillow.address.streetAddress ?? 'property details'}`,
+  ogTitle: () => `${property.value.zillow.address.streetAddress ?? 'property details'}`,
+  description: () => property.value.zillow.description ?? 'description',
+  ogDescription: () => property.value.zillow.description ?? 'description',
+  ogImage: () => property.value.zillow.images[0] ?? '/skyline.jpg',
+  twitterCard: () => "summary_large_image",
+  googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
+});
 
 const error = ref(null);
 
