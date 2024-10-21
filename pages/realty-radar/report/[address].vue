@@ -540,11 +540,11 @@ const property = ref({
 })
 
 useSeoMeta({
-  title: () => `${property.value?.zillow.address.streetAddress } | TheCreativeOne`,
-  ogTitle: () => `${property.value?.zillow.address.streetAddress } | TheCreativeOne`,
-  description: () => property.value?.zillow.description,
-  ogDescription: () => property.value?.zillow.images[0],
-  ogImage: () => property.value?.zillow.images[0],
+  title: () => `${property.value.zillow.address.streetAddress } | TheCreativeOne`,
+  ogTitle: () => `${property.value.zillow.address.streetAddress } | TheCreativeOne`,
+  description: () => property.value.zillow.description,
+  ogdescription: () => property.value.zillow.description,
+  ogImage: () => property.value.zillow.images[0],
   twitterCard: () => "summary_large_image",
   // googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
 });
