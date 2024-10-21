@@ -539,20 +539,21 @@ const property = ref({
   }
 })
 
-// Computed properties for meta tags
-const metaTitle = computed(() => `${property.value?.zillow?.address?.streetAddress || 'Property'} | TheCreativeOne`)
-const metaDescription = computed(() => property.value?.zillow?.description || 'Property details')
-const metaImage = computed(() => property.value?.zillow?.images?.[0] || '')
+const title = computed(() => `${property.value.zillow.address.streetAddress || 'Property'} | TheCreativeOne`)
+const description = computed(() => property.value.zillow.description || 'Property details')
+const image = computed(() => property.value.zillow.images[0] || '/skyline.jpg')
 
-// Use computed properties in useSeoMeta
-useSeoMeta({
-  title: metaTitle,
-  ogTitle: metaTitle,
-  description: metaDescription,
-  ogDescription: metaDescription,
-  ogImage: metaImage,
-  twitterCard: 'summary_large_image',
+useHead({
+  title,
+  meta: [
+    { name: 'description', content: description },
+    { property: 'og:title', content: title },
+    { property: 'og:description', content: description },
+    { property: 'og:image', content: image },
+    { name: 'twitter:card', content: 'summary_large_image' },
+  ],
 })
+
 const error = ref(null);
 
 const isModalOpen = ref(false);
