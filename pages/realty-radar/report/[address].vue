@@ -539,16 +539,24 @@ const property = ref({
   }
 })
 
-useSeoMeta({
-  title: () => `${property.value.zillow.address.streetAddress } | TheCreativeOne`,
-  ogTitle: () => `${property.value.zillow.address.streetAddress } | TheCreativeOne`,
-  description: () => property.value.zillow.description,
-  ogdescription: () => property.value.zillow.description,
-  ogImage: () => property.value.zillow.images[0],
-  twitterCard: () => "summary_large_image",
-  // googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
-});
+// Computed property for meta tags
+const metaTags = computed(() => ({
+  title: `${property.value.zillow.address.streetAddress || 'Property'} | TheCreativeOne`,
+  ogTitle: `${property.value.zillow.address.streetAddress || 'Property'} | TheCreativeOne`,
+  description: property.value.zillow.description || 'Property details',
+  ogDescription: property.value.zillow.description || 'Property details',
+  ogImage: property.value.zillow.images[0] || '/skyline.jpg',
+}))
 
+// Use the computed property with useSeoMeta
+useSeoMeta(() => ({
+  title: metaTags.value.title,
+  ogTitle: metaTags.value.ogTitle,
+  description: metaTags.value.description,
+  ogDescription: metaTags.value.ogDescription,
+  ogImage: metaTags.value.ogImage,
+  twitterCard: 'summary_large_image',
+}))
 const error = ref(null);
 
 const isModalOpen = ref(false);

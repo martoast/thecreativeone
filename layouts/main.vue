@@ -86,7 +86,7 @@
         </div>
       </DisclosurePanel>
     </Disclosure>
-    <NuxtPage />
+    <slot />
     <Footer/>
   </div>
 </template>
