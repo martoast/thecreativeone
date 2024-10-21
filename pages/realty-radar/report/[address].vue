@@ -508,7 +508,7 @@ definePageMeta({
 
 
 const route = useRoute()
-const { $locally, $formatCurrency } = useNuxtApp()
+const { $locally } = useNuxtApp()
 
 const loading = ref(true)
 const property = ref({
@@ -637,10 +637,6 @@ const formatDate = (dateString) => {
 };
 
 
-
-
-
-
 onMounted(async () => {
   if (route.query.address && route.query.city && route.query.zip && route.query.state) {
     const savedPropertyData = $locally.getItem('propertyData')
@@ -653,7 +649,7 @@ onMounted(async () => {
       console.log('No local property data found, fetching from API')
       const formData = route.query
       if (Object.keys(formData).length) {
-        triggerApiRequests(formData)
+        await triggerApiRequests(formData)
       } else {
         console.error('No form data provided in URL')
         loading.value = false
