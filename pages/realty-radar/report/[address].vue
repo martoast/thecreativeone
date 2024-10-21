@@ -4,7 +4,7 @@
       <p class="text-lg font-semibold">Loading property details...</p>
     </div>
     <div v-else-if="error" class="flex justify-center items-center h-64">
-      <p class="text-lg font-semibold text-red-500">{{error}}</p>
+      <p class="text-lg font-semibold text-red-500">{{ error }}</p>
     </div>
     <div v-else-if="property" class="pt-6">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -73,8 +73,6 @@
           @close="isModalOpen = false"
         />
 
-        
-
         <!-- Property Header -->
         <div class="mt-8">
           <h1 class="text-3xl font-bold tracking-tight text-gray-900">
@@ -91,7 +89,6 @@
           </p>
         </div>
 
-      
         <ActionButtons class="mt-8" :property="property" />
 
         <!-- Key Details Section (Updated) -->
@@ -511,38 +508,25 @@ const route = useRoute()
 const { $locally } = useNuxtApp()
 
 const loading = ref(true)
+
 const property = ref({
   zillow: {
-    zpid: null,
-    address: {
-      streetAddress: null
-    },
-    images: [],
+    address: { streetAddress: '' },
     description: '',
-    price: 0,
-    yearBuilt: 0,
-    livingArea: 0,
-    lotSize: '',
-    bedrooms: 0,
-    bathrooms: 0,
-    contact_recipients: [],
-    resoFacts: {
-      atAGlanceFacts: [],
-    },
+    images: []
   },
-  // nearby_places: {
-  //   hospitals: [],
-  // },
   re: {
     skip_trace: null,
     details: null,
   }
 })
 
-const title = computed(() => `${property.value.zillow.address.streetAddress || 'Property'} | TheCreativeOne`)
-const description = computed(() => property.value.zillow.description || 'Property details')
+// Computed properties for reactive values
+const title = computed(() => property.value.zillow.address.streetAddress || 'Property Details')
+const description = computed(() => property.value.zillow.description || 'View details about this property')
 const image = computed(() => property.value.zillow.images[0] || '/skyline.jpg')
 
+// Use useHead for more control over meta tags
 useHead({
   title,
   meta: [
@@ -551,6 +535,7 @@ useHead({
     { property: 'og:description', content: description },
     { property: 'og:image', content: image },
     { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'google-site-verification', content: 'ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ' },
   ],
 })
 
