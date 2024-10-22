@@ -86,7 +86,7 @@
             class="block text-sm font-semibold leading-6 text-gray-900"
             >Address</label
           >
-          <div v-if="!form.address.selected">
+          <div v-if="!form?.address?.selected">
             <custom-places-auto-complete @updateAddress="handleAddressUpdate" />
           </div>
           <div v-else class="mt-2.5">
@@ -737,65 +737,70 @@ const showAlert = ref(false);
 const router = useRouter();
 
 const handleAddressUpdate = async (data) => {
-  form.value.address.fullAddress = data.address;
-  const [streetAddress, city, stateZip] = data.address.split(", ");
-  form.value.address.street = streetAddress;
-  form.value.address.city = city;
-  const [state, postalCode] = stateZip.split(" ");
-  form.value.address.state = state;
-  form.value.address.postalCode = postalCode;
-  form.value.address.selected = true;
+  try {
+    if (!data?.address) return;
+    
+    const [streetAddress, city, stateZip] = data.address.split(", ");
+    const [state, postalCode] = stateZip ? stateZip.split(" ") : ["", ""];
+    
+    form.value.address = {
+      fullAddress: data.address,
+      street: streetAddress || "",
+      city: city || "",
+      state: state || "",
+      postalCode: postalCode || "",
+      selected: true
+    };
 
-  // Fetch address details using the Netlify function
-  await fetchAddressDetails(data.address);
+    // Fetch address details
+    if (data.address) {
+      await fetchAddressDetails(data.address);
+    }
+  } catch (error) {
+    console.error('Error updating address:', error);
+  }
 };
 
 const fetchAddressDetails = async (address) => {
   isLoading.value = true;
   error.value = null;
-
+  
   try {
-    const response = await fetch("/.netlify/functions/re-property-detail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ address }),
+    const response = await $fetch('/api/re/property-details', {
+      method: 'POST',
+      body: { address }
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch property details");
+    if (response?.data) {
+      addressDetails.value = response.data;
+      
+      // Preserve the address data when updating other form fields
+      const currentAddress = form.value.address;
+      
+      // Update form fields while keeping the address intact
+      form.value = {
+        ...form.value, // Keep existing form values
+        bed: response.data.propertyInfo?.bedrooms ?? '',
+        bath: response.data.propertyInfo?.bathrooms ?? '',
+        sqftCount: response.data.propertyInfo?.livingSquareFeet ?? '',
+        lotSqft: response.data.propertyInfo?.lotSquareFeet ?? '',
+        yearBuilt: response.data.propertyInfo?.yearBuilt ?? '',
+        comps: response.data.comps ?? null,
+        currentMortgages: response.data.currentMortgages ?? null,
+        demographics: response.data.demographics ?? null,
+        lastSale: response.data.lastSale ?? null,
+        lotInfo: response.data.lotInfo ?? null,
+        occupancyStatus: response.data.vacant ? 'vacant' : 'occupied',
+        address: currentAddress // Preserve the address data
+      };
     }
-
-    const result = await response.json();
-    addressDetails.value = result.data;
-
-    console.log(addressDetails.value);
-
-    // Update form fields with fetched data
-    form.value.bed = addressDetails.value.propertyInfo.bedrooms;
-    form.value.bath = addressDetails.value.propertyInfo.bathrooms;
-    form.value.sqftCount = addressDetails.value.propertyInfo.livingSquareFeet;
-    form.value.lotSqft = addressDetails.value.propertyInfo.lotSquareFeet;
-    form.value.yearBuilt = addressDetails.value.propertyInfo.yearBuilt;
-
-    form.value.comps = addressDetails.value.comps;
-    form.value.currentMortgages = addressDetails.value.currentMortgages;
-    form.value.demographics = addressDetails.value.demographics;
-    form.value.lastSale = addressDetails.value.lastSale;
-    form.value.lotInfo = addressDetails.value.lotInfo;
-
-    form.value.occupancyStatus = addressDetails.value.vacant
-      ? "vacant"
-      : "occupied";
   } catch (err) {
-    console.error("Error fetching address details:", err);
+    console.error('Error fetching address details:', err);
     error.value = err.message;
   } finally {
     isLoading.value = false;
   }
 };
-
 const resetAddress = () => {
   form.value.address = {
     fullAddress: "",
@@ -808,6 +813,7 @@ const resetAddress = () => {
   addressDetails.value = null;
   error.value = null;
 };
+
 
 const resetForm = () => {
   Object.keys(form.value).forEach((key) => {

@@ -1,7 +1,5 @@
 // stores/properties.js
 import { defineStore } from 'pinia';
-import { useProperties } from '@/composables/useProperties';
-import { useProperty } from '@/composables/useProperty';
 
 export const usePropertiesStore = defineStore('properties', {
   state: () => ({
@@ -17,10 +15,15 @@ export const usePropertiesStore = defineStore('properties', {
     async get(page = 1, pageSize = 10, sold = null) {
       this.error = null;
       try {
-        const { fetchProperties } = useProperties();
-        const response = await fetchProperties(page, pageSize, sold ?? sold);
-        this.properties = Array.isArray(response.properties) ? response.properties : []
-        this.total = response.total;
+        const { data, error } = await useFetch('/api/properties', {
+          method: 'POST',
+          body: { page, pageSize, sold: sold ?? null }
+        });
+
+        if (error.value) throw new Error(error.value.message);
+
+        this.properties = Array.isArray(data.value.properties) ? data.value.properties : [];
+        this.total = data.value.total;
       } catch (error) {
         console.error("Error fetching properties:", error);
         this.error = error.message || "An error occurred while fetching properties";
@@ -30,27 +33,37 @@ export const usePropertiesStore = defineStore('properties', {
     async get_sold(page = 1, pageSize = 10) {
       this.error = null;
       try {
-        const { fetchProperties } = useProperties();
-        const response = await fetchProperties(page, pageSize, true);
-        this.sold_properties = Array.isArray(response.properties) ? response.properties : []
-        this.total = response.total;
+        const { data, error } = await useFetch('/api/properties', {
+          method: 'POST',
+          body: { page, pageSize, sold: true }
+        });
+
+        if (error.value) throw new Error(error.value.message);
+
+        this.sold_properties = Array.isArray(data.value.properties) ? data.value.properties : [];
+        this.sold_total = data.value.total;
       } catch (error) {
-        console.error("Error fetching properties:", error);
-        this.error = error.message || "An error occurred while fetching properties";
+        console.error("Error fetching sold properties:", error);
+        this.error = error.message || "An error occurred while fetching sold properties";
       }
     },
 
     async find(id) {
       this.error = null;
       try {
-        const { fetchProperty } = useProperty();
-        this.property = await fetchProperty(id);
+        const { data, error } = await useFetch('/api/property', {
+          method: 'POST',
+          body: { id }
+        });
+
+        if (error.value) throw new Error(error.value.message);
+
+        this.property = data.value;
       } catch (error) {
         console.error(`Error fetching property with ID ${id}:`, error);
         this.error = error.message || `An error occurred while fetching property with ID ${id}`;
       }
     },
-
   },
 
   getters: {

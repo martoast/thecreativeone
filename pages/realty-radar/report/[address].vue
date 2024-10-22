@@ -1,10 +1,107 @@
+<script setup>
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
+import { PhoneIcon } from "@heroicons/vue/24/solid";
+
+definePageMeta({
+  layout: 'main'
+});
+
+const route = useRoute()
+
+const isModalOpen = ref(false);
+const selectedImageIndex = ref(0);
+
+function openModal(index) {
+  selectedImageIndex.value = index;
+  isModalOpen.value = true;
+}
+
+const { address, city, state, zip } = route.query
+const fullAddress = computed(() => `${address}, ${city}, ${state} ${zip}`)
+
+const { data: zillowData, pending: zillowPending, error: zillowError } = await useFetch('/api/zillow/property-details', {
+  method: 'POST',
+  body: { address: fullAddress },
+})
+
+const { data: zillowImages } = await useFetch('/api/zillow/images', {
+  method: 'POST',
+  body: { zpid: zillowData.value?.data?.zpid },
+  lazy: true,
+})
+
+const { data: reDetails, pending: reDetailsPending, error: reDetailsError } = await useFetch('/api/re/property-details', {
+  method: 'POST',
+  body: { address: fullAddress },
+})
+
+const { data: skipTrace, pending: skipTracePending, error: skipTraceError } = await useFetch('/api/re/skiptrace', {
+  method: 'POST',
+  body: { address, city, state, zip },
+})
+
+const pending = computed(() => zillowPending.value || reDetailsPending.value || skipTracePending.value)
+const error = computed(() => zillowError.value || reDetailsError.value || skipTraceError.value)
+
+const property = computed(() => ({
+  zillow: {
+    ...zillowData.value?.data,
+    images: zillowImages.value?.data?.images || []
+  },
+  re: {
+    details: reDetails.value?.data,
+    skip_trace: skipTrace.value?.data
+  }
+}))
+
+useSeoMeta({
+  ogType: 'website',
+  robots: 'index, follow',
+  title: () => `${property.value?.zillow?.address?.streetAddress ?? 'property details'}`,
+  ogTitle: () => `${property.value?.zillow?.address?.streetAddress ?? 'property details'}`,
+  description: () => property.value?.zillow?.description ?? 'description',
+  ogDescription: () => property.value?.zillow?.description ?? 'description',
+  ogImage: () => property.value?.zillow?.images?.[0] ?? '/skyline.jpg',
+  twitterCard: 'summary_large_image',
+});
+
+const formatNumber = (value, decimalPlaces = 0) => {
+  if (typeof value !== "number") return "N/A";
+  return value.toLocaleString(undefined, {
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
+  });
+};
+
+const formatCurrency = (value) => {
+  if (typeof value !== "number" && typeof value !== "string") return "N/A";
+  const numValue = typeof value === "string" ? parseFloat(value) : value;
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(numValue);
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return "N/A";
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+</script>
+
 <template>
   <div class="bg-white py-12">
-    <div v-if="loading" class="flex justify-center items-center h-64">
+    <div v-if="pending" class="flex justify-center items-center h-64">
       <p class="text-lg font-semibold">Loading property details...</p>
     </div>
     <div v-else-if="error" class="flex justify-center items-center h-64">
-      <p class="text-lg font-semibold text-red-500">{{ error }}</p>
+      <p class="text-lg font-semibold text-red-500">{{ error.message }}</p>
     </div>
     <div v-else-if="property" class="pt-6">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -73,8 +170,8 @@
           @close="isModalOpen = false"
         />
 
-        <!-- Property Header -->
-        <div class="mt-8">
+         <!-- Property Header -->
+         <div class="mt-8">
           <h1 class="text-3xl font-bold tracking-tight text-gray-900">
             {{ property.zillow.address.streetAddress }},
             {{ property.zillow.address.city }},
@@ -488,171 +585,8 @@
         <ComparableProperties :property="property" class="mb-6" />
 
         <ReportTabsHorizontal :property="property" />
+
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="js">
-import { useRoute } from 'vue-router'
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
-import { PhoneIcon } from "@heroicons/vue/24/solid";
-
-definePageMeta({
-  layout: 'main'
-});
-
-
-
-const route = useRoute()
-const { $locally } = useNuxtApp()
-
-const loading = ref(true)
-const property = ref({
-  zillow: {
-    zpid: null,
-    address: {
-      streetAddress: null
-    },
-    images: [],
-    description: '',
-    price: 0,
-    yearBuilt: 0,
-    livingArea: 0,
-    lotSize: '',
-    bedrooms: 0,
-    bathrooms: 0,
-    contact_recipients: [],
-    resoFacts: {
-      atAGlanceFacts: [],
-    },
-  },
-  re: {
-    skip_trace: null,
-    details: null,
-  }
-})
-
-useSeoMeta({
-  ogType: 'website',
-  robots: 'index, follow',
-  title: () => `${property.value.zillow.address.streetAddress ?? 'property details'}`,
-  ogTitle: () => `${property.value.zillow.address.streetAddress ?? 'property details'}`,
-  description: () => property.value.zillow.description ?? 'description',
-  ogDescription: () => property.value.zillow.description ?? 'description',
-  ogImage: () => property.value.zillow.images[0] ?? '/skyline.jpg',
-  twitterCard: () => "summary_large_image",
-  googleSiteVerification: "ByJ5-rnCYL33Ld2dFoqsnAIRz2LmOc58iB52O8eOaPQ",
-});
-
-const error = ref(null);
-
-const isModalOpen = ref(false);
-const selectedImageIndex = ref(0);
-
-function openModal(index) {
-  selectedImageIndex.value = index;
-  isModalOpen.value = true;
-}
-
-const triggerApiRequests = async (formData) => {
-  try {
-    let zillow_result = await useZillowPropertyDetails(formData.full_address)
-    if (zillow_result){
-      property.value.zillow = zillow_result
-    }
-    if (property.value.zillow.zpid) {
-      let zillow_images_result = await useZillowImages(property.value.zillow.zpid)
-
-      if (zillow_images_result) {
-        property.value.zillow.images = zillow_images_result.images
-      }
-    }
-
-    property.value.re.details = await usePropertyDetail(formData.full_address)
-
-
-    if (formData.city && formData.state && formData.zip) {
-      property.value.re.skip_trace = await useSkipTrace(
-        formData.address,
-        formData.city,
-        formData.state,
-        formData.zip
-      )
-    }
-
-    $locally.setItem('propertyData', property.value)
-  } catch (error) {
-    console.error('Error:', error)
-    error.value = error
-  } finally {
-    loading.value = false
-  }
-}
-
-const getCurrentYear = () => new Date().getFullYear()
-
-const getEquityColor = (equityPercent) => {
-  if (equityPercent >= 50) return 'green'
-  if (equityPercent >= 20) return 'blue'
-  return 'red'
-}
-
-const getAgeColor = (yearBuilt) => {
-  const age = getCurrentYear() - yearBuilt
-  if (age <= 10) return 'green'
-  if (age <= 30) return 'yellow'
-  return 'red'
-}
-
-
-const formatNumber = (value, decimalPlaces = 0) => {
-  if (typeof value !== "number") return "N/A";
-  return value.toLocaleString(undefined, {
-    minimumFractionDigits: decimalPlaces,
-    maximumFractionDigits: decimalPlaces,
-  });
-};
-
-const formatCurrency = (value) => {
-  if (typeof value !== "number" && typeof value !== "string") return "N/A";
-  const numValue = typeof value === "string" ? parseFloat(value) : value;
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(numValue);
-};
-
-const formatDate = (dateString) => {
-  if (!dateString) return "N/A";
-  return new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
-
-
-onMounted(async () => {
-  if (route.query.address && route.query.city && route.query.zip && route.query.state) {
-    const savedPropertyData = $locally.getItem('propertyData')
-
-    if (savedPropertyData) {
-      property.value = savedPropertyData
-      loading.value = false
-      console.log('Loaded property data from local storage')
-    } else {
-      console.log('No local property data found, fetching from API')
-      const formData = route.query
-      if (Object.keys(formData).length) {
-        await triggerApiRequests(formData)
-      } else {
-        console.error('No form data provided in URL')
-        loading.value = false
-      }
-    }
-  } else {
-    await navigateTo({ path: '/realty-radar/' })
-  }
-})
-</script>
