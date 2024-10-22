@@ -68,9 +68,8 @@
   };
 
   const getCurrentUrl = () => {
-  // Get the base URL from the Nuxt config
   const baseUrl = 'https://www.thecreativeone.io';
-  // Combine with the current route's full path
+  // Simply use the route.fullPath as is since it already has the correct structure
   return `${baseUrl}${route.fullPath}`;
 };
   
