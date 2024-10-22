@@ -58,9 +58,11 @@ const property = computed(() => ({
 
 useSeoMeta({
   ogType: 'website',
+  type: 'website',
+  author: 'Alex Martos',
   robots: 'index, follow',
-  title: () => `${property.value?.zillow?.address?.streetAddress ?? 'property details'}`,
-  ogTitle: () => `${property.value?.zillow?.address?.streetAddress ?? 'property details'}`,
+  title: () => `${property.value?.re?.details?.propertyInfo?.address?.label ?? 'property details'} Realty Radar Report`,
+  ogTitle: () => `${property.value?.re?.details?.propertyInfo?.address?.label ?? 'property details'} Realty Radar Report`,
   description: () => property.value?.zillow?.description ?? 'description',
   ogDescription: () => property.value?.zillow?.description ?? 'description',
   ogImage: () => property.value?.zillow?.images?.[0] ?? '/skyline.jpg',
